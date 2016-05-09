@@ -20,6 +20,7 @@ public class Ability extends GameObject {
 
     public Ability()
     {
+        prerequisiteAbilities = new ArrayList<>();
         AcquirePrices = new ArrayList<>();
         affectingBuffsAfterAcquiring = new ArrayList<>();
     }
@@ -63,5 +64,17 @@ public class Ability extends GameObject {
 
     public void setAbilityInfo(String abilityInfo) {
         AbilityInfo = abilityInfo;
+    }
+
+    public ArrayList<Buff> getAffectingBuffsAfterAcquiring() {
+        return affectingBuffsAfterAcquiring;
+    }
+
+    public void setBuffsReplacedEachLevel(boolean buffsReplacedEachLevel) {
+        isBuffsReplacedEachLevel = buffsReplacedEachLevel;
+    }
+
+    public boolean isBuffsReplacedEachLevel() {
+        return isBuffsReplacedEachLevel;
     }
 }
