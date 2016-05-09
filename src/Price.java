@@ -17,4 +17,23 @@ public class Price {
         this.magicPrice = magicPrice;
     }
 
+    public int getEPPrice() {
+        return EPPrice;
+    }
+
+    public int getGoldPrice() {
+        return goldPrice;
+    }
+
+    public int getXPPrice() {
+        return XPPrice;
+    }
+
+    public int getMagicPrice() {
+        return magicPrice;
+    }
+
+    public int getHealthPrice() {
+        return healthPrice;
+    }
 }

@@ -6,14 +6,21 @@ import java.util.ArrayList;
 public class Shop {
     ArrayList<Item> buyableItems;
 
+    private String category;
 
     public Shop()
     {
         buyableItems = new ArrayList<>();
     }
 
-    public void purchase(String itemName, Soldier buyer)
+    public void purchase(String itemName, Hero buyer)
     {
+        for (Item buyableItem : buyableItems) {
+            if(buyableItem.getName().equals(itemName))
+            {
+                buyableItem.purchasedBy(buyer);
 
+            }
+        }
     }
 }
