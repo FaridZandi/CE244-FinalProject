@@ -12,6 +12,7 @@ import java.util.Objects;
 public class main {
 
     public static void main(String[] args) {
+        System.out.println("Hello");
         loadAbility();
         GameObjectsHolder gameObjectsHolder = new GameObjectsHolder();
         loadGame(gameObjectsHolder, "gameData.dat");
