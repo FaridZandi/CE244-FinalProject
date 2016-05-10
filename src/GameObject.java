@@ -6,7 +6,6 @@ abstract public class GameObject {
 
     abstract public void describe();
 
-
     public String getName()
     {
         return name;

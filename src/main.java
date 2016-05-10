@@ -15,7 +15,7 @@ public class main {
     public static void main(String[] args) {
         BufferedReader br;
         try{
-            br = new BufferedReader(new FileReader("ability.txt"));
+            br = new BufferedReader(new FileReader("ability2.txt"));
             try{
                 Ability newAbility = loadAbility(br);
             } catch (IOException e) {
@@ -32,11 +32,36 @@ public class main {
 
     }
 
+    public static Price loadPrice(BufferedReader br) throws IOException
+    {
+        String x = br.readLine();
+        if(x.equals("*"))
+        {
+            return null;
+        }
+        String[] prices = x.split(" ");
+        Price tempPrice = new Price(Integer.parseInt(prices[0]),Integer.parseInt(prices[1]),Integer.parseInt(prices[2]),Integer.parseInt(prices[3]),Integer.parseInt(prices[4]));
+        return tempPrice;
+    }
+    public static Buff loadBuff(BufferedReader br) throws IOException
+    {
+        String x = br.readLine();
+        if(x.equals("*"))
+        {
+            return null;
+        }
+        String y = br.readLine();
+        String[] parts = y.split(" ");
+        Buff temp = new Buff(x, Boolean.parseBoolean(parts[0]),Integer.parseInt(parts[1]) , Integer.parseInt(parts[2]) , Integer.parseInt(parts[3]) ,Integer.parseInt(parts[4]) ,Integer.parseInt(parts[5]) ,Integer.parseInt(parts[6]) ,Integer.parseInt(parts[7]) ,Integer.parseInt(parts[7]));
+        return temp;
+    }
 
     public static Ability loadAbility(BufferedReader br) throws IOException
     {
         String x;
         String y;
+        Price tempPrice;
+        Buff tempBuff;
         if((x = br.readLine()) != null)
         {
             if(x.equals("0"))
@@ -53,14 +78,10 @@ public class main {
                 x = br.readLine();
                 ability.setAbilityInfo(x);
                 x = br.readLine();
-                while ( (x = br.readLine()) != null)
+
+
+                while ( (tempPrice = loadPrice(br)) != null)
                 {
-                    if(x.equals("*"))
-                    {
-                        break;
-                    }
-                    String[] prices = x.split(" ");
-                    Price tempPrice = new Price(Integer.parseInt(prices[0]),Integer.parseInt(prices[1]),Integer.parseInt(prices[2]),Integer.parseInt(prices[3]),Integer.parseInt(prices[4]));
                     ability.getAcquirePrices().add(tempPrice);
                 }
                 while ( (x = br.readLine()) != null)
@@ -75,16 +96,9 @@ public class main {
                 x = br.readLine();
                 ability.setBuffsReplacedEachLevel(Boolean.parseBoolean(x));
                 x = br.readLine();
-                while((x = br.readLine()) != null)
+                while ( (tempBuff = loadBuff(br)) != null)
                 {
-                    if(x.equals("*"))
-                    {
-                        break;
-                    }
-                    y = br.readLine();
-                    String[] parts = y.split(" ");
-                    Buff temp = new Buff(x, (parts[0]=="0")?false:true,Integer.parseInt(parts[1]) , Integer.parseInt(parts[2]) , Integer.parseInt(parts[3]) ,Integer.parseInt(parts[4]) ,Integer.parseInt(parts[5]) ,Integer.parseInt(parts[6]) ,Integer.parseInt(parts[7]) ,Integer.parseInt(parts[7]));
-                    ability.getAffectingBuffsAfterAcquiring().add(temp);
+                    ability.getAffectingBuffsAfterAcquiring().add(tempBuff);
                 }
                 return ability;
             }
@@ -102,16 +116,12 @@ public class main {
                 x = br.readLine();
                 ability.setAbilityInfo(x);
                 x = br.readLine();
-                while ( (x = br.readLine()) != null)
+
+                while ( (tempPrice = loadPrice(br)) != null)
                 {
-                    if(x.equals("*"))
-                    {
-                        break;
-                    }
-                    String[] prices = x.split(" ");
-                    Price tempPrice = new Price(Integer.parseInt(prices[0]),Integer.parseInt(prices[1]),Integer.parseInt(prices[2]),Integer.parseInt(prices[3]),Integer.parseInt(prices[4]));
                     ability.getAcquirePrices().add(tempPrice);
                 }
+
                 while ( (x = br.readLine()) != null)
                 {
                     if(x.equals("*")) {
@@ -124,30 +134,21 @@ public class main {
                 x = br.readLine();
                 ability.setBuffsReplacedEachLevel(Boolean.parseBoolean(x));
                 x = br.readLine();
-                while((x = br.readLine()) != null)
+
+                while ( (tempBuff = loadBuff(br)) != null)
                 {
-                    if(x.equals("*"))
-                    {
-                        break;
-                    }
-                    y = br.readLine();
-                    String[] parts = y.split(" ");
-                    Buff temp = new Buff(x, (parts[0]=="0")?false:true,Integer.parseInt(parts[1]) , Integer.parseInt(parts[2]) , Integer.parseInt(parts[3]) ,Integer.parseInt(parts[4]) ,Integer.parseInt(parts[5]) ,Integer.parseInt(parts[6]) ,Integer.parseInt(parts[7]) ,Integer.parseInt(parts[7]));
-                    ability.getAffectingBuffsAfterAcquiring().add(temp);
+                    ability.getAffectingBuffsAfterAcquiring().add(tempBuff);
                 }
+
                 x = br.readLine();
                 ability.setSuccessMessage(x);
                 x = br.readLine();
-                while ( (x = br.readLine()) != null)
+
+                while ( (tempPrice = loadPrice(br)) != null)
                 {
-                    if(x.equals("*"))
-                    {
-                        break;
-                    }
-                    String[] prices = x.split(" ");
-                    Price tempPrice = new Price(Integer.parseInt(prices[0]),Integer.parseInt(prices[1]),Integer.parseInt(prices[2]),Integer.parseInt(prices[3]),Integer.parseInt(prices[4]));
                     ability.getCastPrices().add(tempPrice);
                 }
+
                 while((x = br.readLine()) != null)
                 {
                     if(x.equals("*"))
@@ -163,6 +164,9 @@ public class main {
         }
         return null;
     }
+
+
+
     public static Object deepClone(Object object)
     {
         try{

@@ -18,7 +18,7 @@ Fight Training
 1
 *
 *
-HERONAME just did an overpowered attack on TARGETNAME with DAMAGE damage”
+HERONAME just did an overpowered attack on TARGETNAME with DAMAGE damage
 *
 0 2 0 0 50
 0 2 0 0 50

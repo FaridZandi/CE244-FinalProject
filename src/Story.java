@@ -6,14 +6,22 @@ import java.util.ArrayList;
 public class Story {
     private String startingStory;
     private ArrayList<Battle> battles;
-
+    private int currentBattleNumber;
     public Story(){
+        currentBattleNumber = 0;
         battles = new ArrayList<>();
     }
 
     public Battle getCurrentBattle()
     {
-        //TODO: make this right!
-        return new Battle();
+        return battles.get(currentBattleNumber);
+    }
+
+    public String getStartingStory() {
+        return startingStory;
+    }
+
+    public void setStartingStory(String startingStory) {
+        this.startingStory = startingStory;
     }
 }

@@ -4,7 +4,12 @@
 public class BuffCreatorItem extends Item {
     @Override
     public void purchasedBy(Hero buyer) {
-        super.purchasedBy(buyer);
+        if(!isEverythingOkToBuy(buyer))
+        {
+            return;
+        }
+        BuffCreatorItem temp = (BuffCreatorItem)main.deepClone(this);
+        buyer.addItem(temp);
         buyer.addBuff(getAffectingBuffAfterBuying());
     }
 }

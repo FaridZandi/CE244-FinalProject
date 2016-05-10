@@ -22,9 +22,9 @@ public class Soldier extends GameObject{
         inventory = new ArrayList<>();
     }
 
-    public void getArmy()
+    public ArrayList<Soldier> getArmy()
     {
-
+         return story.getCurrentBattle().getTeam(this);
     }
 
 
@@ -34,6 +34,20 @@ public class Soldier extends GameObject{
     }
 
     public void getAttacked(int Damage)
+    {
+        int cH = this.currentHealth;
+        cH -= Damage;
+        if(cH > 0)
+        {
+            this.currentHealth = cH;
+        }
+        else
+        {
+            this.currentHealth = 0;
+        }
+    }
+
+    public void revive()
     {
 
     }
@@ -54,10 +68,10 @@ public class Soldier extends GameObject{
         }
     }
 
-    public void attack(Soldier target)
+    public void attack(Soldier target , int attackMultiplier)
     {
         int attackPlus = 0;
-        int criticalMultiTotal = 1;
+        int criticalMultiTotal = 1 + attackMultiplier;
         int splashPercentageTotal = 0;
 
         for (Buff buff:buffs)
@@ -78,10 +92,12 @@ public class Soldier extends GameObject{
         target.getAttacked(splashFreeAttackDamage);
 
 
-        ArrayList<Soldier> opponents = story.getCurrentBattle().getTeam(this , false);
-        for(Soldier opponent : opponents)
-        {
-            opponent.getAttacked(splashedDamage);
+        if(splashPercentageTotal != 0) {
+            ArrayList<Soldier> opponents = target.getArmy();
+            for (Soldier opponent : opponents)
+            {
+                opponent.getAttacked(splashedDamage);
+            }
         }
     }
 

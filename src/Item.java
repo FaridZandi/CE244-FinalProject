@@ -6,7 +6,6 @@ import java.io.Serializable;
 public class Item extends GameObject implements Serializable{
     private boolean isCastable;
     private boolean takeSpaceInInventory;
-
     private String category;
     private Price purchasePrice;
     private int priceIncreaseRate;
@@ -17,18 +16,13 @@ public class Item extends GameObject implements Serializable{
     {
         howManyPurchased = 0;
     }
+
     public void describe()
     {
 
     }
 
     public void purchasedBy(Hero buyer) {
-        if(!isEverythingOkToBuy(buyer))
-        {
-            return;
-        }
-        CastableItem temp = (CastableItem)main.deepClone(this);
-        buyer.addItem(temp);
 
     }
 
@@ -36,8 +30,9 @@ public class Item extends GameObject implements Serializable{
     {
         if(takeSpaceInInventory && !buyer.haveSpaceInInventory())
             return false;
-        //TODO : calculate the purchase price according to the base price and times it have been bought;
-        if(!buyer.payPrice(purchasePrice))
+        int goldRequiredTotal = purchasePrice.getGoldPrice() + priceIncreaseRate * howManyPurchased;
+        Price totalPurchasePrice = new Price(goldRequiredTotal , purchasePrice.getXPPrice() , purchasePrice.getEPPrice() , purchasePrice.getMagicPrice() , purchasePrice.getHealthPrice());
+        if(!buyer.payPrice(totalPurchasePrice))
         {
             return false;
         }

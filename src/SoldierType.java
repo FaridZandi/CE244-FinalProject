@@ -35,6 +35,7 @@ public class SoldierType extends GameObject{
     {
         return energyPoints;
     }
+
     public int getAttackPower() {
         return attackPower;
     }

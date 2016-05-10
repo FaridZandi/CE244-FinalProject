@@ -16,7 +16,12 @@ public class CastableItem extends Item {
 
     @Override
     public void purchasedBy(Hero buyer) {
-        super.purchasedBy(buyer);
+        if(!isEverythingOkToBuy(buyer))
+        {
+            return;
+        }
+        CastableItem temp = (CastableItem)main.deepClone(this);
+        buyer.addItem(temp);
         buyer.addBuff(getAffectingBuffAfterBuying());
     }
 }

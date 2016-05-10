@@ -12,6 +12,18 @@ public class Battle {
     private int winningGold;
 
 
+    public boolean isAnyEnemyAlive()
+    {
+        if(enemyArmy.getEnemies().size() == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     public Battle()
     {
         enemyArmy = new EnemyArmy();
@@ -21,20 +33,18 @@ public class Battle {
         return enemyArmy;
     }
 
-    public ArrayList<Soldier> getTeam(Soldier soldier , boolean myTeam)
+    public ArrayList<Soldier> getTeam(Soldier soldier)
     {
-
         ArrayList<Soldier> temp = new ArrayList<>();
-        if(isInEnemyArmy(soldier) ^ myTeam)
+        if(isInEnemyArmy(soldier))
         {
             ArrayList<Hero> heroes = player.getHeroes();
             for (Hero hero : heroes) {
                 temp.add(hero);
             }
-            if(myTeam)
             return temp;
         }
-        else if(isInPlayerArmy(soldier) ^ myTeam)
+        else if(isInPlayerArmy(soldier))
         {
             ArrayList<Enemy>  enemies = enemyArmy.getEnemies();
             for (Enemy enemy : enemies) {

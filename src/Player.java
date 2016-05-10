@@ -13,6 +13,7 @@ public class Player {
 
     public Player()
     {
+        immortalityPotions = 3;
         soldiers = new ArrayList<>();
     }
 
@@ -46,5 +47,13 @@ public class Player {
 
     public void setHeroes(ArrayList<Hero> heroes) {
         this.soldiers = heroes;
+    }
+
+    public void setImmortalityPotions(int immortalityPotions) {
+        this.immortalityPotions = immortalityPotions;
+    }
+
+    public int getImmortalityPotions() {
+        return immortalityPotions;
     }
 }

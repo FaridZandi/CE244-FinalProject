@@ -4,6 +4,11 @@
 public class TraitChangerItem extends Item{
     @Override
     public void purchasedBy(Hero buyer) {
-        super.purchasedBy(buyer);
+        if(!isEverythingOkToBuy(buyer))
+        {
+            return;
+        }
+        TraitChangerItem temp = (TraitChangerItem) main.deepClone(this);
+        buyer.addBuff(getAffectingBuffAfterBuying());
     }
 }
