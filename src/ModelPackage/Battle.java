@@ -1,4 +1,5 @@
-import javax.xml.stream.events.EndElement;
+package ModelPackage;
+
 import java.util.ArrayList;
 
 /**
@@ -10,6 +11,7 @@ public class Battle {
     private EnemyArmy enemyArmy;
     private int winningXP;
     private int winningGold;
+    private boolean isInShop;
 
 
     public boolean isAnyEnemyAlive()
@@ -23,6 +25,7 @@ public class Battle {
             return true;
         }
     }
+
 
     public Battle()
     {
@@ -77,5 +80,24 @@ public class Battle {
             }
         }
         return false;
+    }
+
+    public void startShopping()
+    {
+        isInShop = true;
+    }
+
+    public void startFight()
+    {
+
+    }
+
+    public boolean isInShop() {
+        return isInShop;
+    }
+
+    public Soldier findSoldier(String casterName) {
+        //TODO : do this :)
+        return new Soldier();
     }
 }

@@ -1,3 +1,5 @@
+package ModelPackage;
+
 /**
  * Created by Y50 on 5/7/2016.
  */
@@ -8,7 +10,7 @@ public class BuffCreatorItem extends Item {
         {
             return;
         }
-        BuffCreatorItem temp = (BuffCreatorItem)main.deepClone(this);
+        BuffCreatorItem temp = (BuffCreatorItem)Model.deepClone(this);
         buyer.addItem(temp);
         buyer.addBuff(getAffectingBuffAfterBuying());
     }

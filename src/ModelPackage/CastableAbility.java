@@ -1,3 +1,5 @@
+package ModelPackage;
+
 import java.util.ArrayList;
 
 /**
@@ -19,6 +21,7 @@ public class CastableAbility extends Ability {
 
     public void cast(Soldier target)
     {
+
         System.out.println("hello there");
     }
 

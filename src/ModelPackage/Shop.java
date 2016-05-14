@@ -1,3 +1,5 @@
+package ModelPackage;
+
 import java.util.ArrayList;
 
 /**
@@ -5,12 +7,13 @@ import java.util.ArrayList;
  */
 public class Shop {
     ArrayList<Item> buyableItems;
-
+    GameObjectsHolder gameObjectsHolder;
     private String category;
 
-    public Shop()
+    public Shop(GameObjectsHolder gameObjectsHolder, String category)
     {
-        buyableItems = new ArrayList<>();
+        this.gameObjectsHolder = gameObjectsHolder;
+        buyableItems = gameObjectsHolder.getItems(category);
     }
 
     public void purchase(String itemName, Hero buyer)
