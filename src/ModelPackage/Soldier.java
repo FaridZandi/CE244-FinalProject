@@ -1,5 +1,6 @@
+package ModelPackage;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Created by Y50 on 5/1/2016.
@@ -17,6 +18,7 @@ public class Soldier extends GameObject{
     private ArrayList<Ability> abilities;
     public Soldier()
     {
+        type = new SoldierType();
         abilities = new ArrayList<>();
         buffs = new ArrayList<>();
         inventory = new ArrayList<>();
@@ -46,6 +48,27 @@ public class Soldier extends GameObject{
             this.currentHealth = 0;
         }
     }
+
+    public void getHealed(int heal)
+    {
+        int cH = this.currentHealth;
+        int mH = this.calculateMaximumHealth();
+        cH += heal;
+        if(cH < mH)
+        {
+            this.currentHealth = cH;
+        }
+        else
+        {
+            this.currentHealth = mH;
+        }
+    }
+
+    public void getEnergyPoints(int EP)
+    {
+        this.energyPoints += EP;
+    }
+
 
     public void revive()
     {
@@ -86,7 +109,6 @@ public class Soldier extends GameObject{
         }
         int attackDamage = this.type.getAttackPower()+attackPlus;
         attackDamage*=criticalMultiTotal;
-
         int splashFreeAttackDamage = ((100 - splashPercentageTotal)/100) * attackDamage;
         int splashedDamage = attackDamage - splashFreeAttackDamage;
         target.getAttacked(splashFreeAttackDamage);
@@ -103,12 +125,21 @@ public class Soldier extends GameObject{
 
     public void cast(String abilityName,String soldierName)
     {
-        ArrayList<Soldier> enemies = this.story.getCurrentBattle().getTeam(this , false);
-        ArrayList<Soldier> friendlies = this.story.getCurrentBattle().getTeam(this , true);
-
+        ArrayList<Soldier> enemies = this.story.getCurrentBattle().getTeam(this);
+        ArrayList<Soldier> friendlies = this.story.getCurrentBattle().getTeam(this);
+        CastableAbility castableAbility = null;
         Soldier target = null;
 
-        //TODO : Handle the global enemy and global friendly and self situations
+        for(Ability ability : abilities)
+        {
+            if(ability.getName().equals(abilityName))
+            {
+                if (ability.isCastable())
+                {
+                    castableAbility= (CastableAbility)ability;
+                }
+            }
+        }
 
         for (Soldier enemy : enemies)
         {
@@ -127,17 +158,11 @@ public class Soldier extends GameObject{
                 }
             }
         }
-
-        for(Ability ability : abilities)
+        if(castableAbility == null)
         {
-            if(ability.getName().equals(abilityName))
-            {
-                if (ability.isCastable())
-                {
-                    ability.cast(target);
-                }
-            }
+            return;
         }
+        castableAbility.cast(target);
     }
 
 
@@ -215,4 +240,41 @@ public class Soldier extends GameObject{
     public ArrayList<Item> getInventory() {
         return inventory;
     }
+
+    public Ability findAbility(String word) {
+        for (Ability ability : abilities) {
+            if(ability.getName() == word)
+            {
+                return ability;
+            }
+        }
+        return null;
+    }
+
+    public void addAbility(Ability ability)
+    {
+        this.abilities.add(ability);
+    }
+
+    public ArrayList<Ability> getAbility(){ return this.abilities;}
+
+    public int getMaximumHealth(){return this.type.getMaximumHealth();}
+
+    public int getMaximumMagic(){ return  this.type.getMaximumMagic();}
+
+    public void setMaximumHealth(int health){this.type.setMaximumHealth(health);}
+
+    public void setMaximumMagic(int maximumMagic){ this.type.setMaximumMagic(maximumMagic);}
+
+    public void setInventorySize(int inventorySize){this.type.setInventorySize(inventorySize);}
+
+    public void setAttackPower(int attackPower){this.type.setAttackPower(attackPower);}
+
+    public void setMagicRefillRatePercentage(int magicRefillRatePercentage){ this.type.setMagicRefillRatePercentage(magicRefillRatePercentage);}
+
+    public void setHealthRefillRatePercentage(int healthRefillRatePercentage){this.type.setHealthRefillRatePercentage(healthRefillRatePercentage);}
+
+    public SoldierType getType(){return this.type;}
+
+    public void setType(SoldierType type){this.type = type;}
 }

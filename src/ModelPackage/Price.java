@@ -1,12 +1,14 @@
+package ModelPackage;
+
 /**
  * Created by Y50 on 5/1/2016.
  */
 public class Price {
-    private int goldPrice;
-    private int XPPrice;
-    private int EPPrice;
-    private int magicPrice;
-    private int healthPrice;
+    private int goldPrice = 0;
+    private int XPPrice = 0;
+    private int EPPrice = 0;
+    private int magicPrice = 0;
+    private int healthPrice = 0;
 
     public Price(int goldPrice, int XPPrice, int EPPrice, int magicPrice, int healthPrice)
     {
@@ -16,6 +18,8 @@ public class Price {
         this.healthPrice = healthPrice;
         this.magicPrice = magicPrice;
     }
+
+    public Price(int XPPrice){ this.XPPrice = XPPrice;}
 
     public int getEPPrice() {
         return EPPrice;

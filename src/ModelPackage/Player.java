@@ -1,3 +1,5 @@
+package ModelPackage;
+
 import java.util.ArrayList;
 
 /**
@@ -55,5 +57,10 @@ public class Player {
 
     public int getImmortalityPotions() {
         return immortalityPotions;
+    }
+
+    public Hero findHero(String acquirerName) {
+        //TODO : write this:)
+        return new Hero();
     }
 }

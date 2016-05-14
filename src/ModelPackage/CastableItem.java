@@ -1,3 +1,5 @@
+package ModelPackage;
+
 import java.util.ArrayList;
 
 /**
@@ -20,7 +22,7 @@ public class CastableItem extends Item {
         {
             return;
         }
-        CastableItem temp = (CastableItem)main.deepClone(this);
+        CastableItem temp = (CastableItem)Model.deepClone(this);
         buyer.addItem(temp);
         buyer.addBuff(getAffectingBuffAfterBuying());
     }

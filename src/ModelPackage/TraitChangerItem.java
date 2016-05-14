@@ -1,3 +1,5 @@
+package ModelPackage;
+
 /**
  * Created by Y50 on 5/7/2016.
  */
@@ -8,7 +10,7 @@ public class TraitChangerItem extends Item{
         {
             return;
         }
-        TraitChangerItem temp = (TraitChangerItem) main.deepClone(this);
+        TraitChangerItem temp = (TraitChangerItem)Model.deepClone(this);
         buyer.addBuff(getAffectingBuffAfterBuying());
     }
 }

@@ -1,3 +1,5 @@
+package ModelPackage;
+
 import java.io.Serializable;
 
 /**
@@ -53,6 +55,10 @@ public class Item extends GameObject implements Serializable{
 
     public void setHowManyPurchased(int howManyPurchased) {
         this.howManyPurchased = howManyPurchased;
+    }
+
+    public String getCategory() {
+        return category;
     }
 }
 

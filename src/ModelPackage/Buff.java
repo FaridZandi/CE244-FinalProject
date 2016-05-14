@@ -1,3 +1,5 @@
+package ModelPackage;
+
 /**
  * Created by Y50 on 5/1/2016.
  */
@@ -15,11 +17,9 @@ public class Buff {
 
     private int howMuchLeftToEnd;
 
-    public Buff(String name ,boolean isPermanent , int duration , int attackPowerIncrease , int maximumHealthIncrease , int maximumMagicIncrease , int energyPointIncrease , int criticalDamageChance , int criticalDamageMultiplier , int damageSplashPercentage)
+    public Buff(String name ,int attackPowerIncrease , int maximumHealthIncrease , int maximumMagicIncrease , int energyPointIncrease , int criticalDamageChance , int criticalDamageMultiplier , int damageSplashPercentage)
     {
         this.name = name;
-        this.isPermanent = isPermanent;
-        this.duration = duration;
         this.attackPowerIncrease = attackPowerIncrease;
         this.maximumHealthIncrease = maximumHealthIncrease;
         this.maximumMagicIncrease = maximumMagicIncrease;
