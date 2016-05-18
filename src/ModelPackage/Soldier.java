@@ -82,25 +82,25 @@ public class Soldier extends GameObject{
 
     public void timeBasedPutIntoEffect()
     {
-        int maximmum , increase , afterIncrease;
-        maximmum = calculateMaximumHealth();
-        increase = maximmum *(type.getHealthRefillRatePercentage());
+        int maximum , increase , afterIncrease;
+        maximum = calculateMaximumHealth();
+        increase = maximum *(type.getHealthRefillRatePercentage());
         afterIncrease = currentHealth + increase;
-        if(afterIncrease > maximmum)
+        if(afterIncrease > maximum)
         {
-            currentHealth = maximmum;
+            currentHealth = maximum;
         }
         else
         {
             currentHealth = afterIncrease;
         }
 
-        maximmum = calculateMaximumMagic();
-        increase = maximmum * (type.getMagicRefillRatePercentage());
+        maximum = calculateMaximumMagic();
+        increase = maximum * (type.getMagicRefillRatePercentage());
         afterIncrease = currentMagic + increase;
-        if(afterIncrease > maximmum)
+        if(afterIncrease > maximum)
         {
-            currentMagic = maximmum;
+            currentMagic = maximum;
         }
         else
         {
@@ -113,6 +113,22 @@ public class Soldier extends GameObject{
 
     public void addBuff(Buff buff)
     {
+        int increase;
+        int maximum;
+        increase = buff.getMaximumHealthIncrease();
+        if(increase != 0)
+        {
+            maximum = calculateMaximumHealth();
+            double ratio = ((double)(maximum + increase)) / (maximum);
+            currentHealth = (int) (ratio * currentHealth);
+        }
+        increase = buff.getMaximumMagicIncrease();
+        if(increase != 0)
+        {
+            maximum = calculateMaximumMagic();
+            double ratio = ((double)(maximum + increase)) / (maximum);
+            currentMagic = (int) (ratio * currentMagic);
+        }
         buffs.add(buff);
     }
 
@@ -121,6 +137,22 @@ public class Soldier extends GameObject{
         for (Buff buff : buffs) {
             if(buff.getName().equals(buffName))
             {
+                int increase;
+                int maximum;
+                increase = buff.getMaximumHealthIncrease();
+                if(increase != 0)
+                {
+                    maximum = calculateMaximumHealth();
+                    double ratio = ((double)(maximum - increase)) / (maximum);
+                    currentHealth = (int) (ratio * currentHealth);
+                }
+                increase = buff.getMaximumMagicIncrease();
+                if(increase != 0)
+                {
+                    maximum = calculateMaximumMagic();
+                    double ratio = ((double)(maximum - increase)) / (maximum);
+                    currentMagic = (int) (ratio * currentMagic);
+                }
                 buffs.remove(buff);
                 break;
             }
