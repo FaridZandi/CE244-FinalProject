@@ -16,4 +16,13 @@ public class EnemyArmy {
     public ArrayList<Enemy> getEnemies() {
         return soldiers;
     }
+
+    public void DoTurn() {
+        ArrayList<Soldier> enemies = soldiers.get(0).getOpponentArmy();
+        int numberOfEnemies = enemies.size();
+        for (Enemy soldier : soldiers) {
+            int randomTarget = (int)(Math.random() * numberOfEnemies);
+            soldier.attack(enemies.get(randomTarget) , 0);
+        }
+    }
 }

@@ -65,6 +65,6 @@ public class Hero extends Soldier{
 
     public int getXP(){ return this.player.getXp();}
 
-    public ArrayList<Ability> getAbility(){return super.getAbility();}
+    public ArrayList<Ability> getAbilities(){return super.getAbilities();}
 
 }

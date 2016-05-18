@@ -39,7 +39,7 @@ public class Ability extends GameObject {
         }
         if(hero.payPrice(this.AcquirePrices.get(this.level)))
         {
-            for (Ability ability : hero.getAbility())
+            for (Ability ability : hero.getAbilities())
             {
                 if (ability.getName().equals(this.prerequisiteAbilities.get(this.level).getAbilityName()))
                 {

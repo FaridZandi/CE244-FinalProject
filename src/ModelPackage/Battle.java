@@ -12,7 +12,13 @@ public class Battle {
     private int winningXP;
     private int winningGold;
     private boolean isInShop;
+    private boolean isInAbilityAcquiringStage;
 
+
+    public void StartEnemyArmyTurn()
+    {
+        enemyArmy.DoTurn();
+    }
 
     public boolean isAnyEnemyAlive()
     {
@@ -26,7 +32,6 @@ public class Battle {
         }
     }
 
-
     public Battle()
     {
         enemyArmy = new EnemyArmy();
@@ -36,10 +41,11 @@ public class Battle {
         return enemyArmy;
     }
 
-    public ArrayList<Soldier> getTeam(Soldier soldier)
+    public ArrayList<Soldier> getTeam(Soldier soldier , boolean isMyTeam)
     {
+        String soldierName = soldier.getName();
         ArrayList<Soldier> temp = new ArrayList<>();
-        if(isInEnemyArmy(soldier))
+        if((isInEnemyArmy(soldierName)!=null) ^ (!isMyTeam))
         {
             ArrayList<Hero> heroes = player.getHeroes();
             for (Hero hero : heroes) {
@@ -47,9 +53,9 @@ public class Battle {
             }
             return temp;
         }
-        else if(isInPlayerArmy(soldier))
+        else if((isInPlayerArmy(soldierName)!=null) ^ (!isMyTeam))
         {
-            ArrayList<Enemy>  enemies = enemyArmy.getEnemies();
+            ArrayList<Enemy> enemies = enemyArmy.getEnemies();
             for (Enemy enemy : enemies) {
                 temp.add(enemy);
             }
@@ -58,28 +64,43 @@ public class Battle {
         return null;
     }
 
-    private boolean isInEnemyArmy(Soldier soldier)
+    private Soldier isInEnemyArmy(String soldierName)
     {
         ArrayList<Enemy> enemies = enemyArmy.getEnemies();
         for (Enemy enemy : enemies) {
-            if(soldier.equals(enemy))
+            if(enemy.getName().equals(soldierName))
             {
-                return true;
+                return enemy;
             }
         }
-        return false;
+        return null;
     }
 
-    private boolean isInPlayerArmy(Soldier soldier)
+    private Soldier isInPlayerArmy(String soldierName)
     {
         ArrayList<Hero> heroes = player.getHeroes();
         for (Hero hero : heroes) {
-            if(hero.equals(soldier))
+            if(hero.getName().equals(soldierName))
             {
-                return true;
+                return hero;
             }
         }
-        return false;
+        return null;
+    }
+
+    public Soldier findSoldier(String casterName) {
+        Soldier result = null;
+        result = isInPlayerArmy(casterName);
+        if(result == null)
+        {
+            result = isInEnemyArmy(casterName);
+        }
+        return result;
+    }
+
+    public void startAbilityAcquiring()
+    {
+        isInAbilityAcquiringStage = true;
     }
 
     public void startShopping()
@@ -92,12 +113,12 @@ public class Battle {
 
     }
 
+    public boolean isInAbilityAcquiringStage() {
+        return isInAbilityAcquiringStage;
+    }
+
     public boolean isInShop() {
         return isInShop;
     }
 
-    public Soldier findSoldier(String casterName) {
-        //TODO : do this :)
-        return new Soldier();
-    }
 }

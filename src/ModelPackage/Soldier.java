@@ -26,9 +26,13 @@ public class Soldier extends GameObject{
 
     public ArrayList<Soldier> getArmy()
     {
-         return story.getCurrentBattle().getTeam(this);
+         return story.getCurrentBattle().getTeam(this , true);
     }
 
+    public ArrayList<Soldier> getOpponentArmy()
+    {
+        return story.getCurrentBattle().getTeam(this , false);
+    }
 
     public void describe()
     {
@@ -72,11 +76,59 @@ public class Soldier extends GameObject{
 
     public void revive()
     {
+        currentHealth = calculateMaximumHealth();
+        currentMagic = calculateMaximumMagic();
+    }
+
+    public void timeBasedPutIntoEffect()
+    {
+        int maximum , increase , afterIncrease;
+        maximum = calculateMaximumHealth();
+        increase = maximum *(type.getHealthRefillRatePercentage());
+        afterIncrease = currentHealth + increase;
+        if(afterIncrease > maximum)
+        {
+            currentHealth = maximum;
+        }
+        else
+        {
+            currentHealth = afterIncrease;
+        }
+
+        maximum = calculateMaximumMagic();
+        increase = maximum * (type.getMagicRefillRatePercentage());
+        afterIncrease = currentMagic + increase;
+        if(afterIncrease > maximum)
+        {
+            currentMagic = maximum;
+        }
+        else
+        {
+            currentMagic = afterIncrease;
+        }
+
+        energyPoints = calculateMaximumEnergyPoint();
 
     }
 
     public void addBuff(Buff buff)
     {
+        int increase;
+        int maximum;
+        increase = buff.getMaximumHealthIncrease();
+        if(increase != 0)
+        {
+            maximum = calculateMaximumHealth();
+            double ratio = ((double)(maximum + increase)) / (maximum);
+            currentHealth = (int) (ratio * currentHealth);
+        }
+        increase = buff.getMaximumMagicIncrease();
+        if(increase != 0)
+        {
+            maximum = calculateMaximumMagic();
+            double ratio = ((double)(maximum + increase)) / (maximum);
+            currentMagic = (int) (ratio * currentMagic);
+        }
         buffs.add(buff);
     }
 
@@ -85,6 +137,22 @@ public class Soldier extends GameObject{
         for (Buff buff : buffs) {
             if(buff.getName().equals(buffName))
             {
+                int increase;
+                int maximum;
+                increase = buff.getMaximumHealthIncrease();
+                if(increase != 0)
+                {
+                    maximum = calculateMaximumHealth();
+                    double ratio = ((double)(maximum - increase)) / (maximum);
+                    currentHealth = (int) (ratio * currentHealth);
+                }
+                increase = buff.getMaximumMagicIncrease();
+                if(increase != 0)
+                {
+                    maximum = calculateMaximumMagic();
+                    double ratio = ((double)(maximum - increase)) / (maximum);
+                    currentMagic = (int) (ratio * currentMagic);
+                }
                 buffs.remove(buff);
                 break;
             }
@@ -125,8 +193,8 @@ public class Soldier extends GameObject{
 
     public void cast(String abilityName,String soldierName)
     {
-        ArrayList<Soldier> enemies = this.story.getCurrentBattle().getTeam(this);
-        ArrayList<Soldier> friendlies = this.story.getCurrentBattle().getTeam(this);
+        ArrayList<Soldier> enemies = this.getOpponentArmy();
+        ArrayList<Soldier> friendlies = this.getArmy();
         CastableAbility castableAbility = null;
         Soldier target = null;
 
@@ -256,25 +324,18 @@ public class Soldier extends GameObject{
         this.abilities.add(ability);
     }
 
-    public ArrayList<Ability> getAbility(){ return this.abilities;}
+    public ArrayList<Ability> getAbilities(){ return this.abilities;}
 
     public int getMaximumHealth(){return this.type.getMaximumHealth();}
 
     public int getMaximumMagic(){ return  this.type.getMaximumMagic();}
 
-    public void setMaximumHealth(int health){this.type.setMaximumHealth(health);}
-
-    public void setMaximumMagic(int maximumMagic){ this.type.setMaximumMagic(maximumMagic);}
-
-    public void setInventorySize(int inventorySize){this.type.setInventorySize(inventorySize);}
-
-    public void setAttackPower(int attackPower){this.type.setAttackPower(attackPower);}
-
-    public void setMagicRefillRatePercentage(int magicRefillRatePercentage){ this.type.setMagicRefillRatePercentage(magicRefillRatePercentage);}
-
-    public void setHealthRefillRatePercentage(int healthRefillRatePercentage){this.type.setHealthRefillRatePercentage(healthRefillRatePercentage);}
-
     public SoldierType getType(){return this.type;}
 
     public void setType(SoldierType type){this.type = type;}
+
+    public Story getStory()
+    {
+        return story;
+    }
 }
