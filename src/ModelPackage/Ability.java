@@ -76,7 +76,7 @@ public class Ability extends GameObject {
 
     public void cast(Soldier target)
     {
-        System.out.println("couldn't be cast");
+        View.show("couldn't be cast");
     }
 
     public boolean isCastable() {

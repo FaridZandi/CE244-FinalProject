@@ -60,5 +60,17 @@ public class Item extends GameObject implements Serializable{
     public String getCategory() {
         return category;
     }
+
+    public Price getPurchasePrice() {
+        return purchasePrice;
+    }
+
+    public int getPriceIncreaseRate() {
+        return priceIncreaseRate;
+    }
+
+    public int getHowManyPurchased() {
+        return howManyPurchased;
+    }
 }
 

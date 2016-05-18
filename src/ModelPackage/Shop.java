@@ -25,4 +25,13 @@ public class Shop {
             }
         }
     }
+
+    public void sell(String itemName, Hero seller) {
+        for (Item buyableItem : buyableItems) {
+            if(buyableItem.getName().equals(itemName))
+            {
+                Hero.sell(itemName);
+            }
+        }
+    }
 }

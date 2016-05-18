@@ -139,12 +139,12 @@ public class Model {
                     {
                         hero.setName(mapingData.get("heroName"));
                         hero.setEnergyPoints(Integer.parseInt( mapingData.get("energy points")));
-                        hero.getType().setMaximumHealth(Integer.parseInt(mapingData.get("maximum health")));
-                        hero.getType().setHealthRefillRatePercentage(Integer.parseInt(mapingData.get("health refill rate")));
-                        hero.getType().setMaximumMagic(Integer.parseInt(mapingData.get("maximum magic")));
-                        hero.getType().setMagicRefillRatePercentage(Integer.parseInt(mapingData.get("magic refill rate")));
-                        hero.getType().setAttackPower(Integer.parseInt(mapingData.get("attack power")));
-                        hero.getType().setInventorySize(Integer.parseInt(mapingData.get("inventory size")));
+//                        hero.getType().setMaximumHealth(Integer.parseInt(mapingData.get("maximum health")));
+//                        hero.getType().setHealthRefillRatePercentage(Integer.parseInt(mapingData.get("health refill rate")));
+//                        hero.getType().setMaximumMagic(Integer.parseInt(mapingData.get("maximum magic")));
+//                        hero.getType().setMagicRefillRatePercentage(Integer.parseInt(mapingData.get("magic refill rate")));
+//                        hero.getType().setAttackPower(Integer.parseInt(mapingData.get("attack power")));
+//                        hero.getType().setInventorySize(Integer.parseInt(mapingData.get("inventory size")));
                         heroes.add(hero);
                         mapingData.clear();
                     }

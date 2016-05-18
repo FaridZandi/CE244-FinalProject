@@ -39,6 +39,21 @@ public class Soldier extends GameObject{
 
     }
 
+    public void addItem(Item item) {
+        getInventory().add(item);
+    }
+
+    public void removeItem(String itemName)
+    {
+        for (Item item : inventory) {
+            if(item.getName().equals(itemName))
+            {
+                inventory.remove(item);
+                break;
+            }
+        }
+    }
+
     public void getAttacked(int Damage)
     {
         int cH = this.currentHealth;
