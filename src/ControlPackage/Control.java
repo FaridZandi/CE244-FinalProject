@@ -15,7 +15,6 @@ public class Control
     private CompoundMethod compoundMethod;
 
     public static void main(String[] args) {
-        System.out.println("shit");
         Control control = new Control();
         control.something();
     }
