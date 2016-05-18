@@ -33,6 +33,10 @@ public class SoldierType extends GameObject{
         return abilities;
     }
 
+    public ArrayList<Buff> getDefaultBuffs() {
+        return defaultBuffs;
+    }
+
     public int getEnergyPoints()
     {
         return energyPoints;
@@ -60,22 +64,6 @@ public class SoldierType extends GameObject{
 
     public int getMagicRefillRatePercentage() {
         return magicRefillRatePercentage;
-    }
-
-    public void setMaximumHealth(int maximumHealth){this.maximumHealth = maximumHealth;}
-
-    public void setMaximumMagic(int maximumMagic){ this.maximumMagic = maximumMagic;}
-
-    public void setInventorySize(int inventorySize){this.inventorySize = inventorySize;}
-
-    public void setAttackPower(int attackPower){this.attackPower = attackPower;}
-
-    public void setMagicRefillRatePercentage(int magicRefillRatePercentage){ this.magicRefillRatePercentage= magicRefillRatePercentage;}
-
-    public void setHealthRefillRatePercentage(int healthRefillRatePercentage){this.healthRefillRatePercentage = healthRefillRatePercentage;}
-
-    public ArrayList<Buff> getDefaultBuffs() {
-        return defaultBuffs;
     }
 }
 

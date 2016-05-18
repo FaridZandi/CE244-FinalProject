@@ -21,20 +21,20 @@ public class InputHandler
 
         this.control = control;
         inputTypes = new ArrayList<>();
-        inputTypes.add(new InputType("(Class name) + “?”", "shop battle other", "(Class description)", new Describer(control) ));
+        inputTypes.add(new InputType("(Class name) + “?”", "shop battle abilityAcquireStage other", "(Class description)", new Describer(control) ));
 
-        inputTypes.add(new InputType("(Hero name) + “?”" , "shop battle other" , "(Hero description)", new Describer(control) ));
+        inputTypes.add(new InputType("(Hero name) + “?”" , "shop battle abilityAcquireStage other" , "(Hero description)", new Describer(control) ));
 
         inputTypes.add(new InputType("(enemy name) + “?”" , "battle" , "(enemy description)", new Describer(control) ));
 
-        inputTypes.add(new InputType("(ability name)" , "shop battle other" , "(ability description)", new Describer(control) ));
+        inputTypes.add(new InputType("(ability name)" , "shop battle abilityAcquireStage other" , "(ability description)", new Describer(control) ));
 
-        inputTypes.add(new InputType("(item name) + “?”" , "shop" , "(Item description)", new Describer(control)));
+        inputTypes.add(new InputType("(item name) + “?”" , "shop abilityAcquireStage battle other" , "(Item description)", new Describer(control)));
 
-        inputTypes.add(new InputType("(hero name) + “ “ +(ability name) + “?”" , "shop battle other" , "(ability description) + “\\n“ + (this upgrade\\n" +
+        inputTypes.add(new InputType("(hero name) + “ “ +(ability name) + “?”" , "shop battle other  abilityAcquireStage" , "(ability description) + “\\n“ + (this upgrade\\n" +
                 "description) + “\\n” + “You need “ + (required xp)", new Describer(control)));
 
-        inputTypes.add(new InputType("“Acquire “ + (ability name) + “ for “ + (hero name)" , "battle other" , "(ability name) (“acquired”/”upgraded”) + “ successfully, your current experience is: ” +\n" +
+        inputTypes.add(new InputType("“Acquire “ + (ability name) + “ for “ + (hero name)" , " abilityAcquireStage" , "(ability name) (“acquired”/”upgraded”) + “ successfully, your current experience is: ” +\n" +
                 "(current xp)\n" +
                 "Or:\n" +
                 "“Your experience is insufficient”\n" +
@@ -105,9 +105,9 @@ public class InputHandler
                 "“You don’t have enough energy points”", new Attacker(control)));
 
 
-        inputTypes.add(new InputType("help" , "shop battle other" , "list of valid commands", new Helper(control)));
+        inputTypes.add(new InputType("help" , "shop battle other abilityAcquireStage" , "list of valid commands", new Helper(control)));
 
-        inputTypes.add(new InputType("again" , "shop battle other" , "shows current data one more time" , new Againer(control)));
+        inputTypes.add(new InputType("again" , "shop battle other abilityAcquireStage" , "shows current data one more time" , new Againer(control)));
 
         keyWords = new ArrayList<>();
         keyWords.add("help");
@@ -151,15 +151,21 @@ public class InputHandler
     {
 //        boolean isInBattle = control.getModel().getStory().isCurrentlyInBattle();
 //        boolean isInShop =  control.getModel().getStory().getCurrentBattle().isInShop();
+//        boolean isInAblilityAcquireArea =  control.getModel().getStory().getCurrentBattle()
         boolean isInBattle = true;
         boolean isInShop = true;
-        if(isInBattle && !isInShop)
+        boolean isInAbilityAcquiringStage = false;
+        if(isInBattle && isInAbilityAcquiringStage)
         {
-            return "battle";
+            return "abilityAcquireStage";
         }
-        else if(isInShop)
+        if(isInBattle && isInShop)
         {
             return "shop";
+        }
+        if(isInBattle)
+        {
+            return "battle";
         }
         return "other";
     }

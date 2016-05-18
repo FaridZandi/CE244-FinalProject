@@ -22,7 +22,6 @@ public class Shop {
             if(buyableItem.getName().equals(itemName))
             {
                 buyableItem.purchasedBy(buyer);
-
             }
         }
     }

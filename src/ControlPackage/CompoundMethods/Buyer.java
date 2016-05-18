@@ -27,7 +27,7 @@ public class Buyer implements CompoundMethod
 
         if(buyer.getClass() == Enemy.class)
         {
-            control.getView().show("cant buy an Item for enemy");
+            control.getView().show("cant buy an Item for an enemy");
             return;
         }
 

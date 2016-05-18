@@ -19,7 +19,42 @@ public class GameObjectsHolder {
 
     public GameObject find(String name)
     {
+        for (SoldierType soldierType : soldierTypes) {
+            if(soldierType.getName().equals(name))
+            {
+                return soldierType;
+            }
+        }
 
+        for (Hero hero : player.getHeroes()) {
+            if(hero.getName().equals(name))
+            {
+                return hero;
+            }
+            for (Ability ability : hero.getAbilities()) {
+                if(ability.getName().equals(name))
+                {
+                    return ability;
+                }
+            }
+        }
+
+        if(player.getCurrentBattle() != null)
+        {
+            for (Enemy enemy : player.getCurrentBattle().getEnemyArmy().getEnemies()) {
+                if(enemy.getName().equals(name))
+                {
+                    return enemy;
+                }
+            }
+        }
+
+        for (Item item : items) {
+            if(item.getName().equals(name))
+            {
+                return item;
+            }
+        }
         return null;
     }
 
