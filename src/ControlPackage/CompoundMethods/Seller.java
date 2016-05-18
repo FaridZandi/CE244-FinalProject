@@ -5,6 +5,7 @@ import ControlPackage.Control;
 import ModelPackage.Enemy;
 import ModelPackage.Hero;
 import ModelPackage.Soldier;
+import ViewPackage.View;
 
 /**
  * Created by Y50 on 5/12/2016.
@@ -25,17 +26,18 @@ public class Seller implements CompoundMethod
 
         Soldier seller = control.getModel().getStory().getCurrentBattle().findSoldier(buyerName);
 
-        if(seller.getClass() == Enemy.class)
+        if(seller == null)
         {
-            control.getView().show("cant buy an Item for an enemy");
+            View.show("No Hero with that name was found, please try again.");
             return;
         }
 
-        if(seller == null)
+        if(seller.getClass() == Enemy.class)
         {
-            control.getView().show("No Hero with that name was found, please try again.");
+            View.show("cant buy an Item for an enemy");
             return;
         }
+
 
         control.getModel().getStory().getShop().sell(itemName , (Hero) seller);
     }

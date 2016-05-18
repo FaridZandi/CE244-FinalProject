@@ -86,7 +86,7 @@ public class Model {
                             temp = (ArrayList<String>) mapDataAbility.get("castPrice");
                             for (int i = 0; i < temp.size(); i += 5) {
                                 Price price = new Price(Integer.parseInt(temp.get(i)), Integer.parseInt(temp.get(i + 1)), Integer.parseInt(temp.get(i + 2)), Integer.parseInt(temp.get(i + 3)), Integer.parseInt(temp.get(i + 4)));
-                                ability.addToCastPrice(price);
+                                ability.addToCastPrices(price);
                             }
                         }
                         else
@@ -94,7 +94,7 @@ public class Model {
                             temp = (ArrayList<String>) mapDataAbility.get("buffs");
                             for (int i = 0; i < temp.size(); i+= 8) {
                                 Buff buff = new Buff(temp.get(i),Integer.parseInt(temp.get(i+1)),Integer.parseInt(temp.get(i+2)),Integer.parseInt(temp.get(i+3)),Integer.parseInt(temp.get(i+4)),Integer.parseInt(temp.get(i+5)),Integer.parseInt(temp.get(i+6)),Integer.parseInt(temp.get(i+7)));
-                                ability.addToBuff(buff);
+                                ability.addToBuffs(buff);
                             }
                         }
                         abilities.add(ability);

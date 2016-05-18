@@ -3,6 +3,7 @@ package ControlPackage.CompoundMethods;
 import ControlPackage.CompoundMethod;
 import ControlPackage.Control;
 import ModelPackage.Soldier;
+import ViewPackage.View;
 
 /**
  * Created by Y50 on 5/12/2016.
@@ -25,11 +26,16 @@ public class Attacker implements CompoundMethod
 
         if(attacker == null && target == null)
         {
-            control.getView().show("No soldier with this name was found, please try again.");
+            View.show("No soldier with this name was found, please try again.");
             return;
         }
 
-        //TODO : check if attacker and the target are not on the same team;
+
+        if(control.getModel().getStory().getCurrentBattle().getTeam(attacker , true).contains(target))
+        {
+            View.show("Cannot attack a unit from own team");
+        }
+
         attacker.attack(target , 0);
     }
 }

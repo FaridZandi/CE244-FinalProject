@@ -1,5 +1,7 @@
 package ModelPackage;
 
+import ViewPackage.View;
+
 import java.util.ArrayList;
 
 /**
@@ -206,45 +208,66 @@ public class Soldier extends GameObject{
         }
     }
 
-    public void cast(String abilityName,String soldierName)
+    public void cast(String abilityName)
+    {
+
+    }
+
+    public void cast(String abilityName,String targetName)
     {
         ArrayList<Soldier> enemies = this.getOpponentArmy();
         ArrayList<Soldier> friendlies = this.getArmy();
         CastableAbility castableAbility = null;
-        Soldier target = null;
-
-        for(Ability ability : abilities)
+        Ability abilitySearchResult = findAbility(abilityName);
+        if(abilitySearchResult == null)
         {
-            if(ability.getName().equals(abilityName))
-            {
-                if (ability.isCastable())
-                {
-                    castableAbility= (CastableAbility)ability;
-                }
-            }
+            View.show("Ability Not Found!");
+            return;
         }
-
-        for (Soldier enemy : enemies)
+        if(!abilitySearchResult.isCastable())
         {
-            if(enemy.getName().equals(soldierName))
+            View.show("this ability is not castable,please try again");
+            return;
+        }
+        castableAbility = (CastableAbility)abilitySearchResult;
+
+        Soldier target = null;
+        Boolean isTargetInEnemyArmy = true;
+
+        for (Soldier enemy : enemies) {
+            if(enemy.getName().equals(targetName))
             {
                 target = enemy;
             }
         }
-        if (target == null)
+        if(target == null)
         {
-            for (Soldier friendly : friendlies)
-            {
-                if (friendly.getName().equals(soldierName))
+            for (Soldier friendly : friendlies) {
+                if(friendly.getName().equals(targetName))
                 {
                     target = friendly;
+                    isTargetInEnemyArmy = false;
                 }
             }
         }
-        if(castableAbility == null)
+        if(target == null)
         {
+            View.show("Target not found, please try again.");
             return;
         }
+
+        if(isTargetInEnemyArmy && !castableAbility.isCastableOnEnemies())
+        {
+            View.show("This ability can not be cast on an enemy soldier, please try agian");
+            return;
+        }
+        if(!isTargetInEnemyArmy && !castableAbility.isCastableOnFriendlies())
+        {
+            View.show("This ability can not be cast on a friendly soldier, please try again");
+            return;
+        }
+
+
         castableAbility.cast(target);
     }
 

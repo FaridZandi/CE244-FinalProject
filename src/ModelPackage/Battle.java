@@ -88,12 +88,12 @@ public class Battle {
         return null;
     }
 
-    public Soldier findSoldier(String casterName) {
-        Soldier result = null;
-        result = isInPlayerArmy(casterName);
+    public Soldier findSoldier(String soldierName) {
+        Soldier result;
+        result = isInPlayerArmy(soldierName);
         if(result == null)
         {
-            result = isInEnemyArmy(casterName);
+            result = isInEnemyArmy(soldierName);
         }
         return result;
     }

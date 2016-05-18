@@ -10,6 +10,8 @@ public class CastableAbility extends Ability {
     private ArrayList<Price> castPrices;
     private ArrayList<CastableData> castableData;
     private String successMessage;
+    private Boolean isCastableOnEnemies;
+    private Boolean isCastableOnFriendlies;
 
     private int turnsToUseAgain;
 
@@ -40,5 +42,13 @@ public class CastableAbility extends Ability {
 
     public ArrayList<CastableData> getCastableData() {
         return castableData;
+    }
+
+    public boolean isCastableOnEnemies() {
+        return isCastableOnEnemies;
+    }
+
+    public boolean isCastableOnFriendlies() {
+        return isCastableOnFriendlies;
     }
 }
