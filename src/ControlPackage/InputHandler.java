@@ -105,9 +105,11 @@ public class InputHandler
                 "“You don’t have enough energy points”", new Attacker(control)));
 
 
-        inputTypes.add(new InputType("help" , "shop battle other abilityAcquireStage" , "list of valid commands", new Helper(control)));
+        inputTypes.add(new InputType("help" , "shop battle other abilityAcquireStage" , "Shows the list of valid commands.", new Helper(control)));
 
-        inputTypes.add(new InputType("again" , "shop battle other abilityAcquireStage" , "shows current data one more time" , new Againer(control)));
+        inputTypes.add(new InputType("again" , "shop battle other abilityAcquireStage" , "Shows current stage data one more time." , new Againer(control)));
+
+        inputTypes.add(new InputType("done" , "shop battle other abilityAcquireStage" , "Proceeds to the next stage." , new Doner(control)));
 
         keyWords = new ArrayList<>();
         keyWords.add("help");

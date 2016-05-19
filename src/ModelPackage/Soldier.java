@@ -1,5 +1,7 @@
 package ModelPackage;
 
+import ViewPackage.View;
+
 import java.util.ArrayList;
 
 /**
@@ -39,6 +41,21 @@ public class Soldier extends GameObject{
 
     }
 
+    public void addItem(Item item) {
+        getInventory().add(item);
+    }
+
+    public void removeItem(String itemName)
+    {
+        for (Item item : inventory) {
+            if(item.getName().equals(itemName))
+            {
+                inventory.remove(item);
+                break;
+            }
+        }
+    }
+
     public void getAttacked(int Damage)
     {
         int cH = this.currentHealth;
@@ -68,11 +85,25 @@ public class Soldier extends GameObject{
         }
     }
 
+    public void getMagicPoint(int magicPoints) {
+        int currentMagic = this.currentMagic;
+        int maximumMagic = this.calculateMaximumMagic();
+        currentMagic += magicPoints;
+        if(currentMagic < maximumMagic)
+        {
+            this.currentMagic = currentMagic;
+        }
+        else
+        {
+            this.currentMagic = maximumMagic;
+        }
+    }
+
+
     public void getEnergyPoints(int EP)
     {
         this.energyPoints += EP;
     }
-
 
     public void revive()
     {
@@ -82,32 +113,28 @@ public class Soldier extends GameObject{
 
     public void timeBasedPutIntoEffect()
     {
-        int maximum , increase , afterIncrease;
+        //health increase by passage of time
+        int maximum , increase;
+
         maximum = calculateMaximumHealth();
         increase = maximum *(type.getHealthRefillRatePercentage());
-        afterIncrease = currentHealth + increase;
-        if(afterIncrease > maximum)
-        {
-            currentHealth = maximum;
-        }
-        else
-        {
-            currentHealth = afterIncrease;
-        }
+        this.getHealed(increase);
 
+
+        //magic increase by passage of time
         maximum = calculateMaximumMagic();
         increase = maximum * (type.getMagicRefillRatePercentage());
-        afterIncrease = currentMagic + increase;
-        if(afterIncrease > maximum)
-        {
-            currentMagic = maximum;
-        }
-        else
-        {
-            currentMagic = afterIncrease;
-        }
+        this.getMagicPoint(increase);
 
+        // energy points filled to maximum each time
         energyPoints = calculateMaximumEnergyPoint();
+
+        //auto cast abilities must be cast here
+
+        //cooldown of items and abilities must reduce here
+
+
+
 
     }
 
@@ -159,10 +186,11 @@ public class Soldier extends GameObject{
         }
     }
 
-    public void attack(Soldier target , int attackMultiplier)
+    public void attack(Soldier target , double attackMultiplier)
     {
+        //  TODO : some EP must be reduced here in certain situations. do it!
         int attackPlus = 0;
-        int criticalMultiTotal = 1 + attackMultiplier;
+        double criticalMultiTotal = 1 + attackMultiplier;
         int splashPercentageTotal = 0;
 
         for (Buff buff:buffs)
@@ -177,6 +205,7 @@ public class Soldier extends GameObject{
         }
         int attackDamage = this.type.getAttackPower()+attackPlus;
         attackDamage*=criticalMultiTotal;
+
         int splashFreeAttackDamage = ((100 - splashPercentageTotal)/100) * attackDamage;
         int splashedDamage = attackDamage - splashFreeAttackDamage;
         target.getAttacked(splashFreeAttackDamage);
@@ -191,50 +220,113 @@ public class Soldier extends GameObject{
         }
     }
 
-    public void cast(String abilityName,String soldierName)
+
+
+
+    private CastableAbility getCastableAbility(String abilityName) {
+        CastableAbility castableAbility = null;
+        Ability abilitySearchResult = findAbility(abilityName);
+        if(abilitySearchResult == null)
+        {
+            View.show("Ability Not Found!");
+            return null;
+        }
+        if(!abilitySearchResult.isCastable())
+        {
+            View.show("this ability is not castable,please try again");
+            return null;
+        }
+        if(castableAbility.getLevel() == 0)
+        {
+            View.show("You haven't acquired this ability yet, please try again");
+            return null;
+        }
+        if(castableAbility.getTurnsToUseAgain() > 0)
+        {
+            View.show("Your desired ability is still in cooldown");
+            return null;
+        }
+        castableAbility = (CastableAbility)abilitySearchResult;
+        return castableAbility;
+    }
+
+    public void cast(String abilityName)
+    {
+        CastableAbility castableAbility = getCastableAbility(abilityName);
+        if (castableAbility == null) return;
+
+        CastableData castableData = castableAbility.getCastableData().get(castableAbility.getLevel() - 1);
+        if(! castableData.isGlobalEnemy() && !castableData.isGlobalFriendly())
+        {
+            View.show("You have a specify a target for this ability, please try again");
+            return;
+        }
+
+
+        ArrayList<Soldier> target = new ArrayList<>();
+        if(castableData.isGlobalEnemy())
+        {
+            //TODO : not sure if this works! it is supposed to add all of the members of caster's army to the target arraylist!
+            target.addAll(this.getOpponentArmy());
+        }
+        if(castableData.isGlobalFriendly())
+        {
+            target.addAll(this.getArmy());
+        }
+
+        for (Soldier soldier : target) {
+            castableAbility.cast(soldier , this);
+        }
+    }
+
+
+    public void cast(String abilityName,String targetName)
     {
         ArrayList<Soldier> enemies = this.getOpponentArmy();
         ArrayList<Soldier> friendlies = this.getArmy();
-        CastableAbility castableAbility = null;
+
+        CastableAbility castableAbility = getCastableAbility(abilityName);
+        if (castableAbility == null) return;
+
         Soldier target = null;
+        Boolean isTargetInEnemyArmy = true;
 
-        for(Ability ability : abilities)
-        {
-            if(ability.getName().equals(abilityName))
-            {
-                if (ability.isCastable())
-                {
-                    castableAbility= (CastableAbility)ability;
-                }
-            }
-        }
-
-        for (Soldier enemy : enemies)
-        {
-            if(enemy.getName().equals(soldierName))
+        for (Soldier enemy : enemies) {
+            if(enemy.getName().equals(targetName))
             {
                 target = enemy;
             }
         }
-        if (target == null)
+        if(target == null)
         {
-            for (Soldier friendly : friendlies)
-            {
-                if (friendly.getName().equals(soldierName))
+            for (Soldier friendly : friendlies) {
+                if(friendly.getName().equals(targetName))
                 {
                     target = friendly;
+                    isTargetInEnemyArmy = false;
                 }
             }
         }
-        if(castableAbility == null)
+        if(target == null)
         {
+            View.show("Target not found, please try again.");
             return;
         }
-        castableAbility.cast(target);
+
+        if(isTargetInEnemyArmy && !castableAbility.isCastableOnEnemies())
+        {
+            View.show("This ability can not be cast on an enemy soldier, please try again");
+            return;
+        }
+        if(!isTargetInEnemyArmy && !castableAbility.isCastableOnFriendlies())
+        {
+            View.show("This ability can not be cast on a friendly soldier, please try again");
+            return;
+        }
+
+
+        castableAbility.cast(target, this);
     }
-
-
-
 
     public int calculateMaximumMagic()
     {
@@ -269,6 +361,7 @@ public class Soldier extends GameObject{
         return maximumEP;
     }
 
+
     public boolean haveSpaceInInventory()
     {
         int totalCapacity = this.type.getInventorySize();
@@ -279,7 +372,6 @@ public class Soldier extends GameObject{
         }
         return false;
     }
-
 
     public int getEnergyPoints() {
         return energyPoints;

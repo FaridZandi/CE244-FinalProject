@@ -7,13 +7,22 @@ import java.util.ArrayList;
  */
 public class CastableItem extends Item {
 
-    private ArrayList<CastableData> castableData;
+    private int charges;
+
+    private int chargesLeft;
+
+    private CastableData castableData;
 
     private int turnsToUseAgain;
 
     public void cast(Soldier target)
     {
         System.out.println("hello there");
+    }
+
+    public CastableItem()
+    {
+
     }
 
     @Override

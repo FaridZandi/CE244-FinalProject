@@ -18,10 +18,22 @@ public class Shop {
 
     public void purchase(String itemName, Hero buyer)
     {
-        for (Item buyableItem : buyableItems) {
+        for (Item buyableItem : buyableItems)
+        {
             if(buyableItem.getName().equals(itemName))
             {
                 buyableItem.purchasedBy(buyer);
+            }
+        }
+    }
+
+    public void sell(String itemName, Hero seller)
+    {
+        for (Item buyableItem : buyableItems)
+        {
+            if(buyableItem.getName().equals(itemName))
+            {
+                seller.sell(itemName);
             }
         }
     }

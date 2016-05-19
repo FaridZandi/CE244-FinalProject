@@ -9,7 +9,6 @@ import java.util.ArrayList;
  */
 public class Ability extends GameObject {
     private boolean isCastable;
-    Hero hero;
     private int level ;
 
     private final int maximumNumberOfUpgrades;
@@ -22,13 +21,19 @@ public class Ability extends GameObject {
     //public Ability(){}
 
     public Ability()
-    {   this.level = 0;
+    {
+        this.level = 0;
         maximumNumberOfUpgrades = 3;
         AcquirePrices = new ArrayList<>();
         affectingBuffsAfterAcquiring = new ArrayList<>();
         prerequisiteAbilities = new ArrayList<>();
     }
 
+
+    public void cast(Soldier target, Soldier soldier)
+    {
+        View.show("couldn't be cast");
+    }
 
     public void acquire(Hero hero)
     {
@@ -49,7 +54,6 @@ public class Ability extends GameObject {
                         return ;
                     }
                     hero.payPrice(this.AcquirePrices.get(this.level),true);
-                    this.hero = hero;
                     if(this.level == 0)
                         View.show("%d acquired successfully,your current experience is: ",hero.getXP());
                     else
@@ -65,50 +69,49 @@ public class Ability extends GameObject {
         }
 
     }
-
-    public void describe()
-    {
-
-    }
-    public void setAcquirePrices(Price price){ this.AcquirePrices.add(price);}
-
-    public void setPrerequisiteAbilities(PrerequisiteAbility prerequisiteAbilities){ this.prerequisiteAbilities.add(prerequisiteAbilities);}
-
-    public void cast(Soldier target)
-    {
-        System.out.println("couldn't be cast");
-    }
-
     public boolean isCastable() {
         return isCastable;
     }
 
-    public void setCastable(boolean castable) {
-        isCastable = castable;
+    public ArrayList<PrerequisiteAbility> getPrerequisiteAbilities() {
+        return prerequisiteAbilities;
     }
 
     public ArrayList<Price> getAcquirePrices() {
         return AcquirePrices;
     }
 
-    public int getLevel(){ return level;}
-
-    public void setLevel(int level){ this.level = level;}
-
-    public ArrayList<PrerequisiteAbility> getPrerequisiteAbilities() {
-        return prerequisiteAbilities;
-    }
-
     public String getAbilityInfo() {
         return AbilityInfo;
     }
 
-    public void addToCastPrice(Price price){}
+    public ArrayList<Price> getCastPrice(){return null;}
+
+    public int getLevel(){ return level;}
+
+
+
+    public void setAcquirePrices(Price price){ this.AcquirePrices.add(price);}
+
+    public void setPrerequisiteAbilities(PrerequisiteAbility prerequisiteAbilities){ this.prerequisiteAbilities.add(prerequisiteAbilities);}
+
+    public void setCastable(boolean castable) {
+        isCastable = castable;
+    }
+
+    public void setLevel(int level){ this.level = level;}
 
     public void setAbilityInfo(String abilityInfo) {
         AbilityInfo = abilityInfo;
     }
-    public ArrayList<Price> getCastPrice(){return null;}
 
-    public void addToBuff(Buff buff){this.affectingBuffsAfterAcquiring.add(buff);}
+
+    public void addToCastPrices(Price price){}
+
+    public void addToBuffs(Buff buff){this.affectingBuffsAfterAcquiring.add(buff);}
+
+    public void describe()
+    {
+
+    }
 }

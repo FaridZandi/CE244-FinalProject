@@ -5,6 +5,7 @@ import ControlPackage.Control;
 import ModelPackage.Ability;
 import ModelPackage.Hero;
 import ModelPackage.Soldier;
+import ViewPackage.View;
 
 /**
  * Created by Y50 on 5/12/2016.
@@ -28,14 +29,14 @@ public class Acquirer implements CompoundMethod
 
         if(acquirer == null)
         {
-            control.getView().show("no hero with that name was not found, try again.");
+            View.show("no hero with that name was not found, try again.");
             return;
         }
-
-
-        // TODO : make this right .
-        //acquirer.acquire(abilityName);
-
-
+        Ability acquiringAbility  = acquirer.findAbility(abilityName);
+        if(acquiringAbility == null)
+        {
+            View.show("This hero doesn't have this ability, try again");
+        }
+        acquiringAbility.acquire(acquirer);
     }
 }

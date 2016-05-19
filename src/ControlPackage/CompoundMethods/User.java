@@ -33,7 +33,8 @@ public class User implements CompoundMethod
 
         if(onIndex == -1) {
             itemName = input.substring(useIndex+4);
-            user.cast(itemName , "all");
+            //TODO : all? handle this kind of stuff
+            user.cast(itemName);
         }
         else
         {

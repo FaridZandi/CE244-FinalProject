@@ -59,12 +59,37 @@ public class Hero extends Soldier{
 
     public boolean payPrice(Price price){ return payPrice(price,false);}
 
-    public void addItem(Item temp) {
-        getInventory().add(temp);
-    }
-
     public int getXP(){ return this.player.getXp();}
 
     public ArrayList<Ability> getAbilities(){return super.getAbilities();}
 
+    public void sell(String itemName) {
+        Item removingItem = null;
+        for (Item item : this.getInventory()) {
+            if(item.getName().equals(itemName))
+            {
+                removingItem = item;
+            }
+        }
+        if(removingItem == null)
+        {
+
+        }
+        else {
+            String removingBuff = removingItem.getAffectingBuffAfterBuying().getName();
+            Price purchasePrice = removingItem.getPurchasePrice();
+            int priceIncreaseRate = removingItem.getPriceIncreaseRate();
+            int howManyPurchased = removingItem.getHowManyPurchased();
+            int goldTotal = -(purchasePrice.getGoldPrice() + priceIncreaseRate * howManyPurchased) / 2;
+            Price sellPrice = new Price(goldTotal);
+
+            //TODO : There is a negative price being paid here and might not work !
+
+            this.payPrice(sellPrice, true);
+
+            removeBuff(removingBuff);
+
+            removeItem(itemName);
+        }
+    }
 }
