@@ -30,7 +30,7 @@ public class Ability extends GameObject {
     }
 
 
-    public void cast(Soldier target)
+    public void cast(Soldier target, Soldier soldier)
     {
         View.show("couldn't be cast");
     }

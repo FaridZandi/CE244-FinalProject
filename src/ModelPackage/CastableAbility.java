@@ -21,10 +21,42 @@ public class CastableAbility extends Ability {
         castableData = new ArrayList<>();
     }
 
-    public void cast(Soldier target)
+    public void cast(Soldier target, Soldier caster)
     {
+        CastableData castableData = this.getCastableData().get(this.getLevel() - 1);
 
-        System.out.println("hello there");
+        if(castableData.getAttackMultiplier() > 0)
+        {
+            caster.attack(target , castableData.getAttackMultiplier());
+        }
+        if(castableData.getDamage() > 0)
+        {
+            target.getAttacked(castableData.getDamage());
+        }
+
+
+
+        if(castableData.getHeal() > 0)
+        {
+            target.getHealed(castableData.getHeal());
+        }
+        if(castableData.getEnergyPoint() != 0)
+        {
+            target.setEnergyPoints(target.getEnergyPoints() + castableData.getEnergyPoint());
+        }
+        if(castableData.getMagic() > 0)
+        {
+            target.getMagicPoint(castableData.getMagic());
+        }
+
+
+
+        if(castableData.getAffectingBuff() != null)
+        {
+            target.addBuff(castableData.getAffectingBuff());
+        }
+
+        this.setTurnsToUseAgain(castableData.getCoolDown());
     }
 
 
@@ -50,5 +82,13 @@ public class CastableAbility extends Ability {
 
     public boolean isCastableOnFriendlies() {
         return isCastableOnFriendlies;
+    }
+
+    public int getTurnsToUseAgain() {
+        return turnsToUseAgain;
+    }
+
+    public void setTurnsToUseAgain(int turnsToUseAgain) {
+        this.turnsToUseAgain = turnsToUseAgain;
     }
 }

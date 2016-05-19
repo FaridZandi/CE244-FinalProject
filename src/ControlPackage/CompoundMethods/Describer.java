@@ -29,6 +29,7 @@ public class Describer implements CompoundMethod
         {
             if (searchResult == null) {
                 control.getView().show("no such thing was found, please try again.");
+                return;
             }
             searchResult.describe();
         }

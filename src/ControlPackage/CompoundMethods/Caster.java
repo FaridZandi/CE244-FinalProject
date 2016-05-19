@@ -28,7 +28,7 @@ public class Caster implements CompoundMethod
         Soldier caster = control.getModel().getStory().getCurrentBattle().findSoldier(casterName);
         if(caster == null)
         {
-            control.getView().show("caster not found, try again.");
+            control.getView().show("caster not found,please try again.");
             return;
         }
 
