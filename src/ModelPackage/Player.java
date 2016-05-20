@@ -12,9 +12,10 @@ public class Player {
     private int xp;
     private int immortalityPotions;
     private Battle currentBattle;
-
+    private boolean isGameOver;
     public Player()
     {
+        isGameOver = false;
         immortalityPotions = 3;
         soldiers = new ArrayList<>();
     }
@@ -62,5 +63,20 @@ public class Player {
     public Hero findHero(String acquirerName) {
         //TODO : write this:)
         return new Hero();
+    }
+
+    public void showNameAndTypes() {
+    }
+
+    public void showAbilitiesAndLevels() {
+
+    }
+
+    public boolean isGameOver() {
+        return isGameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        isGameOver = gameOver;
     }
 }

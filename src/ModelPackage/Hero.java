@@ -27,6 +27,7 @@ public class Hero extends Soldier{
             }
             else
             {
+                this.player.setGameOver(true);
                 // TODO : game over
             }
         }

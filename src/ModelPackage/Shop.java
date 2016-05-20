@@ -7,12 +7,10 @@ import java.util.ArrayList;
  */
 public class Shop {
     ArrayList<Item> buyableItems;
-    GameObjectsHolder gameObjectsHolder;
     private String category;
 
     public Shop(GameObjectsHolder gameObjectsHolder, String category)
     {
-        this.gameObjectsHolder = gameObjectsHolder;
         buyableItems = gameObjectsHolder.getItems(category);
     }
 
