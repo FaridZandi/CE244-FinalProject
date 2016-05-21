@@ -60,4 +60,8 @@ public class Buff {
     public String getName() {
         return name;
     }
+
+    public boolean getPermanent() {
+        return isPermanent;
+    }
 }

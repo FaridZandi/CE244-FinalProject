@@ -33,7 +33,6 @@ public class User implements CompoundMethod
 
         if(onIndex == -1) {
             itemName = input.substring(useIndex+4);
-            //TODO : all? handle this kind of stuff
             user.cast(itemName);
         }
         else
@@ -41,6 +40,12 @@ public class User implements CompoundMethod
             itemName = input.substring(useIndex + 5 , onIndex - 1);
             targetName = input.substring(onIndex + 3);
             user.cast(itemName , targetName);
+        }
+
+        if(!control.getModel().getStory().getCurrentBattle().isAnyEnemyAlive())
+        {
+            control.getModel().getStory().getCurrentBattle().setBattleFinished(true);
+            control.getModel().getStory().proceedToNextStage();
         }
     }
 }

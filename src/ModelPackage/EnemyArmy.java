@@ -19,7 +19,7 @@ public class EnemyArmy {
         return soldiers;
     }
 
-    public void DoTurn() {
+    public void doTurn() {
         ArrayList<Soldier> enemies = soldiers.get(0).getOpponentArmy();
         int numberOfEnemies = enemies.size();
         for (Enemy soldier : soldiers)

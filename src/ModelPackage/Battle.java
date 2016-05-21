@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by Y50 on 5/1/2016.
  */
 public class Battle {
-    private String story;
+    private String battleStory;
     private Player player;
     private EnemyArmy enemyArmy;
     private int winningXP;
@@ -25,9 +25,9 @@ public class Battle {
     private boolean isBattleFinished;
 
 
-    public Battle(String story, EnemyArmy enemyArmy, Player player, int winningGold , int winningXP)
+    public Battle(String battleStory, EnemyArmy enemyArmy, Player player, int winningGold , int winningXP)
     {
-        this.story = story;
+        this.battleStory = battleStory;
         this.enemyArmy = enemyArmy;
         enemyArmy.setCurrentBattle(this);
         this.player = player;
@@ -44,15 +44,15 @@ public class Battle {
         isBattleFinished = false;
     }
 
-    public void startBattle()
-    {
-        View.show(this.story);
-        isInHeroesDescriptionStage = true;
-        player.showNameAndTypes();
-    }
-
     public void proceedToNextStage()
     {
+        if(!isInEnemyDescriptionStage && !isInHeroesDescriptionStage && !isInAbilityAcquiringStage && !isInShoppingStage && !isInFightStage)
+        {
+            View.show(this.battleStory);
+            isInHeroesDescriptionStage = true;
+            player.showNameAndTypes();
+            return;
+        }
         if(isInHeroesDescriptionStage)
         {
             isInHeroesDescriptionStage = false;
@@ -79,9 +79,22 @@ public class Battle {
         }
         if(isInFightStage)
         {
-            //TODO : here's must end player's turn.
-            //TODO : enemy's Turn must happen here.
             //TODO : Time based stuff must be performed somewhere here.
+
+            for (Enemy enemy : enemyArmy.getEnemies()) {
+                enemy.timeBasedPutIntoEffect();
+            }
+            for (Hero hero : player.getHeroes()) {
+                hero.timeBasedPutIntoEffect();
+            }
+
+            //TODO : here's must end player's turn.
+
+
+
+            //TODO : enemy's Turn must happen here.
+            enemyArmy.doTurn();
+
             return;
         }
     }
@@ -119,7 +132,7 @@ public class Battle {
 
     public void StartEnemyArmyTurn()
     {
-        enemyArmy.DoTurn();
+        enemyArmy.doTurn();
     }
 
     public boolean isAnyEnemyAlive()
@@ -217,10 +230,27 @@ public class Battle {
 
     public void finish() {
         //TODO : give the winner the rewards.
+        this.player.setXp(this.player.getXp() + winningXP);
+        this.player.setGold(this.player.getGold() + winningGold);
+        View.show("You've been rewarded " + this.winningXP + "XP and " + this.winningGold + " Gold for winning this battle!");
         //TODO : remove temporaryBuffs.
+        for (Hero hero : player.getHeroes()) {
+            for (Buff buff : hero.getBuffs()) {
+                if(!buff.getPermanent())
+                {
+                    hero.getBuffs().remove(buff);
+                }
+            }
+        }
+        //TODO : unset the player's current Battle and EnemyArmy must naturally go away to the hell :))
+
     }
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void setBattleFinished(Boolean isBattleFinished) {
+        this.isBattleFinished = isBattleFinished;
     }
 }

@@ -41,11 +41,11 @@ public class Story {
             else
             {
                 currentBattleNumber++;
-                getCurrentBattle().startBattle();
+                getCurrentBattle().proceedToNextStage();
             }
-            //TODO : must go the next battle or reach the end
         }
     }
+
 
     private void loseGame()
     {

@@ -42,6 +42,10 @@ public class Caster implements CompoundMethod
             targetName = input.substring(onIndex + 3);
             caster.cast(abilityName , targetName);
         }
-
+        if(!control.getModel().getStory().getCurrentBattle().isAnyEnemyAlive())
+        {
+            control.getModel().getStory().getCurrentBattle().setBattleFinished(true);
+            control.getModel().getStory().proceedToNextStage();
+        }
     }
 }

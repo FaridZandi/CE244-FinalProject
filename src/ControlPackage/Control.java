@@ -28,7 +28,7 @@ public class Control
     public void getContinuousInput()
     {
         Scanner scanner = new Scanner(System.in);
-        while(model.getStory().isGameOver()) {
+        while(!model.getStory().isGameOver()) {
             view.getInput(scanner);
         }
     }

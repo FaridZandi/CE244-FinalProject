@@ -430,4 +430,8 @@ public class Soldier extends GameObject{
     {
         return story;
     }
+
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
+    }
 }

@@ -38,5 +38,10 @@ public class Attacker implements CompoundMethod
         }
 
         attacker.attack(target , 0);
+        if(!control.getModel().getStory().getCurrentBattle().isAnyEnemyAlive())
+        {
+            control.getModel().getStory().getCurrentBattle().setBattleFinished(true);
+            control.getModel().getStory().proceedToNextStage();
+        }
     }
 }
