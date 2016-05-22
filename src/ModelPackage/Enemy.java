@@ -12,9 +12,9 @@ public class Enemy extends Soldier {
 
     SoldierType types;
 
-    public Enemy()
+    public Enemy(SoldierType soldierType, Story story)
     {
-
+        super(soldierType, story);
     }
 
     @Override

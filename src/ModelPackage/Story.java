@@ -82,4 +82,11 @@ public class Story {
     public boolean isGameOver() {
         return isGameOver;
     }
+
+    public void checkGameOver() {
+        if(gameObjectsHolder.getPlayer().isGameOver())
+        {
+            loseGame();
+        }
+    }
 }

@@ -2,6 +2,9 @@ package ControlPackage.CompoundMethods;
 
 import ControlPackage.CompoundMethod;
 import ControlPackage.Control;
+import ModelPackage.Enemy;
+import ModelPackage.Hero;
+import ModelPackage.Price;
 import ModelPackage.Soldier;
 import ViewPackage.View;
 
@@ -21,19 +24,33 @@ public class Attacker implements CompoundMethod
         String attackerName = input.substring(0 , attackIndex - 1);
         String targetName = input.substring(attackIndex + 7);
 
-        Soldier attacker = control.getModel().getStory().getCurrentBattle().findSoldier(attackerName);
+        Soldier attackerSoldier = control.getModel().getStory().getCurrentBattle().findSoldier(attackerName);
         Soldier target = control.getModel().getStory().getCurrentBattle().findSoldier(targetName);
 
-        if(attacker == null && target == null)
+        if(attackerSoldier.getClass() == Enemy.class)
+        {
+            View.show("You can't order your enemies to attack, please try again");
+            return;
+        }
+
+        if(attackerSoldier == null || target == null)
         {
             View.show("No soldier with this name was found, please try again.");
             return;
         }
 
+        Hero attacker = (Hero)attackerSoldier;
 
         if(control.getModel().getStory().getCurrentBattle().getTeam(attacker , true).contains(target))
         {
             View.show("Cannot attack a unit from own team");
+            return;
+        }
+
+        Price attackingPrice = new Price(0,0,2,0,0);
+        if(!attacker.payPrice(attackingPrice , true))
+        {
+            View.show("You don't have enough energy points for attacking the target, please try again.");
             return;
         }
 

@@ -18,12 +18,19 @@ public class Soldier extends GameObject{
     private Story story;
 
     private ArrayList<Ability> abilities;
-    public Soldier()
+    public Soldier(SoldierType soldierType , Story story)
     {
-        type = new SoldierType();
+        type = soldierType;
         abilities = new ArrayList<>();
+        for (Ability ability : soldierType.getAbilities()) {
+            this.getAbilities().add((Ability)Model.deepClone(ability));
+        }
         buffs = new ArrayList<>();
+        for (Buff buff : soldierType.getDefaultBuffs()) {
+            this.addBuff((Buff)Model.deepClone(buff));
+        }
         inventory = new ArrayList<>();
+        this.story = story;
     }
 
     public ArrayList<Soldier> getArmy()
@@ -107,8 +114,10 @@ public class Soldier extends GameObject{
 
     public void revive()
     {
+        //TODO : this must be called once again at the beginning of the battle for every soldier in the battle.
         currentHealth = calculateMaximumHealth();
         currentMagic = calculateMaximumMagic();
+        energyPoints = calculateMaximumEnergyPoint();
     }
 
     public void timeBasedPutIntoEffect()
@@ -188,7 +197,6 @@ public class Soldier extends GameObject{
 
     public void attack(Soldier target , double attackMultiplier)
     {
-        //  TODO : some EP must be reduced here in certain situations. do it!
         int attackPlus = 0;
         double criticalMultiTotal = 1 + attackMultiplier;
         int splashPercentageTotal = 0;
@@ -423,8 +431,6 @@ public class Soldier extends GameObject{
     public int getMaximumMagic(){ return  this.type.getMaximumMagic();}
 
     public SoldierType getType(){return this.type;}
-
-    public void setType(SoldierType type){this.type = type;}
 
     public Story getStory()
     {

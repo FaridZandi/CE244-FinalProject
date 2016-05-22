@@ -2,6 +2,7 @@ package ControlPackage;
 import ModelPackage.Model;
 import ViewPackage.View;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**

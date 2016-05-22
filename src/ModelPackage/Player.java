@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by Y50 on 5/1/2016.
  */
 public class Player {
-    private ArrayList<Hero> soldiers;
+    private ArrayList<Hero> heroes;
 
     private int gold;
     private int xp;
@@ -17,7 +17,7 @@ public class Player {
     {
         isGameOver = false;
         immortalityPotions = 3;
-        soldiers = new ArrayList<>();
+        heroes = new ArrayList<>();
     }
 
     public int getGold() {
@@ -45,11 +45,11 @@ public class Player {
     }
 
     public ArrayList<Hero> getHeroes() {
-        return soldiers;
+        return heroes;
     }
 
     public void setHeroes(ArrayList<Hero> heroes) {
-        this.soldiers = heroes;
+        this.heroes = heroes;
     }
 
     public void setImmortalityPotions(int immortalityPotions) {
@@ -60,9 +60,15 @@ public class Player {
         return immortalityPotions;
     }
 
-    public Hero findHero(String acquirerName) {
-        //TODO : write this:)
-        return new Hero();
+    public Hero findHero(String heroName) {
+        Hero searchResult = null;
+        for (Hero hero : heroes) {
+            if(hero.getName().equals(heroName))
+            {
+                return hero;
+            }
+        }
+        return null;
     }
 
     public void showNameAndTypes() {

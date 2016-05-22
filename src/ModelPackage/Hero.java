@@ -11,9 +11,9 @@ public class Hero extends Soldier{
 
     private Player player;
 
-    public Hero()
+    public Hero(SoldierType soldierType ,Story story)
     {
-
+        super(soldierType, story);
     }
 
     @Override

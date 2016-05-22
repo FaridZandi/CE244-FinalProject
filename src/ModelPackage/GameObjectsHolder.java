@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class GameObjectsHolder {
     ArrayList<Item> items;
     ArrayList<SoldierType> soldierTypes;
-    Player player;
+    private Player player;
 
     public GameObjectsHolder()
     {
@@ -73,5 +73,9 @@ public class GameObjectsHolder {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

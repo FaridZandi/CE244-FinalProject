@@ -79,23 +79,20 @@ public class Battle {
         }
         if(isInFightStage)
         {
-            //TODO : Time based stuff must be performed somewhere here.
-
-            for (Enemy enemy : enemyArmy.getEnemies()) {
-                enemy.timeBasedPutIntoEffect();
-            }
-            for (Hero hero : player.getHeroes()) {
-                hero.timeBasedPutIntoEffect();
-            }
-
             //TODO : here's must end player's turn.
 
 
 
             //TODO : enemy's Turn must happen here.
+            for (Enemy enemy : enemyArmy.getEnemies()) {
+                enemy.timeBasedPutIntoEffect();
+            }
+
             enemyArmy.doTurn();
 
-            return;
+            for (Hero hero : player.getHeroes()) {
+                hero.timeBasedPutIntoEffect();
+            }
         }
     }
 
@@ -229,21 +226,41 @@ public class Battle {
     }
 
     public void finish() {
-        //TODO : give the winner the rewards.
         this.player.setXp(this.player.getXp() + winningXP);
         this.player.setGold(this.player.getGold() + winningGold);
-        View.show("You've been rewarded " + this.winningXP + "XP and " + this.winningGold + " Gold for winning this battle!");
-        //TODO : remove temporaryBuffs.
+        if(winningGold != 0 || winningXP!=0) {
+            View.show("You've been rewarded " + this.winningXP + "XP and " + this.winningGold + " Gold for winning this battle!");
+        }
+        //remove temporaryBuffs.
+        //TODO : this part has to be tested exclusively !!
         for (Hero hero : player.getHeroes()) {
-            for (Buff buff : hero.getBuffs()) {
-                if(!buff.getPermanent())
+            int buffsNumber =  hero.getBuffs().size();
+            for (int i = 0; i < buffsNumber; i++) {
+                if(!hero.getBuffs().get(i).getPermanent())
                 {
-                    hero.getBuffs().remove(buff);
+                    hero.removeBuff(hero.getBuffs().get(i).getName());
+                    i--;
+                    buffsNumber--;
                 }
             }
         }
         //TODO : unset the player's current Battle and EnemyArmy must naturally go away to the hell :))
-
+        this.player.setCurrentBattle(null);
+        for (Hero hero : this.player.getHeroes()) {
+            for (Ability ability : hero.getAbilities()) {
+                if(ability.isCastable())
+                {
+                    ((CastableAbility)ability).setTurnsToUseAgain(0);
+                }
+            }
+            for (Item item : hero.getInventory()) {
+                if(item.isCastable())
+                {
+                    ((CastableItem)item).setTurnsToUseAgain(0);
+                }
+            }
+        }
+        this.enemyArmy = null;
     }
 
     public Player getPlayer() {

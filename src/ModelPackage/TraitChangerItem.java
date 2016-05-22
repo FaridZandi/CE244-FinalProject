@@ -11,6 +11,6 @@ public class TraitChangerItem extends Item{
             return;
         }
         TraitChangerItem temp = (TraitChangerItem)Model.deepClone(this);
-        buyer.addBuff(getAffectingBuffAfterBuying());
+        buyer.addBuff((Buff)Model.deepClone(getAffectingBuffAfterBuying()));
     }
 }
