@@ -61,7 +61,15 @@ public class Buff {
         return name;
     }
 
-    public boolean getPermanent() {
+    public boolean isPermanent() {
         return isPermanent;
+    }
+
+    public int getHowMuchLeftToEnd() {
+        return howMuchLeftToEnd;
+    }
+
+    public void setHowMuchLeftToEnd(int howMuchLeftToEnd) {
+        this.howMuchLeftToEnd = howMuchLeftToEnd;
     }
 }

@@ -236,7 +236,7 @@ public class Battle {
         for (Hero hero : player.getHeroes()) {
             int buffsNumber =  hero.getBuffs().size();
             for (int i = 0; i < buffsNumber; i++) {
-                if(!hero.getBuffs().get(i).getPermanent())
+                if(!hero.getBuffs().get(i).isPermanent())
                 {
                     hero.removeBuff(hero.getBuffs().get(i).getName());
                     i--;

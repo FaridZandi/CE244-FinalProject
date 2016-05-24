@@ -139,8 +139,55 @@ public class Soldier extends GameObject{
         energyPoints = calculateMaximumEnergyPoint();
 
         //auto cast abilities must be cast here
+        for (Ability ability : this.getAbilities()) {
+            if(ability.isCastable())
+            {
+                CastableAbility castableAbility = (CastableAbility)ability;
+                if(castableAbility.getCastableData().get(castableAbility.getLevel() - 1).isAutoCast())
+                {
+                    this.cast(castableAbility.getName());
+                }
 
-        //cooldown of items and abilities must reduce here
+            }
+        }
+
+        //cooldown of items and abilities must reduce here and also the buffs
+        for (Ability ability : this.getAbilities()) {
+            if(ability.isCastable())
+            {
+                int temp = ((CastableAbility)ability).getTurnsToUseAgain() - 1;
+                if(temp >= 0) {
+                    ((CastableAbility)ability).setTurnsToUseAgain(temp);
+                }
+            }
+        }
+        for (Item item : this.getInventory()) {
+            if(item.isCastable())
+            {
+                int temp = ((CastableItem)item).getTurnsToUseAgain() - 1;
+                if(temp > 0)
+                {
+                    ((CastableItem)item).setTurnsToUseAgain(temp);
+                }
+            }
+        }
+        int buffsNumber = this.getBuffs().size();
+        for (int i = 0; i < buffsNumber; i++) {
+            if(this.getBuffs().get(i).isPermanent())
+            {
+                int temp = this.getBuffs().get(i).getHowMuchLeftToEnd() - 1;
+                if (temp == 0)
+                {
+                    this.getBuffs().remove(i);
+                    i--;
+                    buffsNumber--;
+                }
+                else
+                {
+                    this.getBuffs().get(i).setHowMuchLeftToEnd(temp);
+                }
+            }
+        }
 
 
 
