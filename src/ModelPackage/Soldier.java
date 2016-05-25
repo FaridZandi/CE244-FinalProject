@@ -18,12 +18,19 @@ public class Soldier extends GameObject{
     private Story story;
 
     private ArrayList<Ability> abilities;
-    public Soldier()
+    public Soldier(SoldierType soldierType , Story story)
     {
-        type = new SoldierType();
+        type = soldierType;
         abilities = new ArrayList<>();
+        for (Ability ability : soldierType.getAbilities()) {
+            this.getAbilities().add((Ability)Model.deepClone(ability));
+        }
         buffs = new ArrayList<>();
+        for (Buff buff : soldierType.getDefaultBuffs()) {
+            this.addBuff((Buff)Model.deepClone(buff));
+        }
         inventory = new ArrayList<>();
+        this.story = story;
     }
 
     public ArrayList<Soldier> getArmy()
@@ -107,8 +114,10 @@ public class Soldier extends GameObject{
 
     public void revive()
     {
+        //TODO : this must be called once again at the beginning of the battle for every soldier in the battle.
         currentHealth = calculateMaximumHealth();
         currentMagic = calculateMaximumMagic();
+        energyPoints = calculateMaximumEnergyPoint();
     }
 
     public void timeBasedPutIntoEffect()
@@ -130,8 +139,55 @@ public class Soldier extends GameObject{
         energyPoints = calculateMaximumEnergyPoint();
 
         //auto cast abilities must be cast here
+        for (Ability ability : this.getAbilities()) {
+            if(ability.isCastable())
+            {
+                CastableAbility castableAbility = (CastableAbility)ability;
+                if(castableAbility.getCastableData().get(castableAbility.getLevel() - 1).isAutoCast())
+                {
+                    this.cast(castableAbility.getName());
+                }
 
-        //cooldown of items and abilities must reduce here
+            }
+        }
+
+        //cooldown of items and abilities must reduce here and also the buffs
+        for (Ability ability : this.getAbilities()) {
+            if(ability.isCastable())
+            {
+                int temp = ((CastableAbility)ability).getTurnsToUseAgain() - 1;
+                if(temp >= 0) {
+                    ((CastableAbility)ability).setTurnsToUseAgain(temp);
+                }
+            }
+        }
+        for (Item item : this.getInventory()) {
+            if(item.isCastable())
+            {
+                int temp = ((CastableItem)item).getTurnsToUseAgain() - 1;
+                if(temp > 0)
+                {
+                    ((CastableItem)item).setTurnsToUseAgain(temp);
+                }
+            }
+        }
+        int buffsNumber = this.getBuffs().size();
+        for (int i = 0; i < buffsNumber; i++) {
+            if(this.getBuffs().get(i).isPermanent())
+            {
+                int temp = this.getBuffs().get(i).getHowMuchLeftToEnd() - 1;
+                if (temp == 0)
+                {
+                    this.getBuffs().remove(i);
+                    i--;
+                    buffsNumber--;
+                }
+                else
+                {
+                    this.getBuffs().get(i).setHowMuchLeftToEnd(temp);
+                }
+            }
+        }
 
 
 
@@ -188,7 +244,6 @@ public class Soldier extends GameObject{
 
     public void attack(Soldier target , double attackMultiplier)
     {
-        //  TODO : some EP must be reduced here in certain situations. do it!
         int attackPlus = 0;
         double criticalMultiTotal = 1 + attackMultiplier;
         int splashPercentageTotal = 0;
@@ -424,10 +479,12 @@ public class Soldier extends GameObject{
 
     public SoldierType getType(){return this.type;}
 
-    public void setType(SoldierType type){this.type = type;}
-
     public Story getStory()
     {
         return story;
+    }
+
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
     }
 }

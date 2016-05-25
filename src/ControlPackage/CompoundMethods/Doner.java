@@ -15,6 +15,6 @@ public class Doner implements CompoundMethod
 
     @Override
     public void performMethod(String input) {
-
+        control.getModel().getStory().proceedToNextStage();
     }
 }

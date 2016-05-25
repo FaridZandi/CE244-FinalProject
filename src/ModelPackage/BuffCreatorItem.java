@@ -12,6 +12,6 @@ public class BuffCreatorItem extends Item {
         }
         BuffCreatorItem temp = (BuffCreatorItem)Model.deepClone(this);
         buyer.addItem(temp);
-        buyer.addBuff(getAffectingBuffAfterBuying());
+        buyer.addBuff((Buff)Model.deepClone(getAffectingBuffAfterBuying()));
     }
 }

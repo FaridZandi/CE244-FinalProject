@@ -53,7 +53,7 @@ public class CastableAbility extends Ability {
 
         if(castableData.getAffectingBuff() != null)
         {
-            target.addBuff(castableData.getAffectingBuff());
+            target.addBuff((Buff)Model.deepClone(castableData.getAffectingBuff()));
         }
 
         this.setTurnsToUseAgain(castableData.getCoolDown());

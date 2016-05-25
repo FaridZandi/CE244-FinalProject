@@ -1,5 +1,7 @@
 package ModelPackage;
 
+import com.sun.javafx.sg.prism.NGShape;
+
 import java.util.ArrayList;
 
 /**
@@ -33,6 +35,14 @@ public class CastableItem extends Item {
         }
         CastableItem temp = (CastableItem)Model.deepClone(this);
         buyer.addItem(temp);
-        buyer.addBuff(getAffectingBuffAfterBuying());
+        buyer.addBuff((Buff)Model.deepClone(getAffectingBuffAfterBuying()));
+    }
+
+    public int getTurnsToUseAgain() {
+        return turnsToUseAgain;
+    }
+
+    public void setTurnsToUseAgain(int turnsToUseAgain) {
+        this.turnsToUseAgain = turnsToUseAgain;
     }
 }

@@ -1,5 +1,7 @@
 package ModelPackage;
 
+import ViewPackage.View;
+
 import java.util.ArrayList;
 
 /**
@@ -7,11 +9,12 @@ import java.util.ArrayList;
  */
 public class Enemy extends Soldier {
     int level;
-    ArrayList<SoldierType> types;
 
-    public Enemy()
+    SoldierType types;
+
+    public Enemy(SoldierType soldierType, Story story)
     {
-        types = new ArrayList<>();
+        super(soldierType, story);
     }
 
     @Override
@@ -20,6 +23,7 @@ public class Enemy extends Soldier {
         if(this.getCurrentHealth() == 0)
         {
             this.getArmy().remove(this);
+            View.show(this.getName() + " was slain!");
             //TODO : an enemy soldier has been killed here, perform necessary things.
         }
     }

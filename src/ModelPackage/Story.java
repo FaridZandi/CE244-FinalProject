@@ -1,17 +1,20 @@
 package ModelPackage;
 
+import ViewPackage.View;
+
 import java.util.ArrayList;
 
 /**
  * Created by Y50 on 5/2/2016.
  */
 public class Story {
-    private String startingStory;
+    private String endingStory;
     private ArrayList<Battle> battles;
     private int currentBattleNumber;
     private GameObjectsHolder gameObjectsHolder;
     private Shop shop;
 
+    private boolean isGameOver;
 
     public Story(GameObjectsHolder gameObjectsHolder){
         this.gameObjectsHolder = gameObjectsHolder;
@@ -21,18 +24,50 @@ public class Story {
         battles = new ArrayList<>();
     }
 
+
+    public void proceedToNextStage()
+    {
+        if(!getCurrentBattle().isBattleFinished())
+        {
+            getCurrentBattle().proceedToNextStage();
+        }
+        else
+        {
+            getCurrentBattle().finish();
+            if(currentBattleNumber == battles.size() - 1)
+            {
+                this.finish();
+            }
+            else
+            {
+                currentBattleNumber++;
+                getCurrentBattle().proceedToNextStage();
+            }
+        }
+    }
+
+
+    private void loseGame()
+    {
+        View.show("You lost!");
+        isGameOver = true;
+    }
+    private void finish() {
+        View.show(endingStory);
+        isGameOver = true;
+    }
+
     public Battle getCurrentBattle()
     {
-        return null;
-        //return battles.get(currentBattleNumber);
+        return battles.get(currentBattleNumber);
     }
 
-    public String getStartingStory() {
-        return startingStory;
+    public String getEndingStory() {
+        return endingStory;
     }
 
-    public void setStartingStory(String startingStory) {
-        this.startingStory = startingStory;
+    public void setEndingStory(String endingStory) {
+        this.endingStory = endingStory;
     }
 
     public boolean isCurrentlyInBattle()
@@ -42,5 +77,16 @@ public class Story {
 
     public Shop getShop() {
         return shop;
+    }
+
+    public boolean isGameOver() {
+        return isGameOver;
+    }
+
+    public void checkGameOver() {
+        if(gameObjectsHolder.getPlayer().isGameOver())
+        {
+            loseGame();
+        }
     }
 }

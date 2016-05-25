@@ -60,4 +60,16 @@ public class Buff {
     public String getName() {
         return name;
     }
+
+    public boolean isPermanent() {
+        return isPermanent;
+    }
+
+    public int getHowMuchLeftToEnd() {
+        return howMuchLeftToEnd;
+    }
+
+    public void setHowMuchLeftToEnd(int howMuchLeftToEnd) {
+        this.howMuchLeftToEnd = howMuchLeftToEnd;
+    }
 }

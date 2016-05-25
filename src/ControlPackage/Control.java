@@ -2,6 +2,7 @@ package ControlPackage;
 import ModelPackage.Model;
 import ViewPackage.View;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -12,11 +13,10 @@ public class Control
     private Model model;
     private InputHandler inputHandler;
     private View view;
-    private CompoundMethod compoundMethod;
 
     public static void main(String[] args) {
         Control control = new Control();
-        control.something();
+        control.getContinuousInput();
     }
 
     public Control()
@@ -26,10 +26,10 @@ public class Control
         inputHandler = new InputHandler(this);
     }
 
-    public void something()
+    public void getContinuousInput()
     {
         Scanner scanner = new Scanner(System.in);
-        while(true) {
+        while(!model.getStory().isGameOver()) {
             view.getInput(scanner);
         }
     }

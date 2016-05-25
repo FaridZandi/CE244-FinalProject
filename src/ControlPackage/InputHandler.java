@@ -146,14 +146,14 @@ public class InputHandler
             control.getView().show("Command not valid here. Use \"help\" to see valid Commands");
         }
         inputType.getCompoundMethod().performMethod(input);
-
+        control.getModel().getStory().checkGameOver();
     }
 
     public String getCurrentSituation()
     {
 //        boolean isInBattle = control.getModel().getStory().isCurrentlyInBattle();
 //        boolean isInShop =  control.getModel().getStory().getCurrentBattle().isInShop();
-//        boolean isInAblilityAcquireArea =  control.getModel().getStory().getCurrentBattle()
+//        boolean isInAbilityAcquiringStage =  control.getModel().getStory().getCurrentBattle()
         boolean isInBattle = true;
         boolean isInShop = true;
         boolean isInAbilityAcquiringStage = false;

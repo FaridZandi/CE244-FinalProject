@@ -1,5 +1,7 @@
 package ModelPackage;
 
+import ViewPackage.View;
+
 import java.util.ArrayList;
 
 /**
@@ -9,9 +11,9 @@ public class Hero extends Soldier{
 
     private Player player;
 
-    public Hero()
+    public Hero(SoldierType soldierType ,Story story)
     {
-
+        super(soldierType, story);
     }
 
     @Override
@@ -22,12 +24,13 @@ public class Hero extends Soldier{
             if(this.player.getImmortalityPotions() > 0)
             {
                 this.player.setImmortalityPotions(this.player.getImmortalityPotions() - 1);
-                // TODO : an immortality potion was used here, perform necessary tasks.
+                View.show("An immortality potion was used to revive " + this.getName() +"!");
                 this.revive();
             }
             else
             {
-                // TODO : game over
+                View.show(this.getName() + " died with glory! his soul will rest in peace!");
+                this.player.setGameOver(true);
             }
         }
     }
@@ -35,7 +38,6 @@ public class Hero extends Soldier{
     public boolean payPrice(Price price, boolean isPricePaid)
     {
         if(
-                getCurrentHealth() > price.getHealthPrice()&&
                         getCurrentMagic() > price.getMagicPrice() &&
                         getEnergyPoints() > price.getEPPrice() &&
                         player.getGold() > price.getGoldPrice() &&
@@ -45,7 +47,7 @@ public class Hero extends Soldier{
             {
                 setCurrentMagic(getCurrentMagic() - price.getMagicPrice());
                 setCurrentHealth(getCurrentHealth() - price.getHealthPrice());
-                setEnergyPoints(getEnergyPoints() - price.getEPPrice());
+                this.getAttacked(price.getHealthPrice());
                 player.setGold(player.getGold() - price.getGoldPrice());
                 player.setXp(player.getXp() - price.getXPPrice());
             }

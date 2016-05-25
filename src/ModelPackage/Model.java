@@ -116,9 +116,9 @@ public class Model {
         }
         return abilities;
     }
-    public static ArrayList<Hero> loadHero()
+    public ArrayList<Hero> loadHero()
     {
-        Hero hero = new Hero();
+        Hero hero = new Hero(new SoldierType() , story);
         ArrayList<Hero> heroes = new ArrayList<>();
         BufferedReader br;
         Map<String,String> mapingData = new HashMap<>();
@@ -168,6 +168,7 @@ public class Model {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
             objectOutputStream.writeObject(object);
+            System.out.println(object);
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
             ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
             return objectInputStream.readObject();

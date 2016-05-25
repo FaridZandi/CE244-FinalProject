@@ -12,7 +12,7 @@ public class CastableData{
     private double attackMultiplier;
     private boolean isGlobalFriendly;
     private boolean isGlobalEnemy;
-    private boolean autoCast;
+    private boolean isAutoCast;
     private Buff affectingBuff;
 
     private int turnsToUseAgain;
@@ -26,7 +26,7 @@ public class CastableData{
         this.attackMultiplier = attackMultiplier;
         this.isGlobalFriendly = isGlobalFriendly;
         this.isGlobalEnemy = isGlobalEnemy;
-        this.autoCast = autoCast;
+        this.isAutoCast = autoCast;
         this.affectingBuff = affectingBuff;
     }
 
@@ -59,7 +59,7 @@ public class CastableData{
     }
 
     public boolean isAutoCast() {
-        return autoCast;
+        return isAutoCast;
     }
 
     public int getTurnsToUseAgain() {
