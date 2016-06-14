@@ -15,10 +15,15 @@ public class CastableAbility extends Ability {
 
     private int turnsToUseAgain;
 
-    public CastableAbility()
-    {
-        castPrices = new ArrayList<>();
-        castableData = new ArrayList<>();
+    public CastableAbility(String name, ArrayList<Price> acquirePrices, ArrayList<PrerequisiteAbility> prerequisiteAbilities, boolean isBuffsReplacedEachLevel, ArrayList<Buff> affectingBuffsAfterAcquiring, String abilityInfo, ArrayList<Price> castPrices, ArrayList<CastableData> castableData, String successMessage, Boolean isCastableOnEnemies, Boolean isCastableOnFriendlies) {
+        super(name, acquirePrices, prerequisiteAbilities, isBuffsReplacedEachLevel, affectingBuffsAfterAcquiring, abilityInfo);
+        this.castPrices = castPrices;
+        this.castableData = castableData;
+        this.successMessage = successMessage;
+        this.isCastableOnEnemies = isCastableOnEnemies;
+        this.isCastableOnFriendlies = isCastableOnFriendlies;
+        this.turnsToUseAgain = 0;
+        setCastable(true);
     }
 
     public void cast(Soldier target, Soldier caster)

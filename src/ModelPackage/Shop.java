@@ -11,7 +11,7 @@ public class Shop {
 
     public Shop(GameObjectsHolder gameObjectsHolder, String category)
     {
-        buyableItems = gameObjectsHolder.getItems(category);
+        buyableItems = gameObjectsHolder.getItemsWithCategory(category);
     }
 
     public void purchase(String itemName, Hero buyer)

@@ -22,9 +22,10 @@ public class CastableItem extends Item {
         System.out.println("hello there");
     }
 
-    public CastableItem()
-    {
-
+    public CastableItem(String name, String category, Price purchasePrice, int priceIncreaseRate, Buff affectingBuffAfterBuying, int charges) {
+        super(name, category, purchasePrice, priceIncreaseRate, affectingBuffAfterBuying);
+        this.setCastable(true);
+        this.charges = charges;
     }
 
     @Override
@@ -44,5 +45,9 @@ public class CastableItem extends Item {
 
     public void setTurnsToUseAgain(int turnsToUseAgain) {
         this.turnsToUseAgain = turnsToUseAgain;
+    }
+
+    public void setCastableData(CastableData castableData) {
+        this.castableData = castableData;
     }
 }

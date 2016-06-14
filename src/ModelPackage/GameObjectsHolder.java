@@ -1,6 +1,7 @@
 package ModelPackage;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Y50 on 5/2/2016.
@@ -57,8 +58,17 @@ public class GameObjectsHolder {
         }
         return null;
     }
+    public ArrayList<Item> getItems()
+    {
+        return items;
+    }
 
-    public ArrayList<Item> getItems(String category)
+    public void setItems(ArrayList<Item> items)
+    {
+        this.items = items;
+    }
+
+    public ArrayList<Item> getItemsWithCategory(String category)
     {
         ArrayList<Item> temp = new ArrayList<>();
         for (Item item : items) {
@@ -77,5 +87,9 @@ public class GameObjectsHolder {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void setSoldierTypes(ArrayList soldierTypes) {
+        this.soldierTypes = soldierTypes;
     }
 }

@@ -11,9 +11,15 @@ public class Hero extends Soldier{
 
     private Player player;
 
-    public Hero(SoldierType soldierType ,Story story)
+    public Hero(String soldierType, String name, ArrayList<Ability> abilities1)
     {
-        super(soldierType, story);
+        super(soldierType , name , abilities1);
+    }
+
+    @Override
+    public void init(Story story) {
+        super.init(story);
+        this.player = this.getStory().getGameObjectsHolder().getPlayer();
     }
 
     @Override

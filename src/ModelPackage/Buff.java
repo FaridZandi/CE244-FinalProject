@@ -5,8 +5,8 @@ package ModelPackage;
  */
 public class Buff {
     private String name;
-    private boolean isPermanent;
-    private int duration;
+    private boolean isPermanent = true;
+    private int duration = 0;
     private int attackPowerIncrease;
     private int maximumHealthIncrease;
     private int maximumMagicIncrease;
@@ -20,6 +20,20 @@ public class Buff {
     public Buff(String name ,int attackPowerIncrease , int maximumHealthIncrease , int maximumMagicIncrease , int energyPointIncrease , int criticalDamageChance , int criticalDamageMultiplier , int damageSplashPercentage)
     {
         this.name = name;
+        this.attackPowerIncrease = attackPowerIncrease;
+        this.maximumHealthIncrease = maximumHealthIncrease;
+        this.maximumMagicIncrease = maximumMagicIncrease;
+        this.energyPointIncrease = energyPointIncrease;
+        this.criticalDamageChance = criticalDamageChance;
+        this.criticalDamageMultiplier = criticalDamageMultiplier;
+        this.damageSplashPercentage = damageSplashPercentage;
+        this.isPermanent = true;
+    }
+
+    public Buff(String name, boolean isPermanent, int duration, int attackPowerIncrease, int maximumHealthIncrease, int maximumMagicIncrease, int energyPointIncrease, int criticalDamageChance, int criticalDamageMultiplier, int damageSplashPercentage) {
+        this.name = name;
+        this.isPermanent = isPermanent;
+        this.duration = duration;
         this.attackPowerIncrease = attackPowerIncrease;
         this.maximumHealthIncrease = maximumHealthIncrease;
         this.maximumMagicIncrease = maximumMagicIncrease;

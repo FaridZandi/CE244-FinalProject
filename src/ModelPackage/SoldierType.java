@@ -18,10 +18,18 @@ public class SoldierType extends GameObject{
     private int magicRefillRatePercentage;
 
 
-    public SoldierType()
-    {
-        abilities = new ArrayList<>();
-        defaultBuffs = new ArrayList<>();
+
+    public SoldierType(String name ,ArrayList<Ability> abilities, ArrayList<Buff> defaultBuffs, int attackPower, int maximumHealth, int maximumMagic, int inventorySize, int energyPoints, int healthRefillRatePercentage, int magicRefillRatePercentage) {
+        setName(name);
+        this.abilities = abilities;
+        this.defaultBuffs = defaultBuffs;
+        this.attackPower = attackPower;
+        this.maximumHealth = maximumHealth;
+        this.maximumMagic = maximumMagic;
+        this.inventorySize = inventorySize;
+        this.energyPoints = energyPoints;
+        this.healthRefillRatePercentage = healthRefillRatePercentage;
+        this.magicRefillRatePercentage = magicRefillRatePercentage;
     }
 
     public void describe()

@@ -25,7 +25,7 @@ public class Acquirer implements CompoundMethod
         String abilityName = input.substring( forIndex + 4);
         System.out.println(abilityName);
 
-        Hero acquirer = control.getModel().getGameObjectsHolder().getPlayer().findHero(acquirerName);
+        Hero acquirer = control.getModel().getStory().getGameObjectsHolder().getPlayer().findHero(acquirerName);
 
         if(acquirer == null)
         {

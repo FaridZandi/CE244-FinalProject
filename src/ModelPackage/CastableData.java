@@ -30,6 +30,7 @@ public class CastableData{
         this.affectingBuff = affectingBuff;
     }
 
+
     public int getDamage() {
         return damage;
     }

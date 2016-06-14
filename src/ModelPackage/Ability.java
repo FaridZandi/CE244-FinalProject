@@ -20,14 +20,19 @@ public class Ability extends GameObject {
     private String AbilityInfo;
     //public Ability(){}
 
-    public Ability()
-    {
+    public Ability(String name,ArrayList<Price> acquirePrices, ArrayList<PrerequisiteAbility> prerequisiteAbilities, boolean isBuffsReplacedEachLevel, ArrayList<Buff> affectingBuffsAfterAcquiring, String abilityInfo) {
+        setName(name);
+        isCastable = false;
         this.level = 0;
         maximumNumberOfUpgrades = 3;
-        AcquirePrices = new ArrayList<>();
-        affectingBuffsAfterAcquiring = new ArrayList<>();
-        prerequisiteAbilities = new ArrayList<>();
+        AcquirePrices = acquirePrices;
+        this.prerequisiteAbilities = prerequisiteAbilities;
+        this.isBuffsReplacedEachLevel = isBuffsReplacedEachLevel;
+        this.affectingBuffsAfterAcquiring = affectingBuffsAfterAcquiring;
+        AbilityInfo = abilityInfo;
     }
+
+
 
 
     public void cast(Soldier target, Soldier soldier)

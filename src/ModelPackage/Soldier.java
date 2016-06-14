@@ -13,24 +13,42 @@ public class Soldier extends GameObject{
     private int currentMagic;
     private int energyPoints;
     private SoldierType type;
+    private String soldierTypeName;
     private ArrayList<Buff> buffs;
     private ArrayList<Item> inventory;
     private Story story;
 
     private ArrayList<Ability> abilities;
-    public Soldier(SoldierType soldierType , Story story)
+    public Soldier(String soldierTypeName, String name, ArrayList<Ability> abilities)
     {
-        type = soldierType;
-        abilities = new ArrayList<>();
-        for (Ability ability : soldierType.getAbilities()) {
+        this.setName(name);
+        this.soldierTypeName = soldierTypeName;
+        this.abilities = abilities;
+        inventory = new ArrayList<>();
+        buffs = new ArrayList<>();
+    }
+
+    public void init(Story story)
+    {
+        this.story = story;
+        try {
+            this.type = (SoldierType) story.getGameObjectsHolder().find(soldierTypeName);
+        }
+        catch (ClassCastException e)
+        {
+            View.show("Save file corrupted!");
+            System.exit(0);
+        }
+        for (Ability ability : type.getAbilities()) {
             this.getAbilities().add((Ability)Model.deepClone(ability));
         }
         buffs = new ArrayList<>();
-        for (Buff buff : soldierType.getDefaultBuffs()) {
+        for (Buff buff : type.getDefaultBuffs()) {
             this.addBuff((Buff)Model.deepClone(buff));
         }
-        inventory = new ArrayList<>();
-        this.story = story;
+        this.currentMagic = type.getMaximumMagic();
+        this.currentHealth = type.getMaximumHealth();
+        this.energyPoints = type.getEnergyPoints();
     }
 
     public ArrayList<Soldier> getArmy()

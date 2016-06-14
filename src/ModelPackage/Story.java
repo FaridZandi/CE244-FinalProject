@@ -89,4 +89,12 @@ public class Story {
             loseGame();
         }
     }
+
+    public GameObjectsHolder getGameObjectsHolder() {
+        return gameObjectsHolder;
+    }
+
+    public void setGameObjectsHolder(GameObjectsHolder gameObjectsHolder) {
+        this.gameObjectsHolder = gameObjectsHolder;
+    }
 }

@@ -1,7 +1,6 @@
 package ModelPackage;
 
 import ViewPackage.View;
-
 import java.util.ArrayList;
 
 /**
@@ -12,9 +11,9 @@ public class Enemy extends Soldier {
 
     SoldierType types;
 
-    public Enemy(SoldierType soldierType, Story story)
+    public Enemy(String soldierType, String name)
     {
-        super(soldierType, story);
+        super(soldierType, name, new ArrayList<Ability>());
     }
 
     @Override

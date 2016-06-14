@@ -43,7 +43,7 @@ public class Attacker implements CompoundMethod
 
         if(control.getModel().getStory().getCurrentBattle().getTeam(attacker , true).contains(target))
         {
-            View.show("Cannot attack a unit from own team");
+            View.show("Cannot attack a unit from own team, please try again.");
             return;
         }
 

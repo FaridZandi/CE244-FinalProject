@@ -24,7 +24,7 @@ public class Describer implements CompoundMethod
         System.out.println(properInput);
         properInput = properInput.trim();
         String[] words = properInput.split(" ");
-        GameObject searchResult = control.getModel().getGameObjectsHolder().find(words[0]);
+        GameObject searchResult = control.getModel().getStory().getGameObjectsHolder().find(words[0]);
         if(words.length == 1)
         {
             if (searchResult == null) {

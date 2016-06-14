@@ -5,17 +5,23 @@ import java.io.Serializable;
 /**
  * Created by Y50 on 5/1/2016.
  */
-public class Item extends GameObject implements Serializable{
+public class Item extends GameObject{
     private boolean isCastable;
-    private boolean takeSpaceInInventory;
+    private boolean isTakingSpaceInInventory;
     private String category;
     private Price purchasePrice;
     private int priceIncreaseRate;
     private int howManyPurchased;
     private Buff affectingBuffAfterBuying;
 
-    public Item()
-    {
+    public Item(String name, String category, Price purchasePrice, int priceIncreaseRate, Buff affectingBuffAfterBuying) {
+        this.setName(name);
+        this.isCastable = false;
+        this.isTakingSpaceInInventory = true;
+        this.category = category;
+        this.purchasePrice = purchasePrice;
+        this.priceIncreaseRate = priceIncreaseRate;
+        this.affectingBuffAfterBuying = affectingBuffAfterBuying;
         howManyPurchased = 0;
     }
 
@@ -30,7 +36,7 @@ public class Item extends GameObject implements Serializable{
 
     public boolean isEverythingOkToBuy(Hero buyer)
     {
-        if(takeSpaceInInventory && !buyer.haveSpaceInInventory())
+        if(isTakingSpaceInInventory && !buyer.haveSpaceInInventory())
             return false;
         int goldRequiredTotal = purchasePrice.getGoldPrice() + priceIncreaseRate * howManyPurchased;
         Price totalPurchasePrice = new Price(goldRequiredTotal , purchasePrice.getXPPrice() , purchasePrice.getEPPrice() , purchasePrice.getMagicPrice() , purchasePrice.getHealthPrice());
@@ -41,20 +47,12 @@ public class Item extends GameObject implements Serializable{
         return true;
     }
 
-    public boolean isTakeSpaceInInventory() {
-        return takeSpaceInInventory;
-    }
-
     public boolean isCastable() {
         return isCastable;
     }
 
     public Buff getAffectingBuffAfterBuying() {
         return affectingBuffAfterBuying;
-    }
-
-    public void setHowManyPurchased(int howManyPurchased) {
-        this.howManyPurchased = howManyPurchased;
     }
 
     public String getCategory() {
@@ -71,6 +69,26 @@ public class Item extends GameObject implements Serializable{
 
     public int getHowManyPurchased() {
         return howManyPurchased;
+    }
+
+    public void setHowManyPurchased(int howManyPurchased) {
+        this.howManyPurchased = howManyPurchased;
+    }
+
+    public void setPurchasePrice(Price purchasePrice) {
+        this.purchasePrice = purchasePrice;
+    }
+
+    public void setCastable(boolean isCastable) {
+        this.isCastable = isCastable;
+    }
+
+    public boolean isTakingSpaceInInventory() {
+        return isTakingSpaceInInventory;
+    }
+
+    public void setTakingSpaceInInventory(boolean takingSpaceInInventory) {
+        isTakingSpaceInInventory = takingSpaceInInventory;
     }
 }
 
