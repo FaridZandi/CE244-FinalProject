@@ -16,7 +16,6 @@ public class Control
     private View view;
 
     public static void main(String[] args) {
-
         Control control = new Control();
         control.getContinuousInput();
     }
