@@ -1,0 +1,50 @@
+[
+  {
+    "battleStory": "You’ve entered the castle, it takes a while for your eyes to get used to the darkness but the horrifying halo of your enemies is vaguely visible. Angel’s unsettling presence and the growling of thugs tell you that your first battle has BEGUN!",
+    "EnemyInfo": "3 weak thugs – 1 weak angel",
+    "winningXP": 20,
+    "winningGold": 50,
+    "isInHeroesDescriptionStage": false,
+    "isInEnemyDescriptionStage": false,
+    "isInAbilityAcquiringStage": false,
+    "isInShoppingStage": false,
+    "isInFightStage": false,
+    "isBattleFinished": false
+  },
+  {
+    "battleStory": "As you wander into the hall you realize the surrounding doors can lead your destiny to something far worse than you expected. You know what’s anticipating you behind the only open door but there’s no other choice.",
+    "EnemyInfo": "3 weak thugs – 1 weak angel",
+    "winningXP": 25,
+    "winningGold": 60,
+    "isInHeroesDescriptionStage": false,
+    "isInEnemyDescriptionStage": false,
+    "isInAbilityAcquiringStage": false,
+    "isInShoppingStage": false,
+    "isInFightStage": false,
+    "isBattleFinished": false
+  },
+  {
+    "battleStory": "The door behind you is shut with a thunderous sound and you progress into the next hall holding the first key that you’ve found, hoping to seek the second one.",
+    "EnemyInfo": "2 able thugs – 1 weak angel – 1 weak tank",
+    "winningXP": 30,
+    "winningGold": 70,
+    "isInHeroesDescriptionStage": false,
+    "isInEnemyDescriptionStage": false,
+    "isInAbilityAcquiringStage": false,
+    "isInShoppingStage": false,
+    "isInFightStage": false,
+    "isBattleFinished": false
+  },
+  {
+    "battleStory": "Running with the second key in your hand, you unlock the door back to the first hall and use the first key to burst into your most terrifying nightmares.",
+    "EnemyInfo": "2 mighty thugs – 1 able angel – 2 able tanks",
+    "winningXP": 35,
+    "winningGold": 80,
+    "isInHeroesDescriptionStage": false,
+    "isInEnemyDescriptionStage": false,
+    "isInAbilityAcquiringStage": false,
+    "isInShoppingStage": false,
+    "isInFightStage": false,
+    "isBattleFinished": false
+  }
+]

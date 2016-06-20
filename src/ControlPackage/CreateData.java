@@ -1,6 +1,7 @@
 package ControlPackage;
 
 import ModelPackage.Ability;
+import ModelPackage.Battle;
 import ModelPackage.Buff;
 import ModelPackage.BuffCreatorItem;
 import ModelPackage.CastableAbility;
@@ -13,6 +14,7 @@ import ModelPackage.PrerequisiteAbility;
 import ModelPackage.Price;
 import ModelPackage.SoldierType;
 import ModelPackage.TraitChangerItem;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +22,20 @@ import java.util.ArrayList;
  */
 public class CreateData
 {
+
+    public static void writeBattles()
+    {
+        Battle battle1 = new Battle("You’ve entered the castle, it takes a while for your eyes to get used to the darkness but the horrifying halo of your enemies is vaguely visible. Angel’s unsettling presence and the growling of thugs tell you that your first battle has BEGUN!" , "3 weak thugs – 1 weak angel" , 20 , 50);
+        Battle battle2 = new Battle("As you wander into the hall you realize the surrounding doors can lead your destiny to something far worse than you expected. You know what’s anticipating you behind the only open door but there’s no other choice." , "3 weak thugs – 1 weak angel" , 25 , 60);
+        Battle battle3 = new Battle("The door behind you is shut with a thunderous sound and you progress into the next hall holding the first key that you’ve found, hoping to seek the second one." , "2 able thugs – 1 weak angel – 1 weak tank" , 30 , 70);
+        Battle battle4 = new Battle("Running with the second key in your hand, you unlock the door back to the first hall and use the first key to burst into your most terrifying nightmares." , "2 mighty thugs – 1 able angel – 2 able tanks" , 35 , 80);
+        ArrayList<Battle> battles = new ArrayList<>();
+        battles.add(battle1);
+        battles.add(battle2);
+        battles.add(battle3);
+        battles.add(battle4);
+        Model.writeJsonEncodedToFile("battles.txt" , battles);
+    }
     public static void writeItems()
     {
 
@@ -104,9 +120,53 @@ public class CreateData
         abilities2.add(quickAsABunny);
         abilities2.add(magicLessons);
         SoldierType supporter = new SoldierType("Supporter" , abilities2, null, 120 , 200 , 120 , 2 , 6 , 10, 5);
+
+
+
+
+        SoldierType weakThug = new SoldierType  ("Weak Thug" , null , null , 50 , 200 , 0, 0 , 2 , 0 , 0);
+        SoldierType ableThug = new SoldierType  ("Able Thug" , null , null , 90 , 300 , 0, 0 , 2 , 0 , 0);
+        SoldierType mightyThug = new SoldierType("Mighty Thug" , null , null , 150 , 400 , 0, 0 , 2 , 0 , 0);
+
+        ArrayList<CastableData> castableData1 = new ArrayList<>();
+        castableData1.add(new CastableData(0 , 100 , 0 , 0 , 0 , 0,false , false , true , null));
+        ArrayList<CastableData> castableData2 = new ArrayList<>();
+        castableData1.add(new CastableData(0 , 150 , 0 , 0 , 0 , 0,false , false , true , null));
+        ArrayList<Price> castPrice1 = new ArrayList<>();
+        castPrice1.add(new Price(0 , 0 , 2 , 0 , 0));
+        ArrayList<Price> castPrice2 = new ArrayList<>();
+        castPrice2.add(new Price(0 , 0 , 2 , 0 , 0));
+
+        ArrayList<Ability> heal1 = new ArrayList<>();
+        heal1.add(new CastableAbility("Heal Level 1" , null , null ,false , null , "Heals Other Soldiers" , castPrice1 , castableData1 , "“Angel just healed “ + (target) + “ with “ + (healing amount) + “ health points”" , true , false));
+        ArrayList<Ability> heal2 = new ArrayList<>();
+        heal2.add(new CastableAbility("Heal Level 2" , null , null ,false , null , "Heals Other Soldiers" , castPrice2 , castableData2 , "“Angel just healed “ + (target) + “ with “ + (healing amount) + “ health points”" , true , false));
+
+
+        SoldierType weakAngel = new SoldierType("Weak Angel" , heal1 , null , 0 , 150 , 0, 0 , 2 , 0 , 0);
+        SoldierType AbleAngel = new SoldierType("Able Angel" , heal2 , null , 0 , 250 , 0, 0 , 2 , 0 , 0);
+
+        ArrayList<Buff> buff1= new ArrayList<>();
+        buff1.add(new Buff("Weak Tank Buff", true , 0 , 0, 0 , 0 , 0 , 0 ,0 , 100));
+        ArrayList<Buff> buff2= new ArrayList<>();
+        buff2.add(new Buff("Able Tank Buff", true , 0 , 0, 0 , 0 , 0 , 0 ,0 , 100));
+        SoldierType weakTank = new SoldierType("Weak Tank", null , buff1 , 30 , 400 , 0 , 0 , 2  , 0 , 0);
+        SoldierType AbleTank = new SoldierType("Able Tank", null , buff2 , 900 , 500 , 0 , 0 , 2  , 0 , 0);
+
+
+
         ArrayList<SoldierType> soldierTypes = new ArrayList<>();
         soldierTypes.add(fighter);
         soldierTypes.add(supporter);
+        soldierTypes.add(weakThug);
+        soldierTypes.add(ableThug);
+        soldierTypes.add(mightyThug);
+        soldierTypes.add(weakAngel);
+        soldierTypes.add(AbleAngel);
+        soldierTypes.add(weakTank);
+        soldierTypes.add(AbleTank);
+
+
         Model.writeJsonEncodedToFile("soldierTypes.txt" , soldierTypes);
     }
     public static void writeHeroes()

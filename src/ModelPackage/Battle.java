@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Battle {
     private String battleStory;
     private Player player;
+    private String EnemyInfo;
     private EnemyArmy enemyArmy;
     private int winningXP;
     private int winningGold;
@@ -24,24 +25,25 @@ public class Battle {
 
     private boolean isBattleFinished;
 
-
-    public Battle(String battleStory, EnemyArmy enemyArmy, Player player, int winningGold , int winningXP)
-    {
+    public Battle(String battleStory, String enemyInfo, int winningXP, int winningGold) {
         this.battleStory = battleStory;
-        this.enemyArmy = enemyArmy;
-        enemyArmy.setCurrentBattle(this);
-        this.player = player;
-        player.setCurrentBattle(this);
-        this.winningGold = winningGold;
+        EnemyInfo = enemyInfo;
         this.winningXP = winningXP;
+        this.winningGold = winningGold;
+    }
 
+    public void init(Story story)
+    {
+        createEnemyArmyFromInfo(story);
+        this.player = story.getGameObjectsHolder().getPlayer();
+        player.setCurrentBattle(this);
         isInEnemyDescriptionStage = false;
         isInHeroesDescriptionStage = false;
         isInAbilityAcquiringStage = false;
         isInShoppingStage = false;
         isInFightStage = false;
-
         isBattleFinished = false;
+        enemyArmy.setCurrentBattle(this);
     }
 
     public void proceedToNextStage()
@@ -98,6 +100,40 @@ public class Battle {
 
 
 
+
+    public void createEnemyArmyFromInfo(Story story)
+    {
+        enemyArmy = new EnemyArmy();
+        String[] groups = EnemyInfo.split("–");
+        for (int i = 0; i < groups.length; i++) {
+            groups[i] = groups[i].replaceAll("[ ]{2,}" , " ");
+            groups[i] = groups[i].trim();
+//            System.out.println(groups[i]);
+        }
+        for (String group : groups) {
+            String[] parts = group.split(" " , 2);
+            int number = Integer.parseInt(parts[0]);
+            String type = parts[1];
+            if(number > 1)
+            {
+                type = type.substring(0 , type.length() - 1);
+            }
+            for (int i = 0; i < number; i++) {
+                String name;
+                if(number == 1)
+                {
+                    name = type;
+                }
+                else
+                {
+                    name = type + " " + i;
+                }
+                Enemy e = new Enemy(type , name);
+                e.init(story);
+                enemyArmy.getEnemies().add(e);
+            }
+        }
+    }
     private void startEnemyDescriptionStage() {
         isInEnemyDescriptionStage = true;
         enemyArmy.showEnemyData();
@@ -221,6 +257,10 @@ public class Battle {
         return isInHeroesDescriptionStage;
     }
 
+    public boolean isInFightStage()
+    {
+        return isInFightStage;
+    }
     public boolean isBattleFinished() {
         return isBattleFinished;
     }
@@ -265,6 +305,10 @@ public class Battle {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void setPlayer(Player player){
+        this.player = player;
     }
 
     public void setBattleFinished(Boolean isBattleFinished) {

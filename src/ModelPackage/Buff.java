@@ -1,9 +1,11 @@
 package ModelPackage;
 
+import java.io.Serializable;
+
 /**
  * Created by Y50 on 5/1/2016.
  */
-public class Buff {
+public class Buff implements Serializable{
     private String name;
     private boolean isPermanent = true;
     private int duration = 0;

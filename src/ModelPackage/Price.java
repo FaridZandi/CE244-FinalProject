@@ -1,9 +1,11 @@
 package ModelPackage;
 
+import java.io.Serializable;
+
 /**
  * Created by Y50 on 5/1/2016.
  */
-public class Price{
+public class Price implements Serializable{
     private int goldPrice = 0;
     private int XPPrice = 0;
     private int EPPrice = 0;

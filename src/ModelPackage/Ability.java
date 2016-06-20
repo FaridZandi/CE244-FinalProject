@@ -2,12 +2,15 @@ package ModelPackage;
 
 import ViewPackage.View;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Y50 on 5/1/2016.
  */
-public class Ability extends GameObject {
+public class Ability extends GameObject implements Serializable
+{
     private boolean isCastable;
     private int level ;
 
@@ -40,33 +43,48 @@ public class Ability extends GameObject {
         View.show("couldn't be cast");
     }
 
-    public void acquire(Hero hero)
+    public void acquire(Hero hero, boolean showResponces)
     {
         if( getLevel() >= maximumNumberOfUpgrades )
         {
+
             View.show("This ability cannot be upgraded anymore");
             return ;
         }
         if(hero.payPrice(this.AcquirePrices.get(this.level)))
         {
-            for (Ability ability : hero.getAbilities())
-            {
-                if (ability.getName().equals(this.prerequisiteAbilities.get(this.level).getAbilityName()))
-                {
-                    if (ability.getLevel() < this.prerequisiteAbilities.get(this.level).getAbilityLevel())
-                    {
-                        View.show("Required abilities aren't acquired");
-                        return ;
+            if(this.prerequisiteAbilities != null) {
+                if (prerequisiteAbilities.size() > this.level) {
+                    if (this.getPrerequisiteAbilities().get(this.level) != null) {
+                        PrerequisiteAbility temp = this.getPrerequisiteAbilities().get(this.level);
+                        int prerequisiteLevel = hero.findAbility(temp.getAbilityName()).getLevel();
+                        if (prerequisiteLevel < temp.getAbilityLevel()) {
+                            View.show("You need level " + temp.getAbilityLevel() + " of "+ temp.getAbilityName() + " to acquire this level!");
+                            return;
+                        }
                     }
-                    hero.payPrice(this.AcquirePrices.get(this.level),true);
-                    if(this.level == 0)
-                        View.show("%d acquired successfully,your current experience is: ",hero.getXP());
-                    else
-                        View.show("%d upgraded successfully,your current experience is: ",hero.getXP());
-                    this.level += 1;
                 }
             }
-            return;
+            hero.payPrice(this.AcquirePrices.get(this.level),true);
+            if(this.level == 0)
+                View.show(this.getName() +" was acquired for " + hero.getName() +" successfully," +
+                        "your current experience is: " + hero.getXP());
+            else
+                View.show(this.getName() +" was upgraded to level " + (this.level + 1) + " for " + hero.getName() +" successfully," +
+                        "your current experience is: " + hero.getXP());
+
+            if(this.affectingBuffsAfterAcquiring != null)
+            {
+                if (this.affectingBuffsAfterAcquiring.size()> this.level) {
+                    if (this.affectingBuffsAfterAcquiring.get(this.level) != null) {
+                        if(this.isBuffsReplacedEachLevel)
+                            if(this.level>0)
+                                hero.removeBuff(this.affectingBuffsAfterAcquiring.get(this.level - 1).getName());
+                        hero.addBuff(Model.deepClone(this.affectingBuffsAfterAcquiring.get(this.level),Buff.class));
+                    }
+                }
+            }
+            this.level += 1;
         }
         else
         {
@@ -117,6 +135,6 @@ public class Ability extends GameObject {
 
     public void describe()
     {
-
+        System.out.println("asssoorakh");
     }
 }

@@ -18,10 +18,12 @@ public class Story {
 
     public Story(GameObjectsHolder gameObjectsHolder){
         this.gameObjectsHolder = gameObjectsHolder;
+        Model.loadBattles(this , "battles.txt");
         //TODO : see what you can do about this category thing, it's ok for now however.
         shop = new Shop(gameObjectsHolder , "all");
         currentBattleNumber = 0;
-        battles = new ArrayList<>();
+
+        battles.get(currentBattleNumber).init(this);
     }
 
 
@@ -41,6 +43,7 @@ public class Story {
             else
             {
                 currentBattleNumber++;
+                battles.get(currentBattleNumber).init(this);
                 getCurrentBattle().proceedToNextStage();
             }
         }
@@ -96,5 +99,9 @@ public class Story {
 
     public void setGameObjectsHolder(GameObjectsHolder gameObjectsHolder) {
         this.gameObjectsHolder = gameObjectsHolder;
+    }
+
+    public void setBattles(ArrayList battles) {
+        this.battles = battles;
     }
 }

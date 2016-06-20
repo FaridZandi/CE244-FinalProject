@@ -1,21 +1,21 @@
 package ModelPackage;
 
 
+import ControlPackage.RuntimeTypeAdapterFactory;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
-
 /**
  * Created by Y50 on 4/15/2016.
  */
 public class Model {
-
 
 
     private Story story;
@@ -39,11 +39,18 @@ public class Model {
         loadHeroes(gameObjectsHolder , "heroes.txt");
     }
 
-    private ArrayList loadArrayListObject(String fileName, Type listType) {
+    private static ArrayList loadArrayListObject(String fileName, Type listType) {
+
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(fileName)));
-            String json = bufferedReader.readLine();
-            return new Gson().fromJson(json , listType);
+            String text = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
+            RuntimeTypeAdapterFactory<Ability> adapter =
+                    RuntimeTypeAdapterFactory
+                            .of(Ability.class)
+                            .registerSubtype(Ability.class)
+                            .registerSubtype(CastableAbility.class);
+
+            Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(adapter).create();
+            return gson.fromJson(text , listType);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -52,9 +59,14 @@ public class Model {
         return null;
     }
 
+    public static void loadBattles(Story story, String fileName) {
+        Type listType = new TypeToken<ArrayList<Battle>>() {}.getType();
+        story.setBattles(loadArrayListObject(fileName , listType));
+    }
+
     private void loadHeroes(GameObjectsHolder gameObjectsHolder, String fileName)
     {
-        Type listType = new TypeToken<ArrayList<SoldierType>>() {}.getType();
+        Type listType = new TypeToken<ArrayList<Hero>>() {}.getType();
         gameObjectsHolder.getPlayer().setHeroes(loadArrayListObject(fileName , listType));
     }
 
@@ -69,25 +81,23 @@ public class Model {
         gameObjectsHolder.setItems(loadArrayListObject(fileName , listType));
     }
 
-    public static Object deepClone(Object object)
+    public static <T> T deepClone(Object object , Class<T> tClass)
     {
-        try{
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-            objectOutputStream.writeObject(object);
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
-            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-            return objectInputStream.readObject();
-        }
-        catch (Exception e)
-        {
-            return null;
-        }
+        Gson g = new Gson();
+        String encoded = g.toJson(object);
+        return g.fromJson(encoded ,tClass);
     }
 
     public static void writeJsonEncodedToFile(String fileName , Object object)
     {
-        Gson gson = new Gson();
+
+        RuntimeTypeAdapterFactory<Ability> adapter =
+                RuntimeTypeAdapterFactory
+                        .of(Ability.class)
+                        .registerSubtype(Ability.class)
+                        .registerSubtype(CastableAbility.class);
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(adapter).create();
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(fileName);
             byte[] shit = gson.toJson(object).getBytes();

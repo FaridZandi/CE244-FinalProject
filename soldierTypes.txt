@@ -1,1 +1,493 @@
-[{"abilities":[{"isCastable":false,"level":0,"maximumNumberOfUpgrades":3,"AcquirePrices":[{"goldPrice":0,"XPPrice":2,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":3,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":4,"EPPrice":0,"magicPrice":0,"healthPrice":0}],"isBuffsReplacedEachLevel":false,"affectingBuffsAfterAcquiring":[{"name":"Work out Buff Level 1","isPermanent":false,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":50,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},{"name":"Work out Buff Level 2","isPermanent":false,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":50,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},{"name":"Work out Buff Level 3","isPermanent":false,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":50,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0}],"AbilityInfo":"Permanently increases maximum health.","name":"Work out"},{"isCastable":false,"level":0,"maximumNumberOfUpgrades":3,"AcquirePrices":[{"goldPrice":0,"XPPrice":2,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":3,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":4,"EPPrice":0,"magicPrice":0,"healthPrice":0}],"isBuffsReplacedEachLevel":false,"affectingBuffsAfterAcquiring":[{"name":"Fight Training Buff Level 1","isPermanent":false,"duration":0,"attackPowerIncrease":30,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},{"name":"Fight Training Buff Level 2","isPermanent":false,"duration":0,"attackPowerIncrease":30,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},{"name":"Fight Training Buff Level 3","isPermanent":false,"duration":0,"attackPowerIncrease":30,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0}],"AbilityInfo":"Permanently increases attack power.","name":"Fight Training"}],"attackPower":120,"maximumHealth":200,"maximumMagic":120,"inventorySize":2,"energyPoints":6,"healthRefillRatePercentage":10,"magicRefillRatePercentage":5,"name":"Fighter"},{"abilities":[{"isCastable":false,"level":0,"maximumNumberOfUpgrades":3,"AcquirePrices":[{"goldPrice":0,"XPPrice":2,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":3,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":4,"EPPrice":0,"magicPrice":0,"healthPrice":0}],"isBuffsReplacedEachLevel":false,"affectingBuffsAfterAcquiring":[{"name":"Quick As A Bunny Buff Level 1","isPermanent":false,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":1,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},{"name":"Quick As A Bunny Buff Level 2","isPermanent":false,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":1,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},{"name":"Quick As A Bunny Buff Level 3","isPermanent":false,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":1,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0}],"AbilityInfo":"Permanently increases attack power.","name":"Quick As A Bunny"},{"isCastable":false,"level":0,"maximumNumberOfUpgrades":3,"AcquirePrices":[{"goldPrice":0,"XPPrice":2,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":3,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":4,"EPPrice":0,"magicPrice":0,"healthPrice":0}],"isBuffsReplacedEachLevel":false,"affectingBuffsAfterAcquiring":[{"name":"Magic Lessons Buff Level 1","isPermanent":false,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":50,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},{"name":"Magic Lessons Buff Level 2","isPermanent":false,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":50,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},{"name":"Magic Lessons Buff Level 3","isPermanent":false,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":50,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0}],"AbilityInfo":"Permanently increases maximum health.","name":"Magic Lessons"}],"attackPower":120,"maximumHealth":200,"maximumMagic":120,"inventorySize":2,"energyPoints":6,"healthRefillRatePercentage":10,"magicRefillRatePercentage":5,"name":"Supporter"}]
+[
+  {
+    "abilities": [
+      {
+        "type": "Ability",
+        "isCastable": false,
+        "level": 0,
+        "maximumNumberOfUpgrades": 3,
+        "AcquirePrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 2,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 3,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 4,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          }
+        ],
+        "isBuffsReplacedEachLevel": false,
+        "affectingBuffsAfterAcquiring": [
+          {
+            "name": "Work out Buff Level 1",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 50,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 0,
+            "howMuchLeftToEnd": 0
+          },
+          {
+            "name": "Work out Buff Level 2",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 50,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 0,
+            "howMuchLeftToEnd": 0
+          },
+          {
+            "name": "Work out Buff Level 3",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 50,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 0,
+            "howMuchLeftToEnd": 0
+          }
+        ],
+        "AbilityInfo": "Permanently increases maximum health.",
+        "name": "Work out"
+      },
+      {
+        "type": "Ability",
+        "isCastable": false,
+        "level": 0,
+        "maximumNumberOfUpgrades": 3,
+        "AcquirePrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 2,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 3,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 4,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          }
+        ],
+        "isBuffsReplacedEachLevel": false,
+        "affectingBuffsAfterAcquiring": [
+          {
+            "name": "Fight Training Buff Level 1",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 30,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 0,
+            "howMuchLeftToEnd": 0
+          },
+          {
+            "name": "Fight Training Buff Level 2",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 30,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 0,
+            "howMuchLeftToEnd": 0
+          },
+          {
+            "name": "Fight Training Buff Level 3",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 30,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 0,
+            "howMuchLeftToEnd": 0
+          }
+        ],
+        "AbilityInfo": "Permanently increases attack power.",
+        "name": "Fight Training"
+      }
+    ],
+    "attackPower": 120,
+    "maximumHealth": 200,
+    "maximumMagic": 120,
+    "inventorySize": 2,
+    "energyPoints": 6,
+    "healthRefillRatePercentage": 10,
+    "magicRefillRatePercentage": 5,
+    "name": "Fighter"
+  },
+  {
+    "abilities": [
+      {
+        "type": "Ability",
+        "isCastable": false,
+        "level": 0,
+        "maximumNumberOfUpgrades": 3,
+        "AcquirePrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 2,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 3,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 4,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          }
+        ],
+        "isBuffsReplacedEachLevel": false,
+        "affectingBuffsAfterAcquiring": [
+          {
+            "name": "Quick As A Bunny Buff Level 1",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 1,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 0,
+            "howMuchLeftToEnd": 0
+          },
+          {
+            "name": "Quick As A Bunny Buff Level 2",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 1,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 0,
+            "howMuchLeftToEnd": 0
+          },
+          {
+            "name": "Quick As A Bunny Buff Level 3",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 1,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 0,
+            "howMuchLeftToEnd": 0
+          }
+        ],
+        "AbilityInfo": "Permanently increases attack power.",
+        "name": "Quick As A Bunny"
+      },
+      {
+        "type": "Ability",
+        "isCastable": false,
+        "level": 0,
+        "maximumNumberOfUpgrades": 3,
+        "AcquirePrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 2,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 3,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 4,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          }
+        ],
+        "isBuffsReplacedEachLevel": false,
+        "affectingBuffsAfterAcquiring": [
+          {
+            "name": "Magic Lessons Buff Level 1",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 50,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 0,
+            "howMuchLeftToEnd": 0
+          },
+          {
+            "name": "Magic Lessons Buff Level 2",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 50,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 0,
+            "howMuchLeftToEnd": 0
+          },
+          {
+            "name": "Magic Lessons Buff Level 3",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 50,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 0,
+            "howMuchLeftToEnd": 0
+          }
+        ],
+        "AbilityInfo": "Permanently increases maximum health.",
+        "name": "Magic Lessons"
+      }
+    ],
+    "attackPower": 120,
+    "maximumHealth": 200,
+    "maximumMagic": 120,
+    "inventorySize": 2,
+    "energyPoints": 6,
+    "healthRefillRatePercentage": 10,
+    "magicRefillRatePercentage": 5,
+    "name": "Supporter"
+  },
+  {
+    "attackPower": 50,
+    "maximumHealth": 200,
+    "maximumMagic": 0,
+    "inventorySize": 0,
+    "energyPoints": 2,
+    "healthRefillRatePercentage": 0,
+    "magicRefillRatePercentage": 0,
+    "name": "Weak Thug"
+  },
+  {
+    "attackPower": 90,
+    "maximumHealth": 300,
+    "maximumMagic": 0,
+    "inventorySize": 0,
+    "energyPoints": 2,
+    "healthRefillRatePercentage": 0,
+    "magicRefillRatePercentage": 0,
+    "name": "Able Thug"
+  },
+  {
+    "attackPower": 150,
+    "maximumHealth": 400,
+    "maximumMagic": 0,
+    "inventorySize": 0,
+    "energyPoints": 2,
+    "healthRefillRatePercentage": 0,
+    "magicRefillRatePercentage": 0,
+    "name": "Mighty Thug"
+  },
+  {
+    "abilities": [
+      {
+        "type": "CastableAbility",
+        "castPrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 2,
+            "magicPrice": 0,
+            "healthPrice": 0
+          }
+        ],
+        "castableData": [
+          {
+            "damage": 0,
+            "heal": 100,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 0,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": true,
+            "turnsToUseAgain": 0
+          },
+          {
+            "damage": 0,
+            "heal": 150,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 0,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": true,
+            "turnsToUseAgain": 0
+          }
+        ],
+        "successMessage": "“Angel just healed “ + (target) + “ with “ + (healing amount) + “ health points”",
+        "isCastableOnEnemies": true,
+        "isCastableOnFriendlies": false,
+        "turnsToUseAgain": 0,
+        "isCastable": true,
+        "level": 0,
+        "maximumNumberOfUpgrades": 3,
+        "isBuffsReplacedEachLevel": false,
+        "AbilityInfo": "Heals Other Soldiers",
+        "name": "Heal Level 1"
+      }
+    ],
+    "attackPower": 0,
+    "maximumHealth": 150,
+    "maximumMagic": 0,
+    "inventorySize": 0,
+    "energyPoints": 2,
+    "healthRefillRatePercentage": 0,
+    "magicRefillRatePercentage": 0,
+    "name": "Weak Angel"
+  },
+  {
+    "abilities": [
+      {
+        "type": "CastableAbility",
+        "castPrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 2,
+            "magicPrice": 0,
+            "healthPrice": 0
+          }
+        ],
+        "castableData": [],
+        "successMessage": "“Angel just healed “ + (target) + “ with “ + (healing amount) + “ health points”",
+        "isCastableOnEnemies": true,
+        "isCastableOnFriendlies": false,
+        "turnsToUseAgain": 0,
+        "isCastable": true,
+        "level": 0,
+        "maximumNumberOfUpgrades": 3,
+        "isBuffsReplacedEachLevel": false,
+        "AbilityInfo": "Heals Other Soldiers",
+        "name": "Heal Level 2"
+      }
+    ],
+    "attackPower": 0,
+    "maximumHealth": 250,
+    "maximumMagic": 0,
+    "inventorySize": 0,
+    "energyPoints": 2,
+    "healthRefillRatePercentage": 0,
+    "magicRefillRatePercentage": 0,
+    "name": "Able Angel"
+  },
+  {
+    "defaultBuffs": [
+      {
+        "name": "Weak Tank Buff",
+        "isPermanent": true,
+        "duration": 0,
+        "attackPowerIncrease": 0,
+        "maximumHealthIncrease": 0,
+        "maximumMagicIncrease": 0,
+        "energyPointIncrease": 0,
+        "criticalDamageChance": 0,
+        "criticalDamageMultiplier": 0,
+        "damageSplashPercentage": 100,
+        "howMuchLeftToEnd": 0
+      }
+    ],
+    "attackPower": 30,
+    "maximumHealth": 400,
+    "maximumMagic": 0,
+    "inventorySize": 0,
+    "energyPoints": 2,
+    "healthRefillRatePercentage": 0,
+    "magicRefillRatePercentage": 0,
+    "name": "Weak Tank"
+  },
+  {
+    "defaultBuffs": [
+      {
+        "name": "Able Tank Buff",
+        "isPermanent": true,
+        "duration": 0,
+        "attackPowerIncrease": 0,
+        "maximumHealthIncrease": 0,
+        "maximumMagicIncrease": 0,
+        "energyPointIncrease": 0,
+        "criticalDamageChance": 0,
+        "criticalDamageMultiplier": 0,
+        "damageSplashPercentage": 100,
+        "howMuchLeftToEnd": 0
+      }
+    ],
+    "attackPower": 900,
+    "maximumHealth": 500,
+    "maximumMagic": 0,
+    "inventorySize": 0,
+    "energyPoints": 2,
+    "healthRefillRatePercentage": 0,
+    "magicRefillRatePercentage": 0,
+    "name": "Able Tank"
+  }
+]

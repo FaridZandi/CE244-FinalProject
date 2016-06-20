@@ -1,5 +1,6 @@
 package ModelPackage;
 
+import ControlPackage.CreateData;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -20,20 +21,21 @@ public class GameObjectsHolder {
 
     public GameObject find(String name)
     {
+        String toLowerName = name.toLowerCase().trim();
         for (SoldierType soldierType : soldierTypes) {
-            if(soldierType.getName().equals(name))
+            if(soldierType.getName().toLowerCase().equals(toLowerName))
             {
                 return soldierType;
             }
         }
 
         for (Hero hero : player.getHeroes()) {
-            if(hero.getName().equals(name))
+            if(hero.getName().toLowerCase().equals(toLowerName))
             {
                 return hero;
             }
             for (Ability ability : hero.getAbilities()) {
-                if(ability.getName().equals(name))
+                if(ability.getName().toLowerCase().equals(toLowerName))
                 {
                     return ability;
                 }
@@ -43,15 +45,21 @@ public class GameObjectsHolder {
         if(player.getCurrentBattle() != null)
         {
             for (Enemy enemy : player.getCurrentBattle().getEnemyArmy().getEnemies()) {
-                if(enemy.getName().equals(name))
+                if(enemy.getName().toLowerCase().equals(toLowerName))
                 {
                     return enemy;
+                }
+                for (Ability ability : enemy.getAbilities()) {
+                    if(ability.getName().toLowerCase().equals(toLowerName))
+                    {
+                        return ability;
+                    }
                 }
             }
         }
 
         for (Item item : items) {
-            if(item.getName().equals(name))
+            if(item.getName().toLowerCase().equals(toLowerName))
             {
                 return item;
             }
@@ -74,7 +82,7 @@ public class GameObjectsHolder {
         for (Item item : items) {
             if(item.getCategory().equals(category))
             {
-                temp.add((Item)Model.deepClone(item));
+                temp.add(Model.deepClone(item , Item.class));
             }
         }
         return temp;

@@ -27,10 +27,6 @@ public class InputType {
         return validSituations;
     }
 
-    public String getOutputString() {
-        return outputString;
-    }
-
     public String getGeneralInput()
     {
         String generalInput = inputString;
@@ -40,6 +36,10 @@ public class InputType {
         //System.out.println(generalInput);
         replaced = replaced.toLowerCase();
         return replaced;
+    }
+
+    public String getOutputString() {
+        return outputString;
     }
 
     public CompoundMethod getCompoundMethod() {

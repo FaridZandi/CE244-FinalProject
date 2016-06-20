@@ -39,12 +39,19 @@ public class Soldier extends GameObject{
             View.show("Save file corrupted!");
             System.exit(0);
         }
+
+        if(type.getAbilities() != null)
         for (Ability ability : type.getAbilities()) {
-            this.getAbilities().add((Ability)Model.deepClone(ability));
+            if(ability.isCastable())
+                abilities.add(Model.deepClone(ability , CastableAbility.class));
+            else
+                abilities.add(Model.deepClone(ability , Ability.class));
+
         }
         buffs = new ArrayList<>();
+        if(type.getDefaultBuffs()!=null)
         for (Buff buff : type.getDefaultBuffs()) {
-            this.addBuff((Buff)Model.deepClone(buff));
+            this.addBuff(Model.deepClone(buff , Buff.class));
         }
         this.currentMagic = type.getMaximumMagic();
         this.currentHealth = type.getMaximumHealth();
@@ -474,9 +481,9 @@ public class Soldier extends GameObject{
         return inventory;
     }
 
-    public Ability findAbility(String word) {
+    public Ability findAbility(String abilityName) {
         for (Ability ability : abilities) {
-            if(ability.getName() == word)
+            if(ability.getName().toLowerCase().equals(abilityName.toLowerCase()))
             {
                 return ability;
             }

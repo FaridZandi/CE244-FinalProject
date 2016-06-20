@@ -32,9 +32,19 @@ public class SoldierType extends GameObject{
         this.magicRefillRatePercentage = magicRefillRatePercentage;
     }
 
+    public Ability findAbility(String word) {
+        for (Ability ability : abilities) {
+            if(ability.getName() == word)
+            {
+                return ability;
+            }
+        }
+        return null;
+    }
+
     public void describe()
     {
-
+        System.out.println("this is a soldier type with name " + this.getName());
     }
 
     public ArrayList<Ability> getAbilities() {

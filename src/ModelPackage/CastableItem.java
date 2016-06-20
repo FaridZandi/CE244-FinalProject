@@ -34,9 +34,9 @@ public class CastableItem extends Item {
         {
             return;
         }
-        CastableItem temp = (CastableItem)Model.deepClone(this);
+        CastableItem temp = Model.deepClone(this , CastableItem.class);
         buyer.addItem(temp);
-        buyer.addBuff((Buff)Model.deepClone(getAffectingBuffAfterBuying()));
+        buyer.addBuff(Model.deepClone(getAffectingBuffAfterBuying() , Buff.class));
     }
 
     public int getTurnsToUseAgain() {

@@ -1,1 +1,934 @@
-[{"currentHealth":0,"currentMagic":0,"energyPoints":0,"soldierTypeName":"Fighter","buffs":[],"inventory":[],"abilities":[{"castPrices":[{"goldPrice":0,"XPPrice":0,"EPPrice":2,"magicPrice":50,"healthPrice":0},{"goldPrice":0,"XPPrice":0,"EPPrice":2,"magicPrice":50,"healthPrice":0},{"goldPrice":0,"XPPrice":0,"EPPrice":2,"magicPrice":50,"healthPrice":0}],"castableData":[{"damage":0,"heal":0,"magic":0,"energyPoint":0,"coolDown":0,"attackMultiplier":1.2,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"turnsToUseAgain":0},{"damage":0,"heal":0,"magic":0,"energyPoint":0,"coolDown":0,"attackMultiplier":1.4,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"turnsToUseAgain":0},{"damage":0,"heal":0,"magic":0,"energyPoint":0,"coolDown":0,"attackMultiplier":1.6,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"turnsToUseAgain":0}],"successMessage":"“Eley just did an overpowered attack on ” + (target) + “ with ” + (damage done) + “ damage”","isCastableOnEnemies":true,"isCastableOnFriendlies":false,"turnsToUseAgain":0,"isCastable":true,"level":0,"maximumNumberOfUpgrades":3,"AcquirePrices":[{"goldPrice":0,"XPPrice":2,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":4,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":6,"EPPrice":0,"magicPrice":0,"healthPrice":0}],"prerequisiteAbilities":[{"abilityName":"Fight Training","abilityLevel":1},{"abilityName":"Fight Training","abilityLevel":2},{"abilityName":"Fight Training","abilityLevel":3}],"isBuffsReplacedEachLevel":false,"AbilityInfo":"Attacks an enemy with N times power for 2 energy points and 50 magic points","name":"OverPowered Attack"},{"isCastable":false,"level":0,"maximumNumberOfUpgrades":3,"AcquirePrices":[{"goldPrice":0,"XPPrice":2,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":3,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":4,"EPPrice":0,"magicPrice":0,"healthPrice":0}],"prerequisiteAbilities":[{"abilityName":"Work Out","abilityLevel":1}],"isBuffsReplacedEachLevel":true,"affectingBuffsAfterAcquiring":[{"name":"Swirling Attack Buff Level 1","isPermanent":true,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":10,"howMuchLeftToEnd":0},{"name":"Swirling Attack Buff Level 2","isPermanent":true,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":20,"howMuchLeftToEnd":0},{"name":"Swirling Attack Buff Level 3","isPermanent":true,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":30,"howMuchLeftToEnd":0}],"AbilityInfo":"While attacking, non-targeted enemies also take P percent of its damage","name":"Swirling Attack"}],"name":"Eley"},{"currentHealth":0,"currentMagic":0,"energyPoints":0,"soldierTypeName":"Fighter","buffs":[],"inventory":[],"abilities":[{"castPrices":[{"goldPrice":0,"XPPrice":0,"EPPrice":3,"magicPrice":60,"healthPrice":40},{"goldPrice":0,"XPPrice":0,"EPPrice":3,"magicPrice":60,"healthPrice":50},{"goldPrice":0,"XPPrice":0,"EPPrice":3,"magicPrice":60,"healthPrice":60}],"castableData":[{"damage":120,"heal":0,"magic":0,"energyPoint":0,"coolDown":1,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":true,"isAutoCast":false,"turnsToUseAgain":0},{"damage":150,"heal":0,"magic":0,"energyPoint":0,"coolDown":1,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":true,"isAutoCast":false,"turnsToUseAgain":0},{"damage":180,"heal":0,"magic":0,"energyPoint":0,"coolDown":1,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":true,"isAutoCast":false,"turnsToUseAgain":0}],"successMessage":"Chrome just sacrificed himself to damage all his enemies with “ + (damage done) + “ power“","isCastableOnEnemies":true,"isCastableOnFriendlies":false,"turnsToUseAgain":0,"isCastable":true,"level":0,"maximumNumberOfUpgrades":3,"AcquirePrices":[{"goldPrice":0,"XPPrice":2,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":3,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":4,"EPPrice":0,"magicPrice":0,"healthPrice":0}],"prerequisiteAbilities":[{"abilityName":"Work Out","abilityLevel":1},{"abilityName":"Work Out","abilityLevel":2},{"abilityName":"Work Out","abilityLevel":3}],"isBuffsReplacedEachLevel":false,"AbilityInfo":"Damages all the enemies with 3H power at the cost of H of his own health, needs 3 energy points, 60 magic points and has a 1 turn cooldown","name":"Sacrifice"},{"isCastable":false,"level":0,"maximumNumberOfUpgrades":3,"AcquirePrices":[{"goldPrice":0,"XPPrice":2,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":3,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":4,"EPPrice":0,"magicPrice":0,"healthPrice":0}],"prerequisiteAbilities":[{"abilityName":"Fight Training","abilityLevel":1}],"isBuffsReplacedEachLevel":true,"affectingBuffsAfterAcquiring":[{"name":"Critical Strike Buff Level 1","isPermanent":true,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":10,"howMuchLeftToEnd":0},{"name":"Critical Strike Buff Level 2","isPermanent":true,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":20,"howMuchLeftToEnd":0},{"name":"Critical Strike Buff Level 3","isPermanent":true,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":30,"howMuchLeftToEnd":0}],"AbilityInfo":"Has a permanent P percent chance of doing an attack with double power","name":"Critical Strike"}],"name":"Chrome"},{"currentHealth":0,"currentMagic":0,"energyPoints":0,"soldierTypeName":"Fighter","buffs":[],"inventory":[],"abilities":[{"castPrices":[{"goldPrice":0,"XPPrice":0,"EPPrice":2,"magicPrice":60,"healthPrice":0},{"goldPrice":0,"XPPrice":0,"EPPrice":2,"magicPrice":60,"healthPrice":0},{"goldPrice":0,"XPPrice":0,"EPPrice":2,"magicPrice":60,"healthPrice":0}],"castableData":[{"damage":0,"heal":100,"magic":0,"energyPoint":0,"coolDown":1,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"turnsToUseAgain":0},{"damage":0,"heal":150,"magic":0,"energyPoint":0,"coolDown":1,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"turnsToUseAgain":0},{"damage":0,"heal":150,"magic":0,"energyPoint":0,"coolDown":0,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"turnsToUseAgain":0}],"successMessage":"“Meryl just healed “ + (target) + “ with “ + (healing amount) + “ health points”","isCastableOnEnemies":false,"isCastableOnFriendlies":true,"turnsToUseAgain":0,"isCastable":true,"level":0,"maximumNumberOfUpgrades":3,"AcquirePrices":[{"goldPrice":0,"XPPrice":2,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":3,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":5,"EPPrice":0,"magicPrice":0,"healthPrice":0}],"prerequisiteAbilities":[{"abilityName":"Magic Lessons","abilityLevel":1},{"abilityName":"Magic Lessons","abilityLevel":2},{"abilityName":"Magic Lessons","abilityLevel":3}],"isBuffsReplacedEachLevel":false,"AbilityInfo":"Refills H points of her own health or an ally’s, for 2 energy points and 60 magic points","name":"Elixir"},{"castPrices":[{"goldPrice":0,"XPPrice":0,"EPPrice":2,"magicPrice":30,"healthPrice":0},{"goldPrice":0,"XPPrice":0,"EPPrice":2,"magicPrice":30,"healthPrice":0},{"goldPrice":0,"XPPrice":0,"EPPrice":1,"magicPrice":30,"healthPrice":0}],"castableData":[{"damage":0,"heal":0,"magic":0,"energyPoint":0,"coolDown":1,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"affectingBuff":{"name":"Caretaker Buff Level 1","isPermanent":false,"duration":1,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":1,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},"turnsToUseAgain":0},{"damage":0,"heal":0,"magic":0,"energyPoint":0,"coolDown":0,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"affectingBuff":{"name":"Caretaker Buff Level 2","isPermanent":false,"duration":1,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":1,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},"turnsToUseAgain":0},{"damage":0,"heal":0,"magic":0,"energyPoint":0,"coolDown":0,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"affectingBuff":{"name":"Caretaker Buff Level 3","isPermanent":false,"duration":1,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":1,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},"turnsToUseAgain":0}],"successMessage":"“Meryl just gave “ + (target) + “ 1 energy point”","isCastableOnEnemies":false,"isCastableOnFriendlies":true,"turnsToUseAgain":0,"isCastable":true,"level":0,"maximumNumberOfUpgrades":3,"AcquirePrices":[{"goldPrice":0,"XPPrice":2,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":3,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":5,"EPPrice":0,"magicPrice":0,"healthPrice":0}],"prerequisiteAbilities":[{"abilityName":"Quick As A Bunny","abilityLevel":1},{"abilityName":"Quick As A Bunny","abilityLevel":2},{"abilityName":"Quick As A Bunny","abilityLevel":3}],"isBuffsReplacedEachLevel":false,"AbilityInfo":"Gives 1 energy point to an ally for 30 magic points (this ep does not last until the end of the battle and is only usable during the current turn)","name":"Caretaker"}],"name":"Meryl"},{"currentHealth":0,"currentMagic":0,"energyPoints":0,"soldierTypeName":"Supporter","buffs":[],"inventory":[],"abilities":[{"castPrices":[{"goldPrice":0,"XPPrice":0,"EPPrice":2,"magicPrice":50,"healthPrice":0},{"goldPrice":0,"XPPrice":0,"EPPrice":2,"magicPrice":50,"healthPrice":0},{"goldPrice":0,"XPPrice":0,"EPPrice":2,"magicPrice":50,"healthPrice":0}],"castableData":[{"damage":0,"heal":0,"magic":0,"energyPoint":0,"coolDown":1,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"affectingBuff":{"name":"Boost Buff Level 1","isPermanent":false,"duration":2147483647,"attackPowerIncrease":20,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},"turnsToUseAgain":0},{"damage":0,"heal":0,"magic":0,"energyPoint":0,"coolDown":1,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"affectingBuff":{"name":"Boost Buff Level 2","isPermanent":false,"duration":2147483647,"attackPowerIncrease":30,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},"turnsToUseAgain":0},{"damage":0,"heal":0,"magic":0,"energyPoint":0,"coolDown":0,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"affectingBuff":{"name":"Boost Buff Level 3","isPermanent":false,"duration":2147483647,"attackPowerIncrease":50,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},"turnsToUseAgain":0}],"successMessage":"“Bolti just boosted “ + (target) + “ with “ + (A) + “ power”","isCastableOnEnemies":false,"isCastableOnFriendlies":true,"turnsToUseAgain":0,"isCastable":true,"level":0,"maximumNumberOfUpgrades":3,"AcquirePrices":[{"goldPrice":0,"XPPrice":2,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":3,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":5,"EPPrice":0,"magicPrice":0,"healthPrice":0}],"isBuffsReplacedEachLevel":false,"AbilityInfo":"Gives X bonus attack power to himself or an ally, which lasts till the end of the battle, for 2 energy points and 50 magic points (this bonus attack power can stack up)","name":"Boost"},{"castPrices":[{"goldPrice":0,"XPPrice":0,"EPPrice":1,"magicPrice":50,"healthPrice":0},{"goldPrice":0,"XPPrice":0,"EPPrice":1,"magicPrice":50,"healthPrice":0},{"goldPrice":0,"XPPrice":0,"EPPrice":1,"magicPrice":50,"healthPrice":0}],"castableData":[{"damage":0,"heal":0,"magic":50,"energyPoint":0,"coolDown":1,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"turnsToUseAgain":0},{"damage":0,"heal":0,"magic":80,"energyPoint":0,"coolDown":1,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"turnsToUseAgain":0},{"damage":0,"heal":0,"magic":80,"energyPoint":0,"coolDown":0,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"turnsToUseAgain":0}],"successMessage":"“Bolti just helped “ + (target) + “ with “ + (M) + “ magic points”","isCastableOnEnemies":false,"isCastableOnFriendlies":true,"turnsToUseAgain":0,"isCastable":true,"level":0,"maximumNumberOfUpgrades":3,"AcquirePrices":[{"goldPrice":0,"XPPrice":2,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":3,"EPPrice":0,"magicPrice":0,"healthPrice":0},{"goldPrice":0,"XPPrice":4,"EPPrice":0,"magicPrice":0,"healthPrice":0}],"prerequisiteAbilities":[{"abilityName":"Magic Lessons","abilityLevel":1},{"abilityName":"Magic Lessons","abilityLevel":2},{"abilityName":"Magic Lessons","abilityLevel":3}],"isBuffsReplacedEachLevel":false,"AbilityInfo":"Gives M magic points to himself or an ally for 1 energy point and 50 magic points","name":"Mana Beam"}],"name":"Bolti"}]
+[
+  {
+    "currentHealth": 0,
+    "currentMagic": 0,
+    "energyPoints": 0,
+    "soldierTypeName": "Fighter",
+    "buffs": [],
+    "inventory": [],
+    "abilities": [
+      {
+        "type": "CastableAbility",
+        "castPrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 2,
+            "magicPrice": 50,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 2,
+            "magicPrice": 50,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 2,
+            "magicPrice": 50,
+            "healthPrice": 0
+          }
+        ],
+        "castableData": [
+          {
+            "damage": 0,
+            "heal": 0,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 0,
+            "attackMultiplier": 1.2,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "turnsToUseAgain": 0
+          },
+          {
+            "damage": 0,
+            "heal": 0,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 0,
+            "attackMultiplier": 1.4,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "turnsToUseAgain": 0
+          },
+          {
+            "damage": 0,
+            "heal": 0,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 0,
+            "attackMultiplier": 1.6,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "turnsToUseAgain": 0
+          }
+        ],
+        "successMessage": "“Eley just did an overpowered attack on ” + (target) + “ with ” + (damage done) + “ damage”",
+        "isCastableOnEnemies": true,
+        "isCastableOnFriendlies": false,
+        "turnsToUseAgain": 0,
+        "isCastable": true,
+        "level": 0,
+        "maximumNumberOfUpgrades": 3,
+        "AcquirePrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 2,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 4,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 6,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          }
+        ],
+        "prerequisiteAbilities": [
+          {
+            "abilityName": "Fight Training",
+            "abilityLevel": 1
+          },
+          {
+            "abilityName": "Fight Training",
+            "abilityLevel": 2
+          },
+          {
+            "abilityName": "Fight Training",
+            "abilityLevel": 3
+          }
+        ],
+        "isBuffsReplacedEachLevel": false,
+        "AbilityInfo": "Attacks an enemy with N times power for 2 energy points and 50 magic points",
+        "name": "OverPowered Attack"
+      },
+      {
+        "type": "Ability",
+        "isCastable": false,
+        "level": 0,
+        "maximumNumberOfUpgrades": 3,
+        "AcquirePrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 2,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 3,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 4,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          }
+        ],
+        "prerequisiteAbilities": [
+          {
+            "abilityName": "Work Out",
+            "abilityLevel": 1
+          }
+        ],
+        "isBuffsReplacedEachLevel": true,
+        "affectingBuffsAfterAcquiring": [
+          {
+            "name": "Swirling Attack Buff Level 1",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 10,
+            "howMuchLeftToEnd": 0
+          },
+          {
+            "name": "Swirling Attack Buff Level 2",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 20,
+            "howMuchLeftToEnd": 0
+          },
+          {
+            "name": "Swirling Attack Buff Level 3",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 30,
+            "howMuchLeftToEnd": 0
+          }
+        ],
+        "AbilityInfo": "While attacking, non-targeted enemies also take P percent of its damage",
+        "name": "Swirling Attack"
+      }
+    ],
+    "name": "Eley"
+  },
+  {
+    "currentHealth": 0,
+    "currentMagic": 0,
+    "energyPoints": 0,
+    "soldierTypeName": "Fighter",
+    "buffs": [],
+    "inventory": [],
+    "abilities": [
+      {
+        "type": "CastableAbility",
+        "castPrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 3,
+            "magicPrice": 60,
+            "healthPrice": 40
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 3,
+            "magicPrice": 60,
+            "healthPrice": 50
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 3,
+            "magicPrice": 60,
+            "healthPrice": 60
+          }
+        ],
+        "castableData": [
+          {
+            "damage": 120,
+            "heal": 0,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 1,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": true,
+            "isAutoCast": false,
+            "turnsToUseAgain": 0
+          },
+          {
+            "damage": 150,
+            "heal": 0,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 1,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": true,
+            "isAutoCast": false,
+            "turnsToUseAgain": 0
+          },
+          {
+            "damage": 180,
+            "heal": 0,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 1,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": true,
+            "isAutoCast": false,
+            "turnsToUseAgain": 0
+          }
+        ],
+        "successMessage": "Chrome just sacrificed himself to damage all his enemies with “ + (damage done) + “ power“",
+        "isCastableOnEnemies": true,
+        "isCastableOnFriendlies": false,
+        "turnsToUseAgain": 0,
+        "isCastable": true,
+        "level": 0,
+        "maximumNumberOfUpgrades": 3,
+        "AcquirePrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 2,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 3,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 4,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          }
+        ],
+        "prerequisiteAbilities": [
+          {
+            "abilityName": "Work Out",
+            "abilityLevel": 1
+          },
+          {
+            "abilityName": "Work Out",
+            "abilityLevel": 2
+          },
+          {
+            "abilityName": "Work Out",
+            "abilityLevel": 3
+          }
+        ],
+        "isBuffsReplacedEachLevel": false,
+        "AbilityInfo": "Damages all the enemies with 3H power at the cost of H of his own health, needs 3 energy points, 60 magic points and has a 1 turn cooldown",
+        "name": "Sacrifice"
+      },
+      {
+        "type": "Ability",
+        "isCastable": false,
+        "level": 0,
+        "maximumNumberOfUpgrades": 3,
+        "AcquirePrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 2,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 3,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 4,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          }
+        ],
+        "prerequisiteAbilities": [
+          {
+            "abilityName": "Fight Training",
+            "abilityLevel": 1
+          }
+        ],
+        "isBuffsReplacedEachLevel": true,
+        "affectingBuffsAfterAcquiring": [
+          {
+            "name": "Critical Strike Buff Level 1",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 10,
+            "howMuchLeftToEnd": 0
+          },
+          {
+            "name": "Critical Strike Buff Level 2",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 20,
+            "howMuchLeftToEnd": 0
+          },
+          {
+            "name": "Critical Strike Buff Level 3",
+            "isPermanent": true,
+            "duration": 0,
+            "attackPowerIncrease": 0,
+            "maximumHealthIncrease": 0,
+            "maximumMagicIncrease": 0,
+            "energyPointIncrease": 0,
+            "criticalDamageChance": 0,
+            "criticalDamageMultiplier": 0,
+            "damageSplashPercentage": 30,
+            "howMuchLeftToEnd": 0
+          }
+        ],
+        "AbilityInfo": "Has a permanent P percent chance of doing an attack with double power",
+        "name": "Critical Strike"
+      }
+    ],
+    "name": "Chrome"
+  },
+  {
+    "currentHealth": 0,
+    "currentMagic": 0,
+    "energyPoints": 0,
+    "soldierTypeName": "Fighter",
+    "buffs": [],
+    "inventory": [],
+    "abilities": [
+      {
+        "type": "CastableAbility",
+        "castPrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 2,
+            "magicPrice": 60,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 2,
+            "magicPrice": 60,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 2,
+            "magicPrice": 60,
+            "healthPrice": 0
+          }
+        ],
+        "castableData": [
+          {
+            "damage": 0,
+            "heal": 100,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 1,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "turnsToUseAgain": 0
+          },
+          {
+            "damage": 0,
+            "heal": 150,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 1,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "turnsToUseAgain": 0
+          },
+          {
+            "damage": 0,
+            "heal": 150,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 0,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "turnsToUseAgain": 0
+          }
+        ],
+        "successMessage": "“Meryl just healed “ + (target) + “ with “ + (healing amount) + “ health points”",
+        "isCastableOnEnemies": false,
+        "isCastableOnFriendlies": true,
+        "turnsToUseAgain": 0,
+        "isCastable": true,
+        "level": 0,
+        "maximumNumberOfUpgrades": 3,
+        "AcquirePrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 2,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 3,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 5,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          }
+        ],
+        "prerequisiteAbilities": [
+          {
+            "abilityName": "Magic Lessons",
+            "abilityLevel": 1
+          },
+          {
+            "abilityName": "Magic Lessons",
+            "abilityLevel": 2
+          },
+          {
+            "abilityName": "Magic Lessons",
+            "abilityLevel": 3
+          }
+        ],
+        "isBuffsReplacedEachLevel": false,
+        "AbilityInfo": "Refills H points of her own health or an ally’s, for 2 energy points and 60 magic points",
+        "name": "Elixir"
+      },
+      {
+        "type": "CastableAbility",
+        "castPrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 2,
+            "magicPrice": 30,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 2,
+            "magicPrice": 30,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 1,
+            "magicPrice": 30,
+            "healthPrice": 0
+          }
+        ],
+        "castableData": [
+          {
+            "damage": 0,
+            "heal": 0,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 1,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "affectingBuff": {
+              "name": "Caretaker Buff Level 1",
+              "isPermanent": false,
+              "duration": 1,
+              "attackPowerIncrease": 0,
+              "maximumHealthIncrease": 0,
+              "maximumMagicIncrease": 0,
+              "energyPointIncrease": 1,
+              "criticalDamageChance": 0,
+              "criticalDamageMultiplier": 0,
+              "damageSplashPercentage": 0,
+              "howMuchLeftToEnd": 0
+            },
+            "turnsToUseAgain": 0
+          },
+          {
+            "damage": 0,
+            "heal": 0,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 0,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "affectingBuff": {
+              "name": "Caretaker Buff Level 2",
+              "isPermanent": false,
+              "duration": 1,
+              "attackPowerIncrease": 0,
+              "maximumHealthIncrease": 0,
+              "maximumMagicIncrease": 0,
+              "energyPointIncrease": 1,
+              "criticalDamageChance": 0,
+              "criticalDamageMultiplier": 0,
+              "damageSplashPercentage": 0,
+              "howMuchLeftToEnd": 0
+            },
+            "turnsToUseAgain": 0
+          },
+          {
+            "damage": 0,
+            "heal": 0,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 0,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "affectingBuff": {
+              "name": "Caretaker Buff Level 3",
+              "isPermanent": false,
+              "duration": 1,
+              "attackPowerIncrease": 0,
+              "maximumHealthIncrease": 0,
+              "maximumMagicIncrease": 0,
+              "energyPointIncrease": 1,
+              "criticalDamageChance": 0,
+              "criticalDamageMultiplier": 0,
+              "damageSplashPercentage": 0,
+              "howMuchLeftToEnd": 0
+            },
+            "turnsToUseAgain": 0
+          }
+        ],
+        "successMessage": "“Meryl just gave “ + (target) + “ 1 energy point”",
+        "isCastableOnEnemies": false,
+        "isCastableOnFriendlies": true,
+        "turnsToUseAgain": 0,
+        "isCastable": true,
+        "level": 0,
+        "maximumNumberOfUpgrades": 3,
+        "AcquirePrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 2,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 3,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 5,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          }
+        ],
+        "prerequisiteAbilities": [
+          {
+            "abilityName": "Quick As A Bunny",
+            "abilityLevel": 1
+          },
+          {
+            "abilityName": "Quick As A Bunny",
+            "abilityLevel": 2
+          },
+          {
+            "abilityName": "Quick As A Bunny",
+            "abilityLevel": 3
+          }
+        ],
+        "isBuffsReplacedEachLevel": false,
+        "AbilityInfo": "Gives 1 energy point to an ally for 30 magic points (this ep does not last until the end of the battle and is only usable during the current turn)",
+        "name": "Caretaker"
+      }
+    ],
+    "name": "Meryl"
+  },
+  {
+    "currentHealth": 0,
+    "currentMagic": 0,
+    "energyPoints": 0,
+    "soldierTypeName": "Supporter",
+    "buffs": [],
+    "inventory": [],
+    "abilities": [
+      {
+        "type": "CastableAbility",
+        "castPrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 2,
+            "magicPrice": 50,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 2,
+            "magicPrice": 50,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 2,
+            "magicPrice": 50,
+            "healthPrice": 0
+          }
+        ],
+        "castableData": [
+          {
+            "damage": 0,
+            "heal": 0,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 1,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "affectingBuff": {
+              "name": "Boost Buff Level 1",
+              "isPermanent": false,
+              "duration": 2147483647,
+              "attackPowerIncrease": 20,
+              "maximumHealthIncrease": 0,
+              "maximumMagicIncrease": 0,
+              "energyPointIncrease": 0,
+              "criticalDamageChance": 0,
+              "criticalDamageMultiplier": 0,
+              "damageSplashPercentage": 0,
+              "howMuchLeftToEnd": 0
+            },
+            "turnsToUseAgain": 0
+          },
+          {
+            "damage": 0,
+            "heal": 0,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 1,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "affectingBuff": {
+              "name": "Boost Buff Level 2",
+              "isPermanent": false,
+              "duration": 2147483647,
+              "attackPowerIncrease": 30,
+              "maximumHealthIncrease": 0,
+              "maximumMagicIncrease": 0,
+              "energyPointIncrease": 0,
+              "criticalDamageChance": 0,
+              "criticalDamageMultiplier": 0,
+              "damageSplashPercentage": 0,
+              "howMuchLeftToEnd": 0
+            },
+            "turnsToUseAgain": 0
+          },
+          {
+            "damage": 0,
+            "heal": 0,
+            "magic": 0,
+            "energyPoint": 0,
+            "coolDown": 0,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "affectingBuff": {
+              "name": "Boost Buff Level 3",
+              "isPermanent": false,
+              "duration": 2147483647,
+              "attackPowerIncrease": 50,
+              "maximumHealthIncrease": 0,
+              "maximumMagicIncrease": 0,
+              "energyPointIncrease": 0,
+              "criticalDamageChance": 0,
+              "criticalDamageMultiplier": 0,
+              "damageSplashPercentage": 0,
+              "howMuchLeftToEnd": 0
+            },
+            "turnsToUseAgain": 0
+          }
+        ],
+        "successMessage": "“Bolti just boosted “ + (target) + “ with “ + (A) + “ power”",
+        "isCastableOnEnemies": false,
+        "isCastableOnFriendlies": true,
+        "turnsToUseAgain": 0,
+        "isCastable": true,
+        "level": 0,
+        "maximumNumberOfUpgrades": 3,
+        "AcquirePrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 2,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 3,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 5,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          }
+        ],
+        "isBuffsReplacedEachLevel": false,
+        "AbilityInfo": "Gives X bonus attack power to himself or an ally, which lasts till the end of the battle, for 2 energy points and 50 magic points (this bonus attack power can stack up)",
+        "name": "Boost"
+      },
+      {
+        "type": "CastableAbility",
+        "castPrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 1,
+            "magicPrice": 50,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 1,
+            "magicPrice": 50,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 0,
+            "EPPrice": 1,
+            "magicPrice": 50,
+            "healthPrice": 0
+          }
+        ],
+        "castableData": [
+          {
+            "damage": 0,
+            "heal": 0,
+            "magic": 50,
+            "energyPoint": 0,
+            "coolDown": 1,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "turnsToUseAgain": 0
+          },
+          {
+            "damage": 0,
+            "heal": 0,
+            "magic": 80,
+            "energyPoint": 0,
+            "coolDown": 1,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "turnsToUseAgain": 0
+          },
+          {
+            "damage": 0,
+            "heal": 0,
+            "magic": 80,
+            "energyPoint": 0,
+            "coolDown": 0,
+            "attackMultiplier": 0.0,
+            "isGlobalFriendly": false,
+            "isGlobalEnemy": false,
+            "isAutoCast": false,
+            "turnsToUseAgain": 0
+          }
+        ],
+        "successMessage": "“Bolti just helped “ + (target) + “ with “ + (M) + “ magic points”",
+        "isCastableOnEnemies": false,
+        "isCastableOnFriendlies": true,
+        "turnsToUseAgain": 0,
+        "isCastable": true,
+        "level": 0,
+        "maximumNumberOfUpgrades": 3,
+        "AcquirePrices": [
+          {
+            "goldPrice": 0,
+            "XPPrice": 2,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 3,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          },
+          {
+            "goldPrice": 0,
+            "XPPrice": 4,
+            "EPPrice": 0,
+            "magicPrice": 0,
+            "healthPrice": 0
+          }
+        ],
+        "prerequisiteAbilities": [
+          {
+            "abilityName": "Magic Lessons",
+            "abilityLevel": 1
+          },
+          {
+            "abilityName": "Magic Lessons",
+            "abilityLevel": 2
+          },
+          {
+            "abilityName": "Magic Lessons",
+            "abilityLevel": 3
+          }
+        ],
+        "isBuffsReplacedEachLevel": false,
+        "AbilityInfo": "Gives M magic points to himself or an ally for 1 energy point and 50 magic points",
+        "name": "Mana Beam"
+      }
+    ],
+    "name": "Bolti"
+  }
+]

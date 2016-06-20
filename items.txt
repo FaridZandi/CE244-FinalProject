@@ -1,1 +1,258 @@
-[{"isCastable":false,"isTakingSpaceInInventory":false,"category":"all","purchasePrice":{"goldPrice":4,"XPPrice":0,"EPPrice":0,"magicPrice":0,"healthPrice":0},"priceIncreaseRate":2,"howManyPurchased":0,"affectingBuffAfterBuying":{"name":"Item Toughen","isPermanent":false,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":20,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},"name":"Toughen"},{"isCastable":false,"isTakingSpaceInInventory":false,"category":"all","purchasePrice":{"goldPrice":4,"XPPrice":0,"EPPrice":0,"magicPrice":0,"healthPrice":0},"priceIncreaseRate":2,"howManyPurchased":0,"affectingBuffAfterBuying":{"name":"Item Guide","isPermanent":false,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":20,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},"name":"Guide"},{"isCastable":false,"isTakingSpaceInInventory":false,"category":"all","purchasePrice":{"goldPrice":4,"XPPrice":0,"EPPrice":0,"magicPrice":0,"healthPrice":0},"priceIncreaseRate":2,"howManyPurchased":0,"affectingBuffAfterBuying":{"name":"Item Defy","isPermanent":false,"duration":0,"attackPowerIncrease":8,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},"name":"Defy"},{"isCastable":false,"isTakingSpaceInInventory":true,"category":"all","purchasePrice":{"goldPrice":25,"XPPrice":0,"EPPrice":0,"magicPrice":0,"healthPrice":0},"priceIncreaseRate":0,"howManyPurchased":0,"affectingBuffAfterBuying":{"name":"Item Sword","isPermanent":false,"duration":0,"attackPowerIncrease":80,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},"name":"Sword"},{"isCastable":false,"isTakingSpaceInInventory":true,"category":"all","purchasePrice":{"goldPrice":20,"XPPrice":0,"EPPrice":0,"magicPrice":0,"healthPrice":0},"priceIncreaseRate":0,"howManyPurchased":0,"affectingBuffAfterBuying":{"name":"Item Energy Boots","isPermanent":false,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":0,"energyPointIncrease":1,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},"name":"Energy Boots"},{"isCastable":false,"isTakingSpaceInInventory":true,"category":"all","purchasePrice":{"goldPrice":25,"XPPrice":0,"EPPrice":0,"magicPrice":0,"healthPrice":0},"priceIncreaseRate":0,"howManyPurchased":0,"affectingBuffAfterBuying":{"name":"Item Armor","isPermanent":false,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":200,"maximumMagicIncrease":0,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},"name":"Armor"},{"isCastable":false,"isTakingSpaceInInventory":true,"category":"all","purchasePrice":{"goldPrice":28,"XPPrice":0,"EPPrice":0,"magicPrice":0,"healthPrice":0},"priceIncreaseRate":0,"howManyPurchased":0,"affectingBuffAfterBuying":{"name":"Item Magic stick","isPermanent":false,"duration":0,"attackPowerIncrease":0,"maximumHealthIncrease":0,"maximumMagicIncrease":150,"energyPointIncrease":0,"criticalDamageChance":0,"criticalDamageMultiplier":0,"damageSplashPercentage":0,"howMuchLeftToEnd":0},"name":"Magic Stick"},{"charges":3,"chargesLeft":0,"castableData":{"damage":0,"heal":100,"magic":0,"energyPoint":0,"coolDown":0,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"turnsToUseAgain":0},"turnsToUseAgain":0,"isCastable":true,"isTakingSpaceInInventory":true,"category":"all","purchasePrice":{"goldPrice":15,"XPPrice":0,"EPPrice":0,"magicPrice":0,"healthPrice":0},"priceIncreaseRate":0,"howManyPurchased":0,"name":"Health Potion"},{"charges":3,"chargesLeft":0,"castableData":{"damage":0,"heal":0,"magic":50,"energyPoint":0,"coolDown":0,"attackMultiplier":0.0,"isGlobalFriendly":false,"isGlobalEnemy":false,"isAutoCast":false,"turnsToUseAgain":0},"turnsToUseAgain":0,"isCastable":true,"isTakingSpaceInInventory":true,"category":"all","purchasePrice":{"goldPrice":15,"XPPrice":0,"EPPrice":0,"magicPrice":0,"healthPrice":0},"priceIncreaseRate":0,"howManyPurchased":0,"name":"Magic Potion"}]
+[
+  {
+    "isCastable": false,
+    "isTakingSpaceInInventory": false,
+    "category": "all",
+    "purchasePrice": {
+      "goldPrice": 4,
+      "XPPrice": 0,
+      "EPPrice": 0,
+      "magicPrice": 0,
+      "healthPrice": 0
+    },
+    "priceIncreaseRate": 2,
+    "howManyPurchased": 0,
+    "affectingBuffAfterBuying": {
+      "name": "Item Toughen",
+      "isPermanent": true,
+      "duration": 0,
+      "attackPowerIncrease": 0,
+      "maximumHealthIncrease": 20,
+      "maximumMagicIncrease": 0,
+      "energyPointIncrease": 0,
+      "criticalDamageChance": 0,
+      "criticalDamageMultiplier": 0,
+      "damageSplashPercentage": 0,
+      "howMuchLeftToEnd": 0
+    },
+    "name": "Toughen"
+  },
+  {
+    "isCastable": false,
+    "isTakingSpaceInInventory": false,
+    "category": "all",
+    "purchasePrice": {
+      "goldPrice": 4,
+      "XPPrice": 0,
+      "EPPrice": 0,
+      "magicPrice": 0,
+      "healthPrice": 0
+    },
+    "priceIncreaseRate": 2,
+    "howManyPurchased": 0,
+    "affectingBuffAfterBuying": {
+      "name": "Item Guide",
+      "isPermanent": true,
+      "duration": 0,
+      "attackPowerIncrease": 0,
+      "maximumHealthIncrease": 0,
+      "maximumMagicIncrease": 20,
+      "energyPointIncrease": 0,
+      "criticalDamageChance": 0,
+      "criticalDamageMultiplier": 0,
+      "damageSplashPercentage": 0,
+      "howMuchLeftToEnd": 0
+    },
+    "name": "Guide"
+  },
+  {
+    "isCastable": false,
+    "isTakingSpaceInInventory": false,
+    "category": "all",
+    "purchasePrice": {
+      "goldPrice": 4,
+      "XPPrice": 0,
+      "EPPrice": 0,
+      "magicPrice": 0,
+      "healthPrice": 0
+    },
+    "priceIncreaseRate": 2,
+    "howManyPurchased": 0,
+    "affectingBuffAfterBuying": {
+      "name": "Item Defy",
+      "isPermanent": true,
+      "duration": 0,
+      "attackPowerIncrease": 8,
+      "maximumHealthIncrease": 0,
+      "maximumMagicIncrease": 0,
+      "energyPointIncrease": 0,
+      "criticalDamageChance": 0,
+      "criticalDamageMultiplier": 0,
+      "damageSplashPercentage": 0,
+      "howMuchLeftToEnd": 0
+    },
+    "name": "Defy"
+  },
+  {
+    "isCastable": false,
+    "isTakingSpaceInInventory": true,
+    "category": "all",
+    "purchasePrice": {
+      "goldPrice": 25,
+      "XPPrice": 0,
+      "EPPrice": 0,
+      "magicPrice": 0,
+      "healthPrice": 0
+    },
+    "priceIncreaseRate": 0,
+    "howManyPurchased": 0,
+    "affectingBuffAfterBuying": {
+      "name": "Item Sword",
+      "isPermanent": true,
+      "duration": 0,
+      "attackPowerIncrease": 80,
+      "maximumHealthIncrease": 0,
+      "maximumMagicIncrease": 0,
+      "energyPointIncrease": 0,
+      "criticalDamageChance": 0,
+      "criticalDamageMultiplier": 0,
+      "damageSplashPercentage": 0,
+      "howMuchLeftToEnd": 0
+    },
+    "name": "Sword"
+  },
+  {
+    "isCastable": false,
+    "isTakingSpaceInInventory": true,
+    "category": "all",
+    "purchasePrice": {
+      "goldPrice": 20,
+      "XPPrice": 0,
+      "EPPrice": 0,
+      "magicPrice": 0,
+      "healthPrice": 0
+    },
+    "priceIncreaseRate": 0,
+    "howManyPurchased": 0,
+    "affectingBuffAfterBuying": {
+      "name": "Item Energy Boots",
+      "isPermanent": true,
+      "duration": 0,
+      "attackPowerIncrease": 0,
+      "maximumHealthIncrease": 0,
+      "maximumMagicIncrease": 0,
+      "energyPointIncrease": 1,
+      "criticalDamageChance": 0,
+      "criticalDamageMultiplier": 0,
+      "damageSplashPercentage": 0,
+      "howMuchLeftToEnd": 0
+    },
+    "name": "Energy Boots"
+  },
+  {
+    "isCastable": false,
+    "isTakingSpaceInInventory": true,
+    "category": "all",
+    "purchasePrice": {
+      "goldPrice": 25,
+      "XPPrice": 0,
+      "EPPrice": 0,
+      "magicPrice": 0,
+      "healthPrice": 0
+    },
+    "priceIncreaseRate": 0,
+    "howManyPurchased": 0,
+    "affectingBuffAfterBuying": {
+      "name": "Item Armor",
+      "isPermanent": true,
+      "duration": 0,
+      "attackPowerIncrease": 0,
+      "maximumHealthIncrease": 200,
+      "maximumMagicIncrease": 0,
+      "energyPointIncrease": 0,
+      "criticalDamageChance": 0,
+      "criticalDamageMultiplier": 0,
+      "damageSplashPercentage": 0,
+      "howMuchLeftToEnd": 0
+    },
+    "name": "Armor"
+  },
+  {
+    "isCastable": false,
+    "isTakingSpaceInInventory": true,
+    "category": "all",
+    "purchasePrice": {
+      "goldPrice": 28,
+      "XPPrice": 0,
+      "EPPrice": 0,
+      "magicPrice": 0,
+      "healthPrice": 0
+    },
+    "priceIncreaseRate": 0,
+    "howManyPurchased": 0,
+    "affectingBuffAfterBuying": {
+      "name": "Item Magic stick",
+      "isPermanent": true,
+      "duration": 0,
+      "attackPowerIncrease": 0,
+      "maximumHealthIncrease": 0,
+      "maximumMagicIncrease": 150,
+      "energyPointIncrease": 0,
+      "criticalDamageChance": 0,
+      "criticalDamageMultiplier": 0,
+      "damageSplashPercentage": 0,
+      "howMuchLeftToEnd": 0
+    },
+    "name": "Magic Stick"
+  },
+  {
+    "charges": 3,
+    "chargesLeft": 0,
+    "castableData": {
+      "damage": 0,
+      "heal": 100,
+      "magic": 0,
+      "energyPoint": 0,
+      "coolDown": 0,
+      "attackMultiplier": 0.0,
+      "isGlobalFriendly": false,
+      "isGlobalEnemy": false,
+      "isAutoCast": false,
+      "turnsToUseAgain": 0
+    },
+    "turnsToUseAgain": 0,
+    "isCastable": true,
+    "isTakingSpaceInInventory": true,
+    "category": "all",
+    "purchasePrice": {
+      "goldPrice": 15,
+      "XPPrice": 0,
+      "EPPrice": 0,
+      "magicPrice": 0,
+      "healthPrice": 0
+    },
+    "priceIncreaseRate": 0,
+    "howManyPurchased": 0,
+    "name": "Health Potion"
+  },
+  {
+    "charges": 3,
+    "chargesLeft": 0,
+    "castableData": {
+      "damage": 0,
+      "heal": 0,
+      "magic": 50,
+      "energyPoint": 0,
+      "coolDown": 0,
+      "attackMultiplier": 0.0,
+      "isGlobalFriendly": false,
+      "isGlobalEnemy": false,
+      "isAutoCast": false,
+      "turnsToUseAgain": 0
+    },
+    "turnsToUseAgain": 0,
+    "isCastable": true,
+    "isTakingSpaceInInventory": true,
+    "category": "all",
+    "purchasePrice": {
+      "goldPrice": 15,
+      "XPPrice": 0,
+      "EPPrice": 0,
+      "magicPrice": 0,
+      "healthPrice": 0
+    },
+    "priceIncreaseRate": 0,
+    "howManyPurchased": 0,
+    "name": "Magic Potion"
+  }
+]

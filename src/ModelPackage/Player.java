@@ -16,6 +16,8 @@ public class Player {
     public Player()
     {
         isGameOver = false;
+        gold = 40;
+        xp = 15;
         immortalityPotions = 3;
         heroes = new ArrayList<>();
     }

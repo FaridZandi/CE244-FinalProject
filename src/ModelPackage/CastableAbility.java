@@ -15,6 +15,11 @@ public class CastableAbility extends Ability {
 
     private int turnsToUseAgain;
 
+    @Override
+    public void describe() {
+        System.out.println("asshole");
+    }
+
     public CastableAbility(String name, ArrayList<Price> acquirePrices, ArrayList<PrerequisiteAbility> prerequisiteAbilities, boolean isBuffsReplacedEachLevel, ArrayList<Buff> affectingBuffsAfterAcquiring, String abilityInfo, ArrayList<Price> castPrices, ArrayList<CastableData> castableData, String successMessage, Boolean isCastableOnEnemies, Boolean isCastableOnFriendlies) {
         super(name, acquirePrices, prerequisiteAbilities, isBuffsReplacedEachLevel, affectingBuffsAfterAcquiring, abilityInfo);
         this.castPrices = castPrices;
@@ -58,7 +63,7 @@ public class CastableAbility extends Ability {
 
         if(castableData.getAffectingBuff() != null)
         {
-            target.addBuff((Buff)Model.deepClone(castableData.getAffectingBuff()));
+            target.addBuff(Model.deepClone(castableData.getAffectingBuff() , Buff.class));
         }
 
         this.setTurnsToUseAgain(castableData.getCoolDown());

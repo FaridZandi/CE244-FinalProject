@@ -17,6 +17,11 @@ public class Hero extends Soldier{
     }
 
     @Override
+    public void describe() {
+        System.out.println("shit");
+    }
+
+    @Override
     public void init(Story story) {
         super.init(story);
         this.player = this.getStory().getGameObjectsHolder().getPlayer();
