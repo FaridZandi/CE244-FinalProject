@@ -18,9 +18,10 @@ public class Shop {
     {
         for (Item buyableItem : buyableItems)
         {
-            if(buyableItem.getName().equals(itemName))
+            if(buyableItem.getName().toLowerCase().equals(itemName.toLowerCase()))
             {
                 buyableItem.purchasedBy(buyer);
+                return;
             }
         }
     }

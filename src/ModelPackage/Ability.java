@@ -43,7 +43,7 @@ public class Ability extends GameObject implements Serializable
         View.show("couldn't be cast");
     }
 
-    public void acquire(Hero hero, boolean showResponces)
+    public void acquire(Hero hero)
     {
         if( getLevel() >= maximumNumberOfUpgrades )
         {

@@ -20,8 +20,8 @@ public class Buyer implements CompoundMethod
     public void performMethod(String input) {
         int forIndex = input.indexOf("for");
 
-        String buyerName = input.substring(4 , forIndex - 1);
-        String itemName = input.substring((forIndex) + 4);
+        String itemName = input.substring(4 , forIndex - 1);
+        String buyerName = input.substring((forIndex) + 4);
 
         Soldier buyer = control.getModel().getStory().getCurrentBattle().findSoldier(buyerName);
 

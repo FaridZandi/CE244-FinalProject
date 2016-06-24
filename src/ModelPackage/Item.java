@@ -30,7 +30,8 @@ public class Item extends GameObject{
 
     }
 
-    public void purchasedBy(Hero buyer) {
+    public void purchasedBy(Hero buyer)
+    {
 
     }
 

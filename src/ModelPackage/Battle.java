@@ -1,13 +1,10 @@
 package ModelPackage;
-
 import ViewPackage.View;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- * Created by Y50 on 5/1/2016.
- */
-public class Battle {
+
+public class Battle implements Serializable{
     private String battleStory;
     private Player player;
     private String EnemyInfo;
@@ -223,7 +220,7 @@ public class Battle {
     {
         ArrayList<Hero> heroes = player.getHeroes();
         for (Hero hero : heroes) {
-            if(hero.getName().equals(soldierName))
+            if(hero.getName().toLowerCase().equals(soldierName.toLowerCase()))
             {
                 return hero;
             }
@@ -313,5 +310,65 @@ public class Battle {
 
     public void setBattleFinished(Boolean isBattleFinished) {
         this.isBattleFinished = isBattleFinished;
+    }
+
+    public String getBattleStory() {
+        return battleStory;
+    }
+
+    public void setBattleStory(String battleStory) {
+        this.battleStory = battleStory;
+    }
+
+    public String getEnemyInfo() {
+        return EnemyInfo;
+    }
+
+    public void setEnemyInfo(String enemyInfo) {
+        EnemyInfo = enemyInfo;
+    }
+
+    public void setEnemyArmy(EnemyArmy enemyArmy) {
+        this.enemyArmy = enemyArmy;
+    }
+
+    public int getWinningXP() {
+        return winningXP;
+    }
+
+    public void setWinningXP(int winningXP) {
+        this.winningXP = winningXP;
+    }
+
+    public int getWinningGold() {
+        return winningGold;
+    }
+
+    public void setWinningGold(int winningGold) {
+        this.winningGold = winningGold;
+    }
+
+    public void setInHeroesDescriptionStage(boolean inHeroesDescriptionStage) {
+        isInHeroesDescriptionStage = inHeroesDescriptionStage;
+    }
+
+    public void setInEnemyDescriptionStage(boolean inEnemyDescriptionStage) {
+        isInEnemyDescriptionStage = inEnemyDescriptionStage;
+    }
+
+    public void setInAbilityAcquiringStage(boolean inAbilityAcquiringStage) {
+        isInAbilityAcquiringStage = inAbilityAcquiringStage;
+    }
+
+    public void setInShoppingStage(boolean inShoppingStage) {
+        isInShoppingStage = inShoppingStage;
+    }
+
+    public void setInFightStage(boolean inFightStage) {
+        isInFightStage = inFightStage;
+    }
+
+    public void setBattleFinished(boolean battleFinished) {
+        isBattleFinished = battleFinished;
     }
 }

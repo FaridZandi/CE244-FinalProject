@@ -13,9 +13,13 @@ public class Control
     private View view;
 
     public static void main(String[] args) {
+//        CreateData.writeItems();
+//        CreateData.writeHeroes();
+//        CreateData.writeSoldierTypes();
+//        CreateData.writeBattles();
         Control control = new Control();
         control.getModel().getStory().proceedToNextStage();
-
+//
         control.getContinuousInput();
     }
 

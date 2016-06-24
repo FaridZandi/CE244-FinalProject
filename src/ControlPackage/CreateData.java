@@ -14,7 +14,6 @@ import ModelPackage.PrerequisiteAbility;
 import ModelPackage.Price;
 import ModelPackage.SoldierType;
 import ModelPackage.TraitChangerItem;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import java.util.ArrayList;
 
 /**
@@ -34,7 +33,7 @@ public class CreateData
         battles.add(battle2);
         battles.add(battle3);
         battles.add(battle4);
-        Model.writeJsonEncodedToFile("battles.txt" , battles);
+        Model.writeInFile("battles.txt" , Model.encodeObject(battles));
     }
     public static void writeItems()
     {
@@ -65,7 +64,7 @@ public class CreateData
         items.add(magicstick);
         items.add(healthpotion);
         items.add(magicpotion);
-        Model.writeJsonEncodedToFile("items.txt",items);
+        Model.writeInFile("items.txt",Model.encodeObject(items));
 
     }
 
@@ -167,7 +166,7 @@ public class CreateData
         soldierTypes.add(AbleTank);
 
 
-        Model.writeJsonEncodedToFile("soldierTypes.txt" , soldierTypes);
+        Model.writeInFile("soldierTypes.txt" , Model.encodeObject(soldierTypes));
     }
     public static void writeHeroes()
     {
@@ -337,6 +336,6 @@ public class CreateData
         heroes.add(Meryl);
         heroes.add(Bolti);
 
-        Model.writeJsonEncodedToFile("heroes.txt", heroes);
+        Model.writeInFile("heroes.txt", Model.encodeObject(heroes));
     }
 }

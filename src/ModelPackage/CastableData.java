@@ -1,9 +1,11 @@
 package ModelPackage;
 
+import java.io.Serializable;
+
 /**
  * Created by Y50 on 5/4/2016.
  */
-public class CastableData{
+public class CastableData implements Serializable{
     private int damage;
     private int heal;
     private int magic;

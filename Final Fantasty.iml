@@ -16,5 +16,8 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="jackson-core-2.7.0" level="project" />
+    <orderEntry type="library" name="jackson-databind-2.5.5" level="project" />
+    <orderEntry type="library" name="jackson-annotations-2.7.0" level="project" />
   </component>
 </module>

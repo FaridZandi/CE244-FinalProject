@@ -1,9 +1,7 @@
 package ModelPackage;
 
 
-import ControlPackage.RuntimeTypeAdapterFactory;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
@@ -12,6 +10,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Base64;
+
 /**
  * Created by Y50 on 4/15/2016.
  */
@@ -39,46 +39,52 @@ public class Model {
         loadHeroes(gameObjectsHolder , "heroes.txt");
     }
 
-    private static ArrayList loadArrayListObject(String fileName, Type listType) {
-
-        try {
-            String text = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
-            RuntimeTypeAdapterFactory<Ability> adapter =
-                    RuntimeTypeAdapterFactory
-                            .of(Ability.class)
-                            .registerSubtype(Ability.class)
-                            .registerSubtype(CastableAbility.class);
-
-            Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(adapter).create();
-            return gson.fromJson(text , listType);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    private static ArrayList loadArrayListObject(String fileName, Type listType) {
+//
+//        try {
+//            String text = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
+//
+//            RuntimeTypeAdapterFactory<Ability> adapter = RuntimeTypeAdapterFactory.of(Ability.class).registerSubtype(Ability.class).registerSubtype(CastableAbility.class);
+//
+//            RuntimeTypeAdapterFactory<Item> adapter2 = RuntimeTypeAdapterFactory.of(Item.class).registerSubtype(BuffCreatorItem.class).registerSubtype(CastableItem.class).registerSubtype(TraitChangerItem.class);
+//
+//
+//            Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(adapter).registerTypeAdapterFactory(adapter2).create();
+//            return gson.fromJson(text , listType);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     public static void loadBattles(Story story, String fileName) {
-        Type listType = new TypeToken<ArrayList<Battle>>() {}.getType();
-        story.setBattles(loadArrayListObject(fileName , listType));
+        story.setBattles((ArrayList<Battle>)decodeObject(readFromFile(fileName)));
+
+//        Type listType = new TypeToken<ArrayList<Battle>>() {}.getType();
+//        story.setBattles(loadArrayListObject(fileName , listType));
     }
 
     private void loadHeroes(GameObjectsHolder gameObjectsHolder, String fileName)
     {
-        Type listType = new TypeToken<ArrayList<Hero>>() {}.getType();
-        gameObjectsHolder.getPlayer().setHeroes(loadArrayListObject(fileName , listType));
+        gameObjectsHolder.getPlayer().setHeroes((ArrayList<Hero>)decodeObject(readFromFile(fileName)));
+//        Type listType = new TypeToken<ArrayList<Hero>>() {}.getType();
+//        gameObjectsHolder.getPlayer().setHeroes(loadArrayListObject(fileName , listType));
     }
 
     private void loadSoldierTypes(GameObjectsHolder gameObjectsHolder , String fileName)
     {
-        Type listType = new TypeToken<ArrayList<SoldierType>>() {}.getType();
-        gameObjectsHolder.setSoldierTypes(loadArrayListObject(fileName , listType));
+        gameObjectsHolder.setSoldierTypes((ArrayList<SoldierType>)decodeObject(readFromFile(fileName)));
+//        Type listType = new TypeToken<ArrayList<SoldierType>>() {}.getType();
+//        gameObjectsHolder.setSoldierTypes(loadArrayListObject(fileName , listType));
     }
 
     private void loadItems(GameObjectsHolder gameObjectsHolder, String fileName) {
-        Type listType = new TypeToken<ArrayList<Item>>() {}.getType();
-        gameObjectsHolder.setItems(loadArrayListObject(fileName , listType));
+
+        gameObjectsHolder.setItems((ArrayList<Item>)decodeObject(readFromFile(fileName)));
+//        Type listType = new TypeToken<ArrayList<Item>>() {}.getType();
+//        gameObjectsHolder.setItems(loadArrayListObject(fileName , listType));
     }
 
     public static <T> T deepClone(Object object , Class<T> tClass)
@@ -88,25 +94,67 @@ public class Model {
         return g.fromJson(encoded ,tClass);
     }
 
-    public static void writeJsonEncodedToFile(String fileName , Object object)
+    public static Object decodeObject(String s)
     {
-
-        RuntimeTypeAdapterFactory<Ability> adapter =
-                RuntimeTypeAdapterFactory
-                        .of(Ability.class)
-                        .registerSubtype(Ability.class)
-                        .registerSubtype(CastableAbility.class);
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(adapter).create();
+        byte[] data = Base64.getDecoder().decode(s);
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-            byte[] shit = gson.toJson(object).getBytes();
-            fileOutputStream.write(shit);
-        } catch (FileNotFoundException e) {
+            ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(data));
+            Object o = objectInputStream.readObject();
+            objectInputStream.close();
+            return o;
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+    public static String encodeObject(Object object)
+    {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+            objectOutputStream.writeObject(object);
+            objectOutputStream.close();
+            return Base64.getEncoder().encodeToString(byteArrayOutputStream.toByteArray());
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+    public static String readFromFile(String fileName)
+    {
+        try {
+            String text = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
+            return text;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static void writeInFile(String fileName , String s)
+    {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+            byte[] shit = s.getBytes();
+            fileOutputStream.write(shit);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        RuntimeTypeAdapterFactory<Ability> adapter = RuntimeTypeAdapterFactory.of(Ability.class).registerSubtype(Ability.class).registerSubtype(CastableAbility.class);
+//
+//        RuntimeTypeAdapterFactory<Item> adapter2 = RuntimeTypeAdapterFactory.of(Item.class).registerSubtype(BuffCreatorItem.class).registerSubtype(CastableItem.class).registerSubtype(TraitChangerItem.class);
+//
+//
+//        Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(adapter).registerTypeAdapterFactory(adapter2).create();
+//        try {
+//            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+//            byte[] shit = gson.toJson(object).getBytes();
+//            fileOutputStream.write(shit);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
     public Story getStory() {
         return story;
