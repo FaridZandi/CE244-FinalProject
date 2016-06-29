@@ -44,8 +44,6 @@ public class CastableAbility extends Ability {
             target.getAttacked(castableData.getDamage());
         }
 
-
-
         if(castableData.getHeal() > 0)
         {
             target.getHealed(castableData.getHeal());
@@ -63,7 +61,7 @@ public class CastableAbility extends Ability {
 
         if(castableData.getAffectingBuff() != null)
         {
-            target.addBuff(Model.deepClone(castableData.getAffectingBuff() , Buff.class));
+            target.addBuff((Buff)Model.deepClone(castableData.getAffectingBuff()));
         }
 
         this.setTurnsToUseAgain(castableData.getCoolDown());

@@ -24,6 +24,7 @@ public class EnemyArmy {
         int numberOfEnemies = enemies.size();
         for (Enemy soldier : soldiers)
         {
+            if(soldier.calculateAttackDamage(1) != 0)
             if (!currentBattle.getPlayer().isGameOver())
             {
                 int randomTarget = (int) (Math.random() * numberOfEnemies);

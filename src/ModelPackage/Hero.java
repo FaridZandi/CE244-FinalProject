@@ -16,6 +16,10 @@ public class Hero extends Soldier{
         super(soldierType , name , abilities1);
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     @Override
     public void describe() {
         System.out.println("shit");
@@ -28,8 +32,8 @@ public class Hero extends Soldier{
     }
 
     @Override
-    public void getAttacked(int Damage) {
-        super.getAttacked(Damage);
+    public void getAttacked(int damage) {
+        super.getAttacked(damage);
         if(this.getCurrentHealth() == 0)
         {
             if(this.player.getImmortalityPotions() > 0)
@@ -49,15 +53,16 @@ public class Hero extends Soldier{
     public boolean payPrice(Price price, boolean isPricePaid)
     {
         if(
-                        getCurrentMagic() > price.getMagicPrice() &&
-                        getEnergyPoints() > price.getEPPrice() &&
-                        player.getGold() > price.getGoldPrice() &&
-                        player.getXp() > price.getXPPrice())
+                        getCurrentMagic() >= price.getMagicPrice() &&
+                        getEnergyPoints() >= price.getEPPrice() &&
+                        player.getGold() >= price.getGoldPrice() &&
+                        player.getXp() >= price.getXPPrice())
         {
             if(isPricePaid == true)
             {
                 setCurrentMagic(getCurrentMagic() - price.getMagicPrice());
-                setCurrentHealth(getCurrentHealth() - price.getHealthPrice());
+                setEnergyPoints(getEnergyPoints() - price.getEPPrice());
+                if(price.getHealthPrice() != 0)
                 this.getAttacked(price.getHealthPrice());
                 player.setGold(player.getGold() - price.getGoldPrice());
                 player.setXp(player.getXp() - price.getXPPrice());

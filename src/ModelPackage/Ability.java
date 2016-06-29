@@ -57,6 +57,7 @@ public class Ability extends GameObject implements Serializable
                 if (prerequisiteAbilities.size() > this.level) {
                     if (this.getPrerequisiteAbilities().get(this.level) != null) {
                         PrerequisiteAbility temp = this.getPrerequisiteAbilities().get(this.level);
+
                         int prerequisiteLevel = hero.findAbility(temp.getAbilityName()).getLevel();
                         if (prerequisiteLevel < temp.getAbilityLevel()) {
                             View.show("You need level " + temp.getAbilityLevel() + " of "+ temp.getAbilityName() + " to acquire this level!");
@@ -80,7 +81,7 @@ public class Ability extends GameObject implements Serializable
                         if(this.isBuffsReplacedEachLevel)
                             if(this.level>0)
                                 hero.removeBuff(this.affectingBuffsAfterAcquiring.get(this.level - 1).getName());
-                        hero.addBuff(Model.deepClone(this.affectingBuffsAfterAcquiring.get(this.level),Buff.class));
+                        hero.addBuff((Buff)Model.deepClone(this.affectingBuffsAfterAcquiring.get(this.level)));
                     }
                 }
             }
@@ -108,7 +109,7 @@ public class Ability extends GameObject implements Serializable
         return AbilityInfo;
     }
 
-    public ArrayList<Price> getCastPrice(){return null;}
+    public ArrayList<Price> getCastPrices(){return null;}
 
     public int getLevel(){ return level;}
 
@@ -127,9 +128,6 @@ public class Ability extends GameObject implements Serializable
     public void setAbilityInfo(String abilityInfo) {
         AbilityInfo = abilityInfo;
     }
-
-
-    public void addToCastPrices(Price price){}
 
     public void addToBuffs(Buff buff){this.affectingBuffsAfterAcquiring.add(buff);}
 

@@ -8,20 +8,26 @@ import java.util.ArrayList;
  */
 public class Enemy extends Soldier {
 
+    private EnemyArmy enemyArmy;
     public Enemy(String soldierType, String name)
     {
         super(soldierType, name, new ArrayList<>());
     }
 
     @Override
-    public void getAttacked(int Damage) {
-        super.getAttacked(Damage);
+    public void getAttacked(int damage) {
+        super.getAttacked(damage);
         if(this.getCurrentHealth() == 0)
         {
-            this.getArmy().remove(this);
+            this.enemyArmy.getEnemies().remove(this);
             View.show(this.getName() + " was slain!");
             //TODO : an enemy soldier has been killed here, perform necessary things.
         }
     }
 
+    @Override
+    public void init(Story story) {
+        super.init(story);
+        this.enemyArmy = story.getCurrentBattle().getEnemyArmy();
+    }
 }

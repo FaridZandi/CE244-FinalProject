@@ -88,4 +88,12 @@ public class Buff implements Serializable{
     public void setHowMuchLeftToEnd(int howMuchLeftToEnd) {
         this.howMuchLeftToEnd = howMuchLeftToEnd;
     }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
 }

@@ -1,10 +1,11 @@
 package ModelPackage;
 import ViewPackage.View;
+import java.awt.Graphics;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Battle implements Serializable{
+public class Battle extends GameMapCell implements Serializable{
     private String battleStory;
     private Player player;
     private String EnemyInfo;
@@ -101,7 +102,7 @@ public class Battle implements Serializable{
     public void createEnemyArmyFromInfo(Story story)
     {
         enemyArmy = new EnemyArmy();
-        String[] groups = EnemyInfo.split("–");
+        String[] groups = EnemyInfo.split("-");
         for (int i = 0; i < groups.length; i++) {
             groups[i] = groups[i].replaceAll("[ ]{2,}" , " ");
             groups[i] = groups[i].trim();
@@ -185,7 +186,7 @@ public class Battle implements Serializable{
     {
         String soldierName = soldier.getName();
         ArrayList<Soldier> temp = new ArrayList<>();
-        if((isInEnemyArmy(soldierName)!=null) ^ (!isMyTeam))
+        if((isInEnemyArmy(soldierName)!=null) ^ (isMyTeam))
         {
             ArrayList<Hero> heroes = player.getHeroes();
             for (Hero hero : heroes) {
@@ -193,7 +194,7 @@ public class Battle implements Serializable{
             }
             return temp;
         }
-        else if((isInPlayerArmy(soldierName)!=null) ^ (!isMyTeam))
+        else if((isInPlayerArmy(soldierName)!=null) ^ (isMyTeam))
         {
             ArrayList<Enemy> enemies = enemyArmy.getEnemies();
             for (Enemy enemy : enemies) {
@@ -208,7 +209,7 @@ public class Battle implements Serializable{
     {
         ArrayList<Enemy> enemies = enemyArmy.getEnemies();
         for (Enemy enemy : enemies) {
-            if(enemy.getName().equals(soldierName))
+            if(enemy.getName().toLowerCase().equals(soldierName.toLowerCase()))
             {
                 return enemy;
             }
@@ -370,5 +371,10 @@ public class Battle implements Serializable{
 
     public void setBattleFinished(boolean battleFinished) {
         isBattleFinished = battleFinished;
+    }
+
+    @Override
+    public void draw(int cornerX, int cornerY, Graphics g) {
+        super.draw(cornerX, cornerY, g);
     }
 }

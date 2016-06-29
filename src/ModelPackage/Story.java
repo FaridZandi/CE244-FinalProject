@@ -1,5 +1,6 @@
 package ModelPackage;
 
+import ViewPackage.GamePanel;
 import ViewPackage.View;
 
 import java.util.ArrayList;
@@ -13,12 +14,16 @@ public class Story {
     private int currentBattleNumber;
     private GameObjectsHolder gameObjectsHolder;
     private Shop shop;
+    private GameMap gameMap;
 
     private boolean isGameOver;
+    private boolean isInBattle;
 
     public Story(GameObjectsHolder gameObjectsHolder){
         this.gameObjectsHolder = gameObjectsHolder;
         Model.loadBattles(this , "battles.txt");
+        gameMap = new GameMap();
+        isInBattle = false;
         //TODO : see what you can do about this category thing, it's ok for now however.
         shop = new Shop(gameObjectsHolder , "all");
         currentBattleNumber = 0;
@@ -103,5 +108,13 @@ public class Story {
 
     public void setBattles(ArrayList battles) {
         this.battles = battles;
+    }
+
+    public boolean getInBattle() {
+        return isInBattle;
+    }
+
+    public GameMap getGameMap() {
+        return gameMap;
     }
 }

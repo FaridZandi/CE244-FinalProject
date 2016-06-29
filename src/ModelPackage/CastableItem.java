@@ -28,17 +28,6 @@ public class CastableItem extends Item {
         this.charges = charges;
     }
 
-    @Override
-    public void purchasedBy(Hero buyer) {
-        if(!isEverythingOkToBuy(buyer))
-        {
-            return;
-        }
-        CastableItem temp = Model.deepClone(this , CastableItem.class);
-        buyer.addItem(temp);
-        buyer.addBuff(Model.deepClone(getAffectingBuffAfterBuying() , Buff.class));
-    }
-
     public int getTurnsToUseAgain() {
         return turnsToUseAgain;
     }

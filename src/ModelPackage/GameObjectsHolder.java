@@ -82,7 +82,7 @@ public class GameObjectsHolder {
         for (Item item : items) {
             if(item.getCategory().equals(category))
             {
-                temp.add(Model.deepClone(item , Item.class));
+                temp.add((Item)Model.deepClone(item));
             }
         }
         return temp;

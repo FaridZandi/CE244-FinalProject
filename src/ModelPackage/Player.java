@@ -1,5 +1,6 @@
 package ModelPackage;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,8 @@ import java.util.ArrayList;
  */
 public class Player {
     private ArrayList<Hero> heroes;
-
+    private double locationX;
+    private double locationY;
     private int gold;
     private int xp;
     private int immortalityPotions;
@@ -15,6 +17,8 @@ public class Player {
     private boolean isGameOver;
     public Player()
     {
+        locationX = 4.0;
+        locationY = 4.0;
         isGameOver = false;
         gold = 40;
         xp = 15;
@@ -86,5 +90,13 @@ public class Player {
 
     public void setGameOver(boolean gameOver) {
         isGameOver = gameOver;
+    }
+
+    public double getLocationX() {
+        return locationX;
+    }
+
+    public double getLocationY() {
+        return locationY;
     }
 }

@@ -42,16 +42,12 @@ public class Soldier extends GameObject{
 
         if(type.getAbilities() != null)
         for (Ability ability : type.getAbilities()) {
-            if(ability.isCastable())
-                abilities.add(Model.deepClone(ability , CastableAbility.class));
-            else
-                abilities.add(Model.deepClone(ability , Ability.class));
-
+                abilities.add((Ability)Model.deepClone(ability));
         }
         buffs = new ArrayList<>();
         if(type.getDefaultBuffs()!=null)
         for (Buff buff : type.getDefaultBuffs()) {
-            this.addBuff(Model.deepClone(buff , Buff.class));
+            this.addBuff((Buff)Model.deepClone(buff));
         }
         this.currentMagic = type.getMaximumMagic();
         this.currentHealth = type.getMaximumHealth();
@@ -88,10 +84,10 @@ public class Soldier extends GameObject{
         }
     }
 
-    public void getAttacked(int Damage)
+    public void getAttacked(int damage)
     {
         int cH = this.currentHealth;
-        cH -= Damage;
+        cH -= damage;
         if(cH > 0)
         {
             this.currentHealth = cH;
@@ -100,6 +96,7 @@ public class Soldier extends GameObject{
         {
             this.currentHealth = 0;
         }
+        View.show(this.getName() + " was attacked for "+ damage + "damage, current health is " + this.currentHealth + ".");
     }
 
     public void getHealed(int heal)
@@ -147,27 +144,15 @@ public class Soldier extends GameObject{
 
     public void timeBasedPutIntoEffect()
     {
-        //health increase by passage of time
-        int maximum , increase;
-
-        maximum = calculateMaximumHealth();
-        increase = maximum *(type.getHealthRefillRatePercentage());
-        this.getHealed(increase);
 
 
-        //magic increase by passage of time
-        maximum = calculateMaximumMagic();
-        increase = maximum * (type.getMagicRefillRatePercentage());
-        this.getMagicPoint(increase);
-
-        // energy points filled to maximum each time
-        energyPoints = calculateMaximumEnergyPoint();
 
         //auto cast abilities must be cast here
         for (Ability ability : this.getAbilities()) {
             if(ability.isCastable())
             {
                 CastableAbility castableAbility = (CastableAbility)ability;
+                if(castableAbility.getLevel() > 0)
                 if(castableAbility.getCastableData().get(castableAbility.getLevel() - 1).isAutoCast())
                 {
                     this.cast(castableAbility.getName());
@@ -198,24 +183,37 @@ public class Soldier extends GameObject{
         }
         int buffsNumber = this.getBuffs().size();
         for (int i = 0; i < buffsNumber; i++) {
-            if(this.getBuffs().get(i).isPermanent())
+            if(!this.getBuffs().get(i).isPermanent())
             {
-                int temp = this.getBuffs().get(i).getHowMuchLeftToEnd() - 1;
+                int temp = this.getBuffs().get(i).getDuration() - 1;
                 if (temp == 0)
                 {
-                    this.getBuffs().remove(i);
+                    removeBuff(this.getBuffs().get(i).getName());
                     i--;
                     buffsNumber--;
                 }
                 else
                 {
-                    this.getBuffs().get(i).setHowMuchLeftToEnd(temp);
+                    this.getBuffs().get(i).setDuration(temp);
                 }
             }
         }
 
+        //health increase by passage of time
+        int maximum , increase;
+
+        maximum = calculateMaximumHealth();
+        increase = (int)(maximum *(type.getHealthRefillRatePercentage() / 100.0));
+        this.getHealed(increase);
 
 
+        //magic increase by passage of time
+        maximum = calculateMaximumMagic();
+        increase = maximum * (type.getMagicRefillRatePercentage());
+        this.getMagicPoint(increase);
+
+        // energy points filled to maximum each time
+        energyPoints = calculateMaximumEnergyPoint();
 
     }
 
@@ -236,6 +234,11 @@ public class Soldier extends GameObject{
             maximum = calculateMaximumMagic();
             double ratio = ((double)(maximum + increase)) / (maximum);
             currentMagic = (int) (ratio * currentMagic);
+        }
+        increase = buff.getEnergyPointIncrease();
+        if(increase != 0)
+        {
+            this.energyPoints += increase;
         }
         buffs.add(buff);
     }
@@ -261,6 +264,11 @@ public class Soldier extends GameObject{
                     double ratio = ((double)(maximum - increase)) / (maximum);
                     currentMagic = (int) (ratio * currentMagic);
                 }
+                increase = buff.getEnergyPointIncrease();
+                if(increase != 0)
+                {
+                    this.energyPoints -= increase;
+                }
                 buffs.remove(buff);
                 break;
             }
@@ -269,32 +277,18 @@ public class Soldier extends GameObject{
 
     public void attack(Soldier target , double attackMultiplier)
     {
-        int attackPlus = 0;
-        double criticalMultiTotal = 1 + attackMultiplier;
-        int splashPercentageTotal = 0;
+        int attackDamage = calculateAttackDamage(attackMultiplier);
+        int splashPercentageTotal = calculateSplashPercentage();
 
-        for (Buff buff:buffs)
-        {
-            attackPlus += buff.getAttackPowerIncrease();
-            int randomNumber = (int)(Math.random()*100 + 1);
-            if(randomNumber < buff.getCriticalDamageChance())
-            {
-                criticalMultiTotal += buff.getCriticalDamageMultiplier();
-            }
-            splashPercentageTotal+=buff.getDamageSplashPercentage();
-        }
-        int attackDamage = this.type.getAttackPower()+attackPlus;
-        attackDamage*=criticalMultiTotal;
-
-        int splashFreeAttackDamage = ((100 - splashPercentageTotal)/100) * attackDamage;
-        int splashedDamage = attackDamage - splashFreeAttackDamage;
-        target.getAttacked(splashFreeAttackDamage);
+        int splashedDamage = (int)(((splashPercentageTotal)/100.0) * attackDamage);
+        ArrayList<Soldier> opponents = target.getArmy();
+        target.getAttacked(attackDamage);
 
 
         if(splashPercentageTotal != 0) {
-            ArrayList<Soldier> opponents = target.getArmy();
             for (Soldier opponent : opponents)
             {
+                if(!opponent.equals(target))
                 opponent.getAttacked(splashedDamage);
             }
         }
@@ -316,6 +310,7 @@ public class Soldier extends GameObject{
             View.show("this ability is not castable,please try again");
             return null;
         }
+        castableAbility = (CastableAbility)abilitySearchResult ;
         if(castableAbility.getLevel() == 0)
         {
             View.show("You haven't acquired this ability yet, please try again");
@@ -329,6 +324,7 @@ public class Soldier extends GameObject{
         castableAbility = (CastableAbility)abilitySearchResult;
         return castableAbility;
     }
+
 
     public void cast(String abilityName)
     {
@@ -354,6 +350,8 @@ public class Soldier extends GameObject{
             target.addAll(this.getArmy());
         }
 
+        if (!checkPricePay(castableAbility)) return;
+
         for (Soldier soldier : target) {
             castableAbility.cast(soldier , this);
         }
@@ -372,7 +370,7 @@ public class Soldier extends GameObject{
         Boolean isTargetInEnemyArmy = true;
 
         for (Soldier enemy : enemies) {
-            if(enemy.getName().equals(targetName))
+            if(enemy.getName().toLowerCase().equals(targetName.toLowerCase()))
             {
                 target = enemy;
             }
@@ -380,7 +378,7 @@ public class Soldier extends GameObject{
         if(target == null)
         {
             for (Soldier friendly : friendlies) {
-                if(friendly.getName().equals(targetName))
+                if(friendly.getName().toLowerCase().equals(targetName.toLowerCase()))
                 {
                     target = friendly;
                     isTargetInEnemyArmy = false;
@@ -404,8 +402,25 @@ public class Soldier extends GameObject{
             return;
         }
 
+        if (!checkPricePay(castableAbility))
+        {
+            return;
+        }
 
         castableAbility.cast(target, this);
+    }
+
+    private boolean checkPricePay(CastableAbility castableAbility) {
+        if(this.getClass() == Hero.class)
+        {
+            Price castPrice = castableAbility.getCastPrices().get(castableAbility.getLevel() - 1);
+            if(((Hero)this).payPrice(castPrice,true));
+            {
+                return true;
+            }
+        }
+        View.show("you don't have sufficient ep/mp/xp/gold to cast this ability");
+        return false;
     }
 
     public int calculateMaximumMagic()
@@ -441,6 +456,36 @@ public class Soldier extends GameObject{
         return maximumEP;
     }
 
+    public int calculateAttackDamage(double attackMultiplier)
+    {
+        int attackPlus = 0;
+        double criticalMultiTotal = 1 + attackMultiplier;
+        for (Buff buff:buffs)
+        {
+            attackPlus += buff.getAttackPowerIncrease();
+            int randomNumber = (int)(Math.random()*100 + 1);
+            if(randomNumber < buff.getCriticalDamageChance())
+            {
+                criticalMultiTotal += buff.getCriticalDamageMultiplier();
+            }
+        }
+        int attackDamage = this.type.getAttackPower()+attackPlus;
+        attackDamage*=criticalMultiTotal;
+
+        return attackDamage;
+    }
+
+    public int calculateSplashPercentage()
+    {
+        int splashPercentageTotal = 0;
+
+        for (Buff buff:buffs)
+        {
+            splashPercentageTotal+=buff.getDamageSplashPercentage();
+        }
+
+        return splashPercentageTotal;
+    }
 
     public boolean haveSpaceInInventory()
     {

@@ -9,14 +9,4 @@ public class TraitChangerItem extends Item{
         super(name, category, purchasePrice, priceIncreaseRate, affectingBuffAfterBuying);
         setTakingSpaceInInventory(false);
     }
-
-    @Override
-    public void purchasedBy(Hero buyer) {
-        if(!isEverythingOkToBuy(buyer))
-        {
-            return;
-        }
-        TraitChangerItem temp = Model.deepClone(this , TraitChangerItem.class);
-        buyer.addBuff(Model.deepClone(getAffectingBuffAfterBuying() , Buff.class));
-    }
 }

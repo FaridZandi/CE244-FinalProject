@@ -24,10 +24,10 @@ public class CreateData
 
     public static void writeBattles()
     {
-        Battle battle1 = new Battle("You’ve entered the castle, it takes a while for your eyes to get used to the darkness but the horrifying halo of your enemies is vaguely visible. Angel’s unsettling presence and the growling of thugs tell you that your first battle has BEGUN!" , "3 weak thugs – 1 weak angel" , 20 , 50);
-        Battle battle2 = new Battle("As you wander into the hall you realize the surrounding doors can lead your destiny to something far worse than you expected. You know what’s anticipating you behind the only open door but there’s no other choice." , "3 weak thugs – 1 weak angel" , 25 , 60);
-        Battle battle3 = new Battle("The door behind you is shut with a thunderous sound and you progress into the next hall holding the first key that you’ve found, hoping to seek the second one." , "2 able thugs – 1 weak angel – 1 weak tank" , 30 , 70);
-        Battle battle4 = new Battle("Running with the second key in your hand, you unlock the door back to the first hall and use the first key to burst into your most terrifying nightmares." , "2 mighty thugs – 1 able angel – 2 able tanks" , 35 , 80);
+        Battle battle1 = new Battle("You’ve entered the castle, it takes a while for your eyes to get used to the darkness but the horrifying halo of your enemies is vaguely visible. Angel’s unsettling presence and the growling of thugs tell you that your first battle has BEGUN!" , "3 weak thugs - 1 weak angel" , 20 , 50);
+        Battle battle2 = new Battle("As you wander into the hall you realize the surrounding doors can lead your destiny to something far worse than you expected. You know what’s anticipating you behind the only open door but there’s no other choice." , "2 able thugs - 1 weak angel - 1 weak tank" , 25 , 60);
+        Battle battle3 = new Battle("The door behind you is shut with a thunderous sound and you progress into the next hall holding the first key that you’ve found, hoping to seek the second one." , " 1 able thug – 1 mighty thug - 1 able angel - 1 weak tank" , 30 , 70);
+        Battle battle4 = new Battle("Running with the second key in your hand, you unlock the door back to the first hall and use the first key to burst into your most terrifying nightmares." , "2 mighty thugs - 1 able angel - 2 able tanks" , 35 , 80);
         ArrayList<Battle> battles = new ArrayList<>();
         battles.add(battle1);
         battles.add(battle2);
@@ -137,10 +137,14 @@ public class CreateData
         castPrice2.add(new Price(0 , 0 , 2 , 0 , 0));
 
         ArrayList<Ability> heal1 = new ArrayList<>();
-        heal1.add(new CastableAbility("Heal Level 1" , null , null ,false , null , "Heals Other Soldiers" , castPrice1 , castableData1 , "“Angel just healed “ + (target) + “ with “ + (healing amount) + “ health points”" , true , false));
-        ArrayList<Ability> heal2 = new ArrayList<>();
-        heal2.add(new CastableAbility("Heal Level 2" , null , null ,false , null , "Heals Other Soldiers" , castPrice2 , castableData2 , "“Angel just healed “ + (target) + “ with “ + (healing amount) + “ health points”" , true , false));
+        CastableAbility temp1= new CastableAbility("Heal Level 1" , null , null ,false , null , "Heals Other Soldiers" , castPrice1 , castableData1 , "“Angel just healed “ + (target) + “ with “ + (healing amount) + “ health points”" , true , false);
+        temp1.setLevel(1);
+        heal1.add(temp1);
 
+        ArrayList<Ability> heal2 = new ArrayList<>();
+        CastableAbility temp2 = new CastableAbility("Heal Level 2" , null , null ,false , null , "Heals Other Soldiers" , castPrice2 , castableData2 , "“Angel just healed “ + (target) + “ with “ + (healing amount) + “ health points”" , true , false);
+        temp2.setLevel(1);
+        heal2.add(temp2);
 
         SoldierType weakAngel = new SoldierType("Weak Angel" , heal1 , null , 0 , 150 , 0, 0 , 2 , 0 , 0);
         SoldierType AbleAngel = new SoldierType("Able Angel" , heal2 , null , 0 , 250 , 0, 0 , 2 , 0 , 0);
@@ -200,7 +204,7 @@ public class CreateData
         ArrayList<PrerequisiteAbility> prerequisiteAbilities2 = new ArrayList<>();
         prerequisiteAbilities2.add(new PrerequisiteAbility("Work Out", 1));
 
-        Ability swrilingAttack = new Ability("Swirling Attack" , acquirePrices2 , prerequisiteAbilities2 , true , affectingBuffs2 , "While attacking, non-targeted enemies also take P percent of its damage");
+        Ability swrilingAttack = new Ability("Swirling Attacks" , acquirePrices2 , prerequisiteAbilities2 , true , affectingBuffs2 , "While attacking, non-targeted enemies also take P percent of its damage");
 
         ArrayList<Ability> abilities1 = new ArrayList<>();
         abilities1.add(FightTraining);
@@ -288,7 +292,7 @@ public class CreateData
         ArrayList<Ability> abilities3 = new ArrayList<>();
         abilities3.add(Elixir);
         abilities3.add(CareTaker);
-        Hero Meryl = new Hero("Fighter" , "Meryl" , abilities3);
+        Hero Meryl = new Hero("Supporter" , "Meryl" , abilities3);
 
         ArrayList<Price> acquirePrices7 = new ArrayList<>();
         acquirePrices7.add(new Price(0, 2 , 0 , 0 , 0));

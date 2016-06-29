@@ -53,7 +53,7 @@ public class Attacker implements CompoundMethod
             View.show("You don't have enough energy points for attacking the target, please try again.");
             return;
         }
-
+        System.out.println(attacker.getEnergyPoints());
         attacker.attack(target , 0);
         if(!control.getModel().getStory().getCurrentBattle().isAnyEnemyAlive())
         {

@@ -1,11 +1,8 @@
 package ModelPackage;
 
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
+import ViewPackage.GamePanel;
 import java.io.*;
-import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -19,7 +16,7 @@ public class Model {
 
 
     private Story story;
-
+    private GamePanel gamePanel;
     public Model(){
         GameObjectsHolder gameObjectsHolder = new GameObjectsHolder();
         loadGame(gameObjectsHolder);
@@ -87,11 +84,12 @@ public class Model {
 //        gameObjectsHolder.setItems(loadArrayListObject(fileName , listType));
     }
 
-    public static <T> T deepClone(Object object , Class<T> tClass)
+    public static Object deepClone(Object object)
     {
-        Gson g = new Gson();
-        String encoded = g.toJson(object);
-        return g.fromJson(encoded ,tClass);
+        return decodeObject(encodeObject(object));
+//        Gson g = new Gson();
+//        String encoded = g.toJson(object);
+//        return g.fromJson(encoded ,tClass);
     }
 
     public static Object decodeObject(String s)
@@ -160,6 +158,9 @@ public class Model {
         return story;
     }
 
+    public void init(GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
+    }
 }
 
 
