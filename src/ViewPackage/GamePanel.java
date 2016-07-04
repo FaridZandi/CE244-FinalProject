@@ -1,9 +1,11 @@
 package ViewPackage;
 
 import ControlPackage.Control;
-import ModelPackage.GameMapCell;
-import ModelPackage.Model;
-import java.util.ArrayList;
+import ModelPackage.GameMap;
+import ModelPackage.Player;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,29 +17,29 @@ import java.awt.*;
 public class GamePanel extends JPanel
 {
 
+
     public static final int ScreenWidth = 1500;
-    public static final int ScreenHight = 1000;
-    public static final int CellSize = 200;
-    private Model model;
+    public static final int ScreenHeight = 1000;
     private Control control;
     private JFrame frame;
-    public void init(Control control, Model model) {
+    public void init(Control control) {
         frame = new JFrame("Amazing Brick");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(new ImageIcon("2leftarrow.png").getImage());
         frame.getContentPane().add(this);
-        this.model = model;
-        this.control = control;
 
         frame.setSize(1500, 1000);
         frame.setResizable(false);
-
         frame.setLocationRelativeTo(null);
+        frame.getContentPane().setBackground(Color.GRAY);
+
+        this.control = control;
         this.setPreferredSize(new Dimension(1500 , 1000));
         this.setLocation(0 , 0);
         this.setBounds(0 , 0 , 1500 , 1000);
         this.setBackground(Color.WHITE);
-        frame.getContentPane().setBackground(Color.GRAY);
+
+        frame.addKeyListener(control);
 
         frame.setLayout(null);
         frame.setVisible(true);
@@ -46,19 +48,25 @@ public class GamePanel extends JPanel
 
     @Override
     protected void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
         super.paintComponent(g);
-        double playerX = control.getModel().getStory().getGameObjectsHolder().getPlayer().getLocationX();
-        double playerY = control.getModel().getStory().getGameObjectsHolder().getPlayer().getLocationY();
-        ArrayList<ArrayList<GameMapCell>> temp = control.getModel().getStory().getGameMap().getGameMapCells();
-        for (ArrayList<GameMapCell> gameMapCells : temp) {
-            for (GameMapCell gameMapCell : gameMapCells) {
-                gameMapCell.draw(0 , 0 , g);
-            }
-        }
+
+        GameMap gameMap = control.getModel().getStory().getGameMap();
+        Player player = control.getModel().getStory().getGameObjectsHolder().getPlayer();
+
+        gameMap.draw(g2d , player);
+        player.draw(g2d);
+
+
+
     }
 
 
     public JFrame getFrame() {
         return frame;
+    }
+
+    public Control getControl() {
+        return control;
     }
 }

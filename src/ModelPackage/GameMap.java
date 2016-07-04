@@ -1,5 +1,8 @@
 package ModelPackage;
 
+import ViewPackage.GamePanel;
+import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 /**
@@ -7,6 +10,7 @@ import java.util.ArrayList;
  */
 public class GameMap
 {
+    public static final int CellSize = 150;
     private ArrayList<ArrayList<GameMapCell>> gameMapCells;
 
     public GameMap() {
@@ -35,9 +39,10 @@ public class GameMap
         
         ArrayList<GameMapCell> temp3 = new ArrayList<>();
         temp3.add(new WallMapCell());
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 4; i++)
         {
             temp3.add(new EmptyGameCell());
+            temp3.add(new WallMapCell());
         }
         temp3.add(new WallMapCell());
         gameMapCells.add(temp3);
@@ -99,8 +104,34 @@ public class GameMap
         ArrayList<GameMapCell> temp10 = new ArrayList<>();
         for (int i = 0; i < 10; i++)
         {
-            temp10.add(new EmptyGameCell());
+            temp10.add(new WallMapCell());
         }
         gameMapCells.add(temp10);
+        gameMapCells.add(temp10);
+        gameMapCells.add(temp10);
+        gameMapCells.add(temp10);
+        gameMapCells.add(temp10);
+    }
+
+    public void draw(Graphics2D g2d, Player player) {
+        double playerX = player.getLocationX();
+        double playerY = player.getLocationY();
+
+        int playerLocationIntX = (int)(playerX * CellSize);
+        int playerLocationIntY = (int)(playerY * CellSize);
+
+        int i = 0;
+        int j;
+
+        for (ArrayList<GameMapCell> gameMapCell : gameMapCells) {
+            j = 0;
+            for (GameMapCell mapCell : gameMapCell) {
+                int a = (i * CellSize) - (playerLocationIntX) + (GamePanel.ScreenWidth/3);
+                int b = (j * CellSize) - (playerLocationIntY) + (GamePanel.ScreenHeight/2);
+                mapCell.draw(a , b , g2d);
+                j++;
+            }
+            i++;
+        }
     }
 }

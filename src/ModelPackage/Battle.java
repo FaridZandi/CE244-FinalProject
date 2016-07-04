@@ -1,6 +1,7 @@
 package ModelPackage;
 import ViewPackage.View;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -374,7 +375,7 @@ public class Battle extends GameMapCell implements Serializable{
     }
 
     @Override
-    public void draw(int cornerX, int cornerY, Graphics g) {
-        super.draw(cornerX, cornerY, g);
+    public void draw(int cornerX, int cornerY, Graphics2D g2d) {
+        super.drawTile(cornerX, cornerY, g2d , GameMapCell.battleMapCellImage , true);
     }
 }

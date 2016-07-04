@@ -22,8 +22,8 @@ public class ChildrenOfTime
         CreateData.writeSoldierTypes();
         CreateData.writeBattles();
         Control control = new Control(gamePanel);
-        control.getModel().getStory().proceedToNextStage();
-        gamePanel.init(control , control.getModel());
+//        control.getModel().getStory().proceedToNextStage();
+        gamePanel.init(control);
         control.start();
     }
 

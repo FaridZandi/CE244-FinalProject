@@ -12,28 +12,29 @@ import java.util.Base64;
 /**
  * Created by Y50 on 4/15/2016.
  */
-public class Model {
+public class Model
+{
 
 
     private Story story;
     private GamePanel gamePanel;
-    public Model(){
+
+    public Model() {
         GameObjectsHolder gameObjectsHolder = new GameObjectsHolder();
         loadGame(gameObjectsHolder);
         story = new Story(gameObjectsHolder);
 
 
-
-        for (Hero hero : story.getGameObjectsHolder().getPlayer().getHeroes()) {
-            hero.init(story);
-        }
+//        for (Hero hero : story.getGameObjectsHolder().getPlayer().getHeroes()) {
+//            hero.init(story);
+//        }
     }
 
 
     public void loadGame(GameObjectsHolder gameObjectsHolder) {
-        loadItems(gameObjectsHolder , "items.txt");
-        loadSoldierTypes(gameObjectsHolder , "soldierTypes.txt");
-        loadHeroes(gameObjectsHolder , "heroes.txt");
+        loadItems(gameObjectsHolder, "items.txt");
+        loadSoldierTypes(gameObjectsHolder, "soldierTypes.txt");
+        loadHeroes(gameObjectsHolder, "heroes.txt");
     }
 
 //    private static ArrayList loadArrayListObject(String fileName, Type listType) {
@@ -57,43 +58,39 @@ public class Model {
 //    }
 
     public static void loadBattles(Story story, String fileName) {
-        story.setBattles((ArrayList<Battle>)decodeObject(readFromFile(fileName)));
+        story.setBattles((ArrayList<Battle>) decodeObject(readFromFile(fileName)));
 
 //        Type listType = new TypeToken<ArrayList<Battle>>() {}.getType();
 //        story.setBattles(loadArrayListObject(fileName , listType));
     }
 
-    private void loadHeroes(GameObjectsHolder gameObjectsHolder, String fileName)
-    {
-        gameObjectsHolder.getPlayer().setHeroes((ArrayList<Hero>)decodeObject(readFromFile(fileName)));
+    private void loadHeroes(GameObjectsHolder gameObjectsHolder, String fileName) {
+        gameObjectsHolder.getPlayer().setHeroes((ArrayList<Hero>) decodeObject(readFromFile(fileName)));
 //        Type listType = new TypeToken<ArrayList<Hero>>() {}.getType();
 //        gameObjectsHolder.getPlayer().setHeroes(loadArrayListObject(fileName , listType));
     }
 
-    private void loadSoldierTypes(GameObjectsHolder gameObjectsHolder , String fileName)
-    {
-        gameObjectsHolder.setSoldierTypes((ArrayList<SoldierType>)decodeObject(readFromFile(fileName)));
+    private void loadSoldierTypes(GameObjectsHolder gameObjectsHolder, String fileName) {
+        gameObjectsHolder.setSoldierTypes((ArrayList<SoldierType>) decodeObject(readFromFile(fileName)));
 //        Type listType = new TypeToken<ArrayList<SoldierType>>() {}.getType();
 //        gameObjectsHolder.setSoldierTypes(loadArrayListObject(fileName , listType));
     }
 
     private void loadItems(GameObjectsHolder gameObjectsHolder, String fileName) {
 
-        gameObjectsHolder.setItems((ArrayList<Item>)decodeObject(readFromFile(fileName)));
+        gameObjectsHolder.setItems((ArrayList<Item>) decodeObject(readFromFile(fileName)));
 //        Type listType = new TypeToken<ArrayList<Item>>() {}.getType();
 //        gameObjectsHolder.setItems(loadArrayListObject(fileName , listType));
     }
 
-    public static Object deepClone(Object object)
-    {
+    public static Object deepClone(Object object) {
         return decodeObject(encodeObject(object));
 //        Gson g = new Gson();
 //        String encoded = g.toJson(object);
 //        return g.fromJson(encoded ,tClass);
     }
 
-    public static Object decodeObject(String s)
-    {
+    public static Object decodeObject(String s) {
         byte[] data = Base64.getDecoder().decode(s);
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(data));
@@ -105,8 +102,8 @@ public class Model {
         }
         return null;
     }
-    public static String encodeObject(Object object)
-    {
+
+    public static String encodeObject(Object object) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
@@ -118,8 +115,8 @@ public class Model {
         }
         return null;
     }
-    public static String readFromFile(String fileName)
-    {
+
+    public static String readFromFile(String fileName) {
         try {
             String text = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
             return text;
@@ -128,8 +125,8 @@ public class Model {
         }
         return null;
     }
-    public static void writeInFile(String fileName , String s)
-    {
+
+    public static void writeInFile(String fileName, String s) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(fileName);
             byte[] shit = s.getBytes();
@@ -154,12 +151,20 @@ public class Model {
 //            e.printStackTrace();
 //        }
     }
+
     public Story getStory() {
         return story;
     }
 
     public void init(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
+    }
+
+    public void update(double v) {
+        GameMap gameMap = story.getGameMap();
+        Player player = this.getStory().getGameObjectsHolder().getPlayer();
+//        temp.setLocationX(temp.getLocationX() + 0.01);
+        player.walk(gamePanel.getControl());
     }
 }
 

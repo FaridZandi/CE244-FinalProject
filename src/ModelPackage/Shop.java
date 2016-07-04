@@ -2,6 +2,7 @@ package ModelPackage;
 
 import ViewPackage.View;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 /**
@@ -33,7 +34,7 @@ public class Shop extends GameMapCell {
     {
         for (Item buyableItem : buyableItems)
         {
-            if(buyableItem.getName().equals(itemName))
+            if(buyableItem.getName().toLowerCase().equals(itemName.toLowerCase()))
             {
                 seller.sell(itemName);
             }
@@ -41,7 +42,7 @@ public class Shop extends GameMapCell {
     }
 
     @Override
-    public void draw(int cornerX, int cornerY, Graphics g) {
-        super.draw(cornerX, cornerY, g);
+    public void draw(int cornerX, int cornerY, Graphics2D g2d) {
+        super.drawTile(cornerX, cornerY, g2d, GameMapCell.shopMapCellImage, true);
     }
 }

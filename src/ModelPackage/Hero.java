@@ -84,7 +84,7 @@ public class Hero extends Soldier{
     public void sell(String itemName) {
         Item removingItem = null;
         for (Item item : this.getInventory()) {
-            if(item.getName().equals(itemName))
+            if(item.getName().toLowerCase().equals(itemName.toLowerCase()))
             {
                 removingItem = item;
             }
