@@ -3,6 +3,8 @@ package ModelPackage;
 import ViewPackage.GamePanel;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Shape;
 import java.awt.image.BufferedImage;
@@ -17,22 +19,26 @@ public abstract class GameMapCell
 {
 
     private boolean isPassable;
-    public static BufferedImage emptyMapCellImage;
-    public static BufferedImage wallMapCellImage;
-    public static BufferedImage battleMapCellImage;
-    public static BufferedImage shopMapCellImage;
+    public static Image emptyMapCellImage;
+    public static Image wallMapCellImage;
+    public static Image battleMapCellImage;
+    public static Image shopMapCellImage;
 
 
     static{
         File img1 = new File("Grass_texture_sketchup_warehouse_type086.jpg");
         File img2 = new File("GpvC5e.png");
-        File img3 = new File("grass-min.jpg");
-        File img4 = new File("grass-min.jpg");
+        File img3 = new File("battleImage.png");
+        File img4 = new File("shopImage.png");
         try {
             emptyMapCellImage = ImageIO.read(img1);
+            emptyMapCellImage= emptyMapCellImage.getScaledInstance(GameMap.CellSize, GameMap.CellSize, Image.SCALE_DEFAULT);
             wallMapCellImage = ImageIO.read(img2);
+            wallMapCellImage = wallMapCellImage.getScaledInstance(GameMap.CellSize, GameMap.CellSize, Image.SCALE_DEFAULT);
             battleMapCellImage = ImageIO.read(img3);
+            battleMapCellImage = battleMapCellImage.getScaledInstance(GameMap.CellSize, GameMap.CellSize, Image.SCALE_DEFAULT);
             shopMapCellImage = ImageIO.read(img4);
+            shopMapCellImage = shopMapCellImage.getScaledInstance(GameMap.CellSize , GameMap.CellSize , Image.SCALE_DEFAULT);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,7 +51,9 @@ public abstract class GameMapCell
 
     public abstract void draw(int cornerX, int cornerY, Graphics2D g2d);
 
-    public void drawTile(int cornerX, int cornerY, Graphics2D g2d , BufferedImage bi, boolean isPassable) {
+    public abstract void enter(Story story);
+
+    public void drawTile(int cornerX, int cornerY, Graphics2D g2d , Image bi, boolean isPassable) {
 
         this.isPassable = isPassable;
         int x0 = GamePanel.ScreenWidth / 3;
@@ -75,10 +83,11 @@ public abstract class GameMapCell
 //        g.fillPolygon(polygonXs , polygonYs , 4);
     }
 
+
     private Dimension perspectiveAffectedWidth(Dimension point , Dimension origin)
     {
-        double a =(point.width - origin.width) / (double)PerspectiveRate;
-        double b =(point.height - origin.height)/(double)(origin.height);
+//        double a =(point.width - origin.width) / (double)PerspectiveRate;
+//        double b =(point.height - origin.height)/(double)(origin.height);
 //        double c =(point.height - origin.height) / (double)origin.height  + 1;
 
 //        int dimentionX = (int)(a * b) + point.width;
@@ -86,8 +95,9 @@ public abstract class GameMapCell
         return new Dimension(point.width , point.height);
     }
 
-
     public boolean getPassable() {
         return isPassable;
     }
+
+    public abstract void exit();
 }

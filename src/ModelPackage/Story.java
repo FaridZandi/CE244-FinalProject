@@ -19,7 +19,7 @@ public class Story {
     private boolean isInBattle;
 
     public Story(GameObjectsHolder gameObjectsHolder){
-        gameMap = new GameMap();
+        gameMap = new GameMap(gameObjectsHolder);
         isInBattle = false;
 
         this.gameObjectsHolder = gameObjectsHolder;
@@ -27,7 +27,7 @@ public class Story {
         shop = new Shop(gameObjectsHolder , "all");
 
         currentBattleNumber = 0;
-        battles.get(currentBattleNumber).init(this);
+//        battles.get(currentBattleNumber).init(this);
     }
 
 
@@ -115,5 +115,9 @@ public class Story {
 
     public GameMap getGameMap() {
         return gameMap;
+    }
+
+    public void setInBattle(boolean inBattle) {
+        this.isInBattle= inBattle;
     }
 }

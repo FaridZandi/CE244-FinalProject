@@ -1,6 +1,7 @@
 package ModelPackage;
 
 import ViewPackage.View;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -9,9 +10,9 @@ import java.util.ArrayList;
 public class Enemy extends Soldier {
 
     private EnemyArmy enemyArmy;
-    public Enemy(String soldierType, String name)
+    public Enemy(String soldierType, String name, File img)
     {
-        super(soldierType, name, new ArrayList<>());
+        super(soldierType, name, new ArrayList<>(), img);
     }
 
     @Override

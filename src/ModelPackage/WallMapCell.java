@@ -1,7 +1,5 @@
 package ModelPackage;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 /**
@@ -13,5 +11,15 @@ public class WallMapCell extends GameMapCell
     @Override
     public void draw(int cornerX, int cornerY, Graphics2D g2d) {
         super.drawTile(cornerX, cornerY, g2d , GameMapCell.wallMapCellImage , false);
+    }
+
+    @Override
+    public void enter(Story story) {
+
+    }
+
+    @Override
+    public void exit() {
+
     }
 }

@@ -2,18 +2,23 @@ package ModelPackage;
 
 import ViewPackage.View;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 
 /**
  * Created by Y50 on 5/1/2016.
  */
 public class Hero extends Soldier{
 
+
     private Player player;
 
-    public Hero(String soldierType, String name, ArrayList<Ability> abilities1)
+    public Hero(String soldierType, String name, ArrayList<Ability> abilities1, String spriteSheetFileName)
     {
-        super(soldierType , name , abilities1);
+        super(soldierType , name , abilities1, new File(spriteSheetFileName));
     }
 
     public Player getPlayer() {

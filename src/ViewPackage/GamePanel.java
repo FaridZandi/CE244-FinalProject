@@ -3,9 +3,6 @@ package ViewPackage;
 import ControlPackage.Control;
 import ModelPackage.GameMap;
 import ModelPackage.Player;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -49,15 +46,23 @@ public class GamePanel extends JPanel
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+
         super.paintComponent(g);
 
         GameMap gameMap = control.getModel().getStory().getGameMap();
         Player player = control.getModel().getStory().getGameObjectsHolder().getPlayer();
 
-        gameMap.draw(g2d , player);
-        player.draw(g2d);
+        if (!this.control.getModel().getStory().getInBattle()) {
 
+            gameMap.draw(g2d , player);
+            player.draw(g2d);
+        }
+        else
+        {
 
+        }
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(ScreenWidth * 2 / 3 , 0 , ScreenWidth /3 , ScreenHeight);
 
     }
 

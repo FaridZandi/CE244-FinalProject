@@ -209,7 +209,7 @@ public class CreateData
         ArrayList<Ability> abilities1 = new ArrayList<>();
         abilities1.add(FightTraining);
         abilities1.add(swrilingAttack);
-        Hero Eley = new Hero("Fighter", "Eley" , abilities1);
+        Hero Eley = new Hero("Fighter", "Eley" , abilities1, "character.png");
 
         ArrayList<Price> acquirePrices3 = new ArrayList<>();
         acquirePrices3.add(new Price(0, 2 , 0 , 0 , 0));
@@ -247,7 +247,7 @@ public class CreateData
         abilities2.add(Sacrifice);
         abilities2.add(criticalStrike);
 
-        Hero Chrome = new Hero("Fighter", "Chrome" , abilities2);
+        Hero Chrome = new Hero("Fighter", "Chrome" , abilities2, "character2.png");
 
 
         ArrayList<Price> acquirePrices5 = new ArrayList<>();
@@ -292,7 +292,7 @@ public class CreateData
         ArrayList<Ability> abilities3 = new ArrayList<>();
         abilities3.add(Elixir);
         abilities3.add(CareTaker);
-        Hero Meryl = new Hero("Supporter" , "Meryl" , abilities3);
+        Hero Meryl = new Hero("Supporter" , "Meryl" , abilities3, "character3.png");
 
         ArrayList<Price> acquirePrices7 = new ArrayList<>();
         acquirePrices7.add(new Price(0, 2 , 0 , 0 , 0));
@@ -332,7 +332,7 @@ public class CreateData
         ArrayList<Ability> abilities4 = new ArrayList<>();
         abilities4.add(Boost);
         abilities4.add(ManaBeam);
-        Hero Bolti = new Hero("Supporter" , "Bolti" , abilities4);
+        Hero Bolti = new Hero("Supporter" , "Bolti" , abilities4, "character4.png");
 
         ArrayList<Hero> heroes = new ArrayList<>();
         heroes.add(Eley);

@@ -4,8 +4,8 @@ import ViewPackage.GamePanel;
 import ViewPackage.View;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
  * Created by Y50 on 5/11/2016.
@@ -18,7 +18,7 @@ public class Control implements KeyListener
     private GamePanel gamePanel;
     private Thread gameLoop;
     private boolean isRunning;
-    ArrayList<Integer> pressedKeys;
+    private Stack<Integer> pressedKeys;
     public static final int FPS = 60;
 
 //    public static void main(String[] args) {
@@ -38,7 +38,7 @@ public class Control implements KeyListener
         model= new Model();
         model.init(gamePanel);
         this.gamePanel = gamePanel;
-        pressedKeys = new ArrayList<>();
+        pressedKeys = new Stack<>();
 //        inputHandler = new InputHandler(this);
 
     }
@@ -52,33 +52,21 @@ public class Control implements KeyListener
         switch (e.getKeyCode())
         {
             case KeyEvent.VK_UP:
-                if(pressedKeys.contains(1))
-                {
-                    pressedKeys.remove(new Integer(1));
-                }
-                pressedKeys.add(0 , 1);
+                pressedKeys.remove(new Integer(1));
+                pressedKeys.push(1);
                 break;
             case KeyEvent.VK_RIGHT:
-                if(pressedKeys.contains(4))
-                {
-                    pressedKeys.remove(new Integer(4));
-                }
-                pressedKeys.add(0 , 4);
+                pressedKeys.remove(new Integer(4));
+                pressedKeys.push(4);
                 break;
             case KeyEvent.VK_DOWN:
-                if(pressedKeys.contains(3))
-                {
-                    pressedKeys.remove(new Integer(3));
-                }
-                pressedKeys.add(0 , 3);
+                pressedKeys.remove(new Integer(3));
+                pressedKeys.push(3);
 
                 break;
             case KeyEvent.VK_LEFT:
-                if(pressedKeys.contains(2))
-                {
-                    pressedKeys.remove(new Integer(2));
-                }
-                pressedKeys.add(0 , 2);
+                pressedKeys.remove(new Integer(2));
+                pressedKeys.push(2);
                 break;
             case KeyEvent.VK_SHIFT :
                 model.getStory().getGameObjectsHolder().getPlayer().setSprinting(true);
@@ -156,7 +144,7 @@ public class Control implements KeyListener
         model.update(1000 / (double)FPS);
     }
 
-    public ArrayList<Integer> getPressedKeys() {
+    public Stack<Integer> getPressedKeys() {
         return pressedKeys;
     }
 }

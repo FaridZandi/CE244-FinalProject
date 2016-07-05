@@ -11,4 +11,16 @@ public class EmptyGameCell extends GameMapCell
     public void draw(int cornerX, int cornerY, Graphics2D g2d) {
         super.drawTile(cornerX, cornerY, g2d , GameMapCell.emptyMapCellImage, true);
     }
+
+    @Override
+    public void enter(Story story) {
+
+    }
+
+    @Override
+    public void exit() {
+
+    }
+
+
 }

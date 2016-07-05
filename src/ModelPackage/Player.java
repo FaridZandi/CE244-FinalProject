@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 import javax.imageio.ImageIO;
 
 /**
@@ -82,6 +83,7 @@ public class Player {
 
         Image subImg = CharacterSpriteSheet.getSubimage(SpriteSize * step , SpriteSize * row , SpriteSize , SpriteSize);
         subImg = subImg.getScaledInstance(GameMap.CellSize, GameMap.CellSize, Image.SCALE_DEFAULT);
+        AffineTransform backup = g2d.getTransform();
         AffineTransform tx = new AffineTransform();
         int txx = GamePanel.ScreenWidth / 6 -  GameMap.CellSize / 2 + (int)(37 * GameMap.CellSize / 150.0);
         int txy = (GamePanel.ScreenHeight / 4) - GameMap.CellSize / 2 + (int)(21 * GameMap.CellSize / 150.0);
@@ -89,15 +91,17 @@ public class Player {
         g2d.setTransform(tx);
 
         g2d.drawImage(subImg , tx , null);
+        g2d.setTransform(backup);
+
     }
 
 
 
     public void walk(Control control) {
-        ArrayList<Integer> pressedKeys = control.getPressedKeys();
+        Stack<Integer> pressedKeys = control.getPressedKeys();
         if(pressedKeys.size() != 0)
         {
-            int dir = pressedKeys.get(0);
+            int dir = pressedKeys.peek();
             if(!isWalking || dir != direction) {
                 this.movementAnimationStep = 0;
 
@@ -158,8 +162,14 @@ public class Player {
             }
             else
             {
+                if((int)locationX != (int)destinationX || (int)locationY != (int)destinationY)
+                {
+                    temp.get((int)locationX).get((int)locationY).exit();
+                    temp.get((int)destinationX).get((int)destinationY).enter(control.getModel().getStory());
+                }
                 locationX = destinationX;
                 locationY = destinationY;
+
                 int step = movementAnimationStep + 1;
 
                 if (step >= NumberOfFrames * AnimationPlayFrameRate) {

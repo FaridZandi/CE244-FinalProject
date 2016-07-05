@@ -1,7 +1,7 @@
 package ModelPackage;
 import ViewPackage.View;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -42,6 +42,7 @@ public class Battle extends GameMapCell implements Serializable{
         isInShoppingStage = false;
         isInFightStage = false;
         isBattleFinished = false;
+        System.out.println("start Shod!");
         enemyArmy.setCurrentBattle(this);
     }
 
@@ -127,7 +128,39 @@ public class Battle extends GameMapCell implements Serializable{
                 {
                     name = type + " " + i;
                 }
-                Enemy e = new Enemy(type , name);
+                //TODO : get Image Name For Enemies based On the Type of Them And Replace The Null
+                File img = null;
+                switch (type.toLowerCase())
+                {
+                    case "weak thug":
+                        img = new File("weakThug.png");
+                        break;
+                    case "able thug":
+                        img = new File("ableThug.png");
+                        break;
+                    case "mighty thug":
+                        img = new File("mightyThug.png");
+                        break;
+                    case "weak angel":
+                        img = new File("weakAngel.png");
+                        break;
+                    case "able angel":
+                        img = new File("ableAngel.png");
+                        break;
+                    case "mighty angel":
+                        img = new File("mightyAngel.png");
+                        break;
+                    case "weak tank":
+                        img = new File("weakTank.png");
+                        break;
+                    case "able tank":
+                        img = new File("ableTank.png");
+                        break;
+                    case "mighty tank":
+                        img = new File("mightyTank.png");
+                        break;
+                }
+                Enemy e = new Enemy(type , name, img);
                 e.init(story);
                 enemyArmy.getEnemies().add(e);
             }
@@ -260,6 +293,7 @@ public class Battle extends GameMapCell implements Serializable{
     {
         return isInFightStage;
     }
+
     public boolean isBattleFinished() {
         return isBattleFinished;
     }
@@ -376,6 +410,18 @@ public class Battle extends GameMapCell implements Serializable{
 
     @Override
     public void draw(int cornerX, int cornerY, Graphics2D g2d) {
+
         super.drawTile(cornerX, cornerY, g2d , GameMapCell.battleMapCellImage , true);
+    }
+
+    @Override
+    public void enter(Story story) {
+        story.setInBattle(true);
+        this.init(story);
+    }
+
+    @Override
+    public void exit() {
+
     }
 }

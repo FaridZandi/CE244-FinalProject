@@ -13,16 +13,16 @@ public class GameMap
     public static final int CellSize = 150;
     private ArrayList<ArrayList<GameMapCell>> gameMapCells;
 
-    public GameMap() {
+    public GameMap(GameObjectsHolder gameObjectsHolder) {
         gameMapCells = new ArrayList<>();
-        loadMap();
+        loadMap(gameObjectsHolder);
     }
 
     public ArrayList<ArrayList<GameMapCell>> getGameMapCells() {
         return gameMapCells;
     }
 
-    private void loadMap() {
+    private void loadMap(GameObjectsHolder gameObjectsHolder) {
         ArrayList<GameMapCell> temp1 = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             temp1.add(new WallMapCell());
@@ -58,16 +58,20 @@ public class GameMap
 
         ArrayList<GameMapCell> temp5 = new ArrayList<>();
         temp5 .add(new WallMapCell());
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 7; i++)
         {
             temp5.add(new EmptyGameCell());
         }
+        temp5.add(new Shop(gameObjectsHolder , "all"));
         temp5.add(new WallMapCell());
         gameMapCells.add(temp5);
 
         ArrayList<GameMapCell> temp6 = new ArrayList<>();
+        Battle battle1 = new Battle("You’ve entered the castle, it takes a while for your eyes to get used to the darkness but the horrifying halo of your enemies is vaguely visible. Angel’s unsettling presence and the growling of thugs tell you that your first battle has BEGUN!" , "3 weak thugs - 1 weak angel" , 20 , 50);
+
         temp6 .add(new WallMapCell());
-        for (int i = 0; i < 8; i++)
+        temp6.add(battle1);
+        for (int i = 0; i < 7; i++)
         {
             temp6.add(new EmptyGameCell());
         }
@@ -93,6 +97,7 @@ public class GameMap
         gameMapCells.add(temp8);
 
         ArrayList<GameMapCell> temp9 = new ArrayList<>();
+
         temp9 .add(new WallMapCell());
         for (int i = 0; i < 8; i++)
         {

@@ -2,13 +2,19 @@ package ModelPackage;
 
 import ViewPackage.View;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 
 /**
  * Created by Y50 on 5/1/2016.
  */
 public class Soldier extends GameObject{
 
+    private Image HeroSpriteSheet;
+    private File spriteSheetFileName;
     private int currentHealth;
     private int currentMagic;
     private int energyPoints;
@@ -19,17 +25,25 @@ public class Soldier extends GameObject{
     private Story story;
 
     private ArrayList<Ability> abilities;
-    public Soldier(String soldierTypeName, String name, ArrayList<Ability> abilities)
+    public Soldier(String soldierTypeName, String name, ArrayList<Ability> abilities, File spriteSheetFileName)
     {
         this.setName(name);
         this.soldierTypeName = soldierTypeName;
         this.abilities = abilities;
         inventory = new ArrayList<>();
         buffs = new ArrayList<>();
+        this.spriteSheetFileName = spriteSheetFileName;
     }
 
     public void init(Story story)
     {
+        File img = spriteSheetFileName;
+        try {
+            HeroSpriteSheet = ImageIO.read(img);
+            HeroSpriteSheet = HeroSpriteSheet.getScaledInstance(GameMap.CellSize , GameMap.CellSize , Image.SCALE_DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.story = story;
         try {
             this.type = (SoldierType) story.getGameObjectsHolder().find(soldierTypeName);
