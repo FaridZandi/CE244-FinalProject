@@ -1,6 +1,7 @@
 package ModelPackage;
 
 import ControlPackage.Control;
+import ControlPackage.Drawable;
 import ViewPackage.GamePanel;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -15,7 +16,8 @@ import javax.imageio.ImageIO;
 /**
  * Created by Y50 on 5/1/2016.
  */
-public class Player {
+public class Player implements Drawable
+{
     public static final int North = 1;
     public static final int West = 2;
     public static final int South = 3;
@@ -71,18 +73,16 @@ public class Player {
 
 
 
-    public void draw(Graphics2D g2d)
+    public void draw(Graphics2D g2d, Control control)
     {
         g2d.setClip(0 , 0 , GamePanel.ScreenWidth , GamePanel.ScreenHeight);
 
         final int WalkingImagesStartingRow = 7;
-        final int SpriteSize = 64;
 
         int row = direction + WalkingImagesStartingRow;
         int step = 1 + (movementAnimationStep / AnimationPlayFrameRate);
 
-        Image subImg = CharacterSpriteSheet.getSubimage(SpriteSize * step , SpriteSize * row , SpriteSize , SpriteSize);
-        subImg = subImg.getScaledInstance(GameMap.CellSize, GameMap.CellSize, Image.SCALE_DEFAULT);
+        Image subImg = Soldier.getSubImage(CharacterSpriteSheet , row, step);
         AffineTransform backup = g2d.getTransform();
         AffineTransform tx = new AffineTransform();
         int txx = GamePanel.ScreenWidth / 6 -  GameMap.CellSize / 2 + (int)(37 * GameMap.CellSize / 150.0);
@@ -165,7 +165,9 @@ public class Player {
                 if((int)locationX != (int)destinationX || (int)locationY != (int)destinationY)
                 {
                     temp.get((int)locationX).get((int)locationY).exit();
-                    temp.get((int)destinationX).get((int)destinationY).enter(control.getModel().getStory());
+                    locationX = destinationX;
+                    locationY = destinationY;
+                    temp.get((int)locationX).get((int)locationY).enter(control.getModel().getStory());
                 }
                 locationX = destinationX;
                 locationY = destinationY;
@@ -239,4 +241,12 @@ public class Player {
     public int getImmortalityPotions() {
         return immortalityPotions;
     }
+
+    public void drawHeroes(Graphics2D g2d, Control control) {
+        for (int i = 0; i < heroes.size(); i++) {
+            heroes.get(i).draw(g2d , control);
+        }
+    }
+
+
 }

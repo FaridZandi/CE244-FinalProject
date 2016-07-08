@@ -1,19 +1,44 @@
 package ModelPackage;
 
+import ControlPackage.Control;
+import ControlPackage.Drawable;
+import ViewPackage.GamePanel;
 import ViewPackage.View;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.SwingWorker;
 
 /**
  * Created by Y50 on 5/1/2016.
  */
-public class Soldier extends GameObject{
+public abstract class Soldier extends GameObject implements Drawable
+{
 
-    private Image HeroSpriteSheet;
+    private int walkingSpriteStartingRow;
+    private int attackingSpriteStartingRow;
+    private int castingStartingRow;
+    private int numberOfAttackingFrames;
+    private int numberOfWalkingFrames;
+    private int numberOfCastingFrames;
+    private int animationPlayFrameRate;
+    private boolean isStanding;
+    private boolean isWalking;
+    private boolean isCasting;
+    private boolean isAttacking;
+    private int currentAnimationStep;
+    private int locationX;
+    private int locationY;
+    private int direction;
+
+
+    private BufferedImage soldierSpriteSheet;
     private File spriteSheetFileName;
     private int currentHealth;
     private int currentMagic;
@@ -23,24 +48,37 @@ public class Soldier extends GameObject{
     private ArrayList<Buff> buffs;
     private ArrayList<Item> inventory;
     private Story story;
+    private GamePanel gamePanel;
 
     private ArrayList<Ability> abilities;
     public Soldier(String soldierTypeName, String name, ArrayList<Ability> abilities, File spriteSheetFileName)
     {
+
         this.setName(name);
         this.soldierTypeName = soldierTypeName;
         this.abilities = abilities;
         inventory = new ArrayList<>();
         buffs = new ArrayList<>();
         this.spriteSheetFileName = spriteSheetFileName;
+        walkingSpriteStartingRow = 7;
+        attackingSpriteStartingRow = 11;
+        castingStartingRow = -1;
+        numberOfAttackingFrames = 5;
+        numberOfWalkingFrames = 8;
+        numberOfCastingFrames = 6;
+        animationPlayFrameRate = 5;
+        currentAnimationStep = -animationPlayFrameRate;
+        isStanding = true;
+        isWalking = false;
+        isCasting = false;
+        isAttacking = false;
     }
 
-    public void init(Story story)
+    public void init(GamePanel gamePanel , Story story)
     {
-        File img = spriteSheetFileName;
+        this.gamePanel = gamePanel;
         try {
-            HeroSpriteSheet = ImageIO.read(img);
-            HeroSpriteSheet = HeroSpriteSheet.getScaledInstance(GameMap.CellSize , GameMap.CellSize , Image.SCALE_DEFAULT);
+            soldierSpriteSheet = ImageIO.read(spriteSheetFileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,10 +106,37 @@ public class Soldier extends GameObject{
         this.energyPoints = type.getEnergyPoints();
     }
 
-    public ArrayList<Soldier> getArmy()
-    {
-         return story.getCurrentBattle().getTeam(this , true);
+    public void draw(Graphics2D g2d, Control control) {
+
+        BufferedImage spriteSheet = this.getSoldierSpriteSheet();
+        int row = walkingSpriteStartingRow;
+        if(isWalking || isStanding)
+        {
+            row = direction + walkingSpriteStartingRow;
+        }
+        else if(isAttacking)
+        {
+            row = direction + attackingSpriteStartingRow;
+        }
+        else if(isCasting)
+        {
+            row = direction + castingStartingRow;
+        }
+
+        int column = 1 + currentAnimationStep/animationPlayFrameRate;
+
+        Image subImage = getSubImage(spriteSheet , row , column);
+
+        g2d.drawImage(subImage , locationX , locationY, null);
     }
+
+    public static Image getSubImage(BufferedImage spriteSheet, int row, int column) {
+        final int SpriteSize = 64;
+        BufferedImage subImg = spriteSheet.getSubimage(SpriteSize * column , SpriteSize * row , SpriteSize , SpriteSize);
+        return subImg.getScaledInstance(GameMap.CellSize, GameMap.CellSize, Image.SCALE_DEFAULT);
+    }
+
+    public abstract ArrayList<Soldier> getArmy();
 
     public ArrayList<Soldier> getOpponentArmy()
     {
@@ -110,6 +175,22 @@ public class Soldier extends GameObject{
         {
             this.currentHealth = 0;
         }
+        new SwingWorker()
+        {
+            @Override
+            protected Object doInBackground() throws Exception {
+                MyText txt = new MyText(" - " + damage , locationX , locationY , 20 , Color.RED);
+                gamePanel.getDrawables().add(txt);
+                double t = 0;
+                for (int i = 0; i < Control.FPS; i++) {
+                    txt.setY(txt.getY() - 1);
+                    Thread.sleep( 1000 / Control.FPS);
+                }
+                gamePanel.removeDrawable(txt);
+                return null;
+            }
+        }.execute();
+
         View.show(this.getName() + " was attacked for "+ damage + "damage, current health is " + this.currentHealth + ".");
     }
 
@@ -291,21 +372,80 @@ public class Soldier extends GameObject{
 
     public void attack(Soldier target , double attackMultiplier)
     {
-        int attackDamage = calculateAttackDamage(attackMultiplier);
-        int splashPercentageTotal = calculateSplashPercentage();
+        SwingWorker attackAnimation = new SwingWorker()
+        {
+            @Override
+            protected Object doInBackground() throws Exception{
+                go();
+                attackAnimation();
+                int attackDamage = calculateAttackDamage(attackMultiplier);
+                int splashPercentageTotal = calculateSplashPercentage();
 
-        int splashedDamage = (int)(((splashPercentageTotal)/100.0) * attackDamage);
-        ArrayList<Soldier> opponents = target.getArmy();
-        target.getAttacked(attackDamage);
+                int splashedDamage = (int)(((splashPercentageTotal)/100.0) * attackDamage);
+                ArrayList<Soldier> opponents = target.getArmy();
+                target.getAttacked(attackDamage);
+                Thread.sleep(20 * 1000 / Control.FPS);
 
-
-        if(splashPercentageTotal != 0) {
-            for (Soldier opponent : opponents)
-            {
-                if(!opponent.equals(target))
-                opponent.getAttacked(splashedDamage);
+                if(splashPercentageTotal != 0) {
+                    for (Soldier opponent : opponents)
+                    {
+                        if(!opponent.equals(target))
+                            opponent.getAttacked(splashedDamage);
+                    }
+                }
+                goBack();
+                return null;
             }
-        }
+
+            private void go() throws InterruptedException {
+                isStanding = false;
+                isWalking = true;
+                walk();
+                currentAnimationStep = -animationPlayFrameRate;
+                isWalking = false;
+                isAttacking = true;
+            }
+
+            private void goBack() throws InterruptedException {
+                isAttacking = false;
+                isWalking = true;
+                turnAround();
+                walk();
+                isWalking = false;
+                isStanding = true;
+                turnAround();
+            }
+
+            private void turnAround() throws InterruptedException {
+                int temp;
+                temp = direction;
+                direction = 3;
+                Thread.sleep(animationPlayFrameRate * 1000 / Control.FPS);
+                direction = 6 - temp;
+                currentAnimationStep = -animationPlayFrameRate;
+            }
+
+            private void attackAnimation() throws InterruptedException {
+                for (int i = 0; i < numberOfAttackingFrames * animationPlayFrameRate; i++) {
+                    currentAnimationStep++;
+                    Thread.sleep(1000 / Control.FPS);
+                }
+                currentAnimationStep = -animationPlayFrameRate;
+            }
+
+            private void walk() throws InterruptedException {
+                for (int i = 0; i < numberOfWalkingFrames * animationPlayFrameRate; i++) {
+                    currentAnimationStep++;
+                    if(direction == Player.East)
+                        locationX += 5;
+                    else if(direction == Player.West)
+                        locationX -= 5;
+                    Thread.sleep(1000 / Control.FPS);
+                }
+            }
+        };
+
+        attackAnimation.execute();
     }
 
 
@@ -568,7 +708,39 @@ public class Soldier extends GameObject{
         return story;
     }
 
+    public GamePanel getGamePanel() {
+        return gamePanel;
+    }
+
     public ArrayList<Buff> getBuffs() {
         return buffs;
+    }
+
+    public BufferedImage getSoldierSpriteSheet() {
+        return soldierSpriteSheet;
+    }
+
+    public void setLocationX(int locationx) {
+        this.locationX = locationx;
+    }
+
+    public void setLocationY(int locationY) {
+        this.locationY = locationY;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+
+    public int getAnimationPlayFrameRate() {
+        return animationPlayFrameRate;
+    }
+
+    public int getLocationY() {
+        return locationY;
+    }
+
+    public int getLocationX() {
+        return locationX;
     }
 }

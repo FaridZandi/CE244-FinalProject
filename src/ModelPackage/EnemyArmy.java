@@ -1,5 +1,8 @@
 package ModelPackage;
 
+import ControlPackage.Control;
+import ViewPackage.GamePanel;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 /**
@@ -9,6 +12,10 @@ public class EnemyArmy {
     private ArrayList<Enemy> soldiers;
 
     private Battle currentBattle;
+
+    public Battle getCurrentBattle() {
+        return currentBattle;
+    }
 
     public EnemyArmy()
     {
@@ -40,5 +47,11 @@ public class EnemyArmy {
 
     public void setCurrentBattle(Battle currentBattle) {
         this.currentBattle = currentBattle;
+    }
+
+    public void drawUnits(Graphics2D g2d ,Control control) {
+        for (int i = 0; i < soldiers.size(); i++) {
+            soldiers.get(i).draw(g2d , control);
+        }
     }
 }

@@ -20,13 +20,7 @@ public class Model
     private GamePanel gamePanel;
 
     public Model() {
-        GameObjectsHolder gameObjectsHolder = new GameObjectsHolder();
-        loadGame(gameObjectsHolder);
-        story = new Story(gameObjectsHolder);
 
-        for (Hero hero : story.getGameObjectsHolder().getPlayer().getHeroes()) {
-            hero.init(story);
-        }
     }
 
 
@@ -109,6 +103,13 @@ public class Model
 
     public void init(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
+        GameObjectsHolder gameObjectsHolder = new GameObjectsHolder();
+        loadGame(gameObjectsHolder);
+        story = new Story(gamePanel , gameObjectsHolder);
+
+        for (Hero hero : story.getGameObjectsHolder().getPlayer().getHeroes()) {
+            hero.init(gamePanel , story);
+        }
     }
 
     public void update(double v) {

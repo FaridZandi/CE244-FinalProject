@@ -1,9 +1,11 @@
 package ModelPackage;
+import ViewPackage.GamePanel;
 import ViewPackage.View;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.swing.SwingWorker;
 
 
 public class Battle extends GameMapCell implements Serializable{
@@ -24,7 +26,8 @@ public class Battle extends GameMapCell implements Serializable{
 
     private boolean isBattleFinished;
 
-    public Battle(String battleStory, String enemyInfo, int winningXP, int winningGold) {
+    public Battle(GamePanel gamePanel , String battleStory, String enemyInfo, int winningXP, int winningGold) {
+        super(gamePanel);
         this.battleStory = battleStory;
         EnemyInfo = enemyInfo;
         this.winningXP = winningXP;
@@ -44,6 +47,25 @@ public class Battle extends GameMapCell implements Serializable{
         isBattleFinished = false;
         System.out.println("start Shod!");
         enemyArmy.setCurrentBattle(this);
+
+
+        for (int i = 0; i < player.getHeroes().size(); i++) {
+            Hero hero = player.getHeroes().get(i);
+            hero.setLocationX(GamePanel.ScreenWidth / 2);
+            hero.setLocationY(GamePanel.ScreenHeight / player.getHeroes().size() * i);
+            hero.setDirection(Player.West);
+        }
+
+        for (int i = 0; i < enemyArmy.getEnemies().size(); i++) {
+            Enemy enemy = enemyArmy.getEnemies().get(i);
+            enemy.setLocationX(0);
+            enemy.setLocationY(GamePanel.ScreenHeight / enemyArmy.getEnemies().size() * i);
+            enemy.setDirection(Player.East);
+        }
+
+
+        player.getHeroes().get(0).getAbilities().get(2).acquire(player.getHeroes().get(0));
+        player.getHeroes().get(0).getAbilities().get(1).acquire(player.getHeroes().get(0));
     }
 
     public void proceedToNextStage()
@@ -160,8 +182,8 @@ public class Battle extends GameMapCell implements Serializable{
                         img = new File("mightyTank.png");
                         break;
                 }
-                Enemy e = new Enemy(type , name, img);
-                e.init(story);
+                Enemy e = new Enemy(type , name, img, enemyArmy);
+                e.init(getGamePanel() ,story);
                 enemyArmy.getEnemies().add(e);
             }
         }
@@ -187,29 +209,9 @@ public class Battle extends GameMapCell implements Serializable{
         isInFightStage = true;
     }
 
-
-
-
-
-
-
-
-
-    public void StartEnemyArmyTurn()
-    {
-        enemyArmy.doTurn();
-    }
-
     public boolean isAnyEnemyAlive()
     {
-        if(enemyArmy.getEnemies().size() == 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return enemyArmy.getEnemies().size() != 0;
     }
 
     public EnemyArmy getEnemyArmy() {
@@ -223,17 +225,13 @@ public class Battle extends GameMapCell implements Serializable{
         if((isInEnemyArmy(soldierName)!=null) ^ (isMyTeam))
         {
             ArrayList<Hero> heroes = player.getHeroes();
-            for (Hero hero : heroes) {
-                temp.add(hero);
-            }
+            temp.addAll(heroes);
             return temp;
         }
         else if((isInPlayerArmy(soldierName)!=null) ^ (isMyTeam))
         {
             ArrayList<Enemy> enemies = enemyArmy.getEnemies();
-            for (Enemy enemy : enemies) {
-                temp.add(enemy);
-            }
+            temp.addAll(enemies);
             return temp;
         }
         return null;
@@ -340,70 +338,6 @@ public class Battle extends GameMapCell implements Serializable{
         return player;
     }
 
-    public void setPlayer(Player player){
-        this.player = player;
-    }
-
-    public void setBattleFinished(Boolean isBattleFinished) {
-        this.isBattleFinished = isBattleFinished;
-    }
-
-    public String getBattleStory() {
-        return battleStory;
-    }
-
-    public void setBattleStory(String battleStory) {
-        this.battleStory = battleStory;
-    }
-
-    public String getEnemyInfo() {
-        return EnemyInfo;
-    }
-
-    public void setEnemyInfo(String enemyInfo) {
-        EnemyInfo = enemyInfo;
-    }
-
-    public void setEnemyArmy(EnemyArmy enemyArmy) {
-        this.enemyArmy = enemyArmy;
-    }
-
-    public int getWinningXP() {
-        return winningXP;
-    }
-
-    public void setWinningXP(int winningXP) {
-        this.winningXP = winningXP;
-    }
-
-    public int getWinningGold() {
-        return winningGold;
-    }
-
-    public void setWinningGold(int winningGold) {
-        this.winningGold = winningGold;
-    }
-
-    public void setInHeroesDescriptionStage(boolean inHeroesDescriptionStage) {
-        isInHeroesDescriptionStage = inHeroesDescriptionStage;
-    }
-
-    public void setInEnemyDescriptionStage(boolean inEnemyDescriptionStage) {
-        isInEnemyDescriptionStage = inEnemyDescriptionStage;
-    }
-
-    public void setInAbilityAcquiringStage(boolean inAbilityAcquiringStage) {
-        isInAbilityAcquiringStage = inAbilityAcquiringStage;
-    }
-
-    public void setInShoppingStage(boolean inShoppingStage) {
-        isInShoppingStage = inShoppingStage;
-    }
-
-    public void setInFightStage(boolean inFightStage) {
-        isInFightStage = inFightStage;
-    }
-
     public void setBattleFinished(boolean battleFinished) {
         isBattleFinished = battleFinished;
     }
@@ -416,9 +350,24 @@ public class Battle extends GameMapCell implements Serializable{
 
     @Override
     public void enter(Story story) {
-        story.setInBattle(true);
-        this.init(story);
+
+        new SwingWorker()
+        {
+            @Override
+            protected Object doInBackground() throws Exception {
+                ShowBigCircle();
+
+                getGamePanel().getDrawables().clear();
+                story.setInBattle(true);
+                init(story);
+                getGamePanel().getDrawables().addAll(getGamePanel().getControl().getModel().getStory().getGameObjectsHolder().getPlayer().getCurrentBattle().getEnemyArmy().getEnemies());
+                getGamePanel().getDrawables().addAll(getGamePanel().getControl().getModel().getStory().getGameObjectsHolder().getPlayer().getHeroes());
+                return null;
+            }
+        }.execute();
     }
+
+
 
     @Override
     public void exit() {

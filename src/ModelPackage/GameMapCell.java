@@ -1,6 +1,8 @@
 package ModelPackage;
 
+import ControlPackage.Control;
 import ViewPackage.GamePanel;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Graphics;
@@ -17,6 +19,8 @@ import javax.imageio.ImageIO;
  */
 public abstract class GameMapCell
 {
+
+    private final GamePanel gamePanel;
 
     private boolean isPassable;
     public static Image emptyMapCellImage;
@@ -47,6 +51,10 @@ public abstract class GameMapCell
 
     }
     public static final int PerspectiveRate = 4;
+
+    public GameMapCell(GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
+    }
 
 
     public abstract void draw(int cornerX, int cornerY, Graphics2D g2d);
@@ -95,8 +103,28 @@ public abstract class GameMapCell
         return new Dimension(point.width , point.height);
     }
 
+
+    public void ShowBigCircle() throws InterruptedException {
+        MyCircle circle = new MyCircle(0 , GamePanel.ScreenWidth / 3 , GamePanel.ScreenHeight / 2, Color.RED);
+        gamePanel.getDrawables().add(circle);
+        double t = 0;
+
+        for (int i = 0; i < Control.FPS; i++) {
+            t += (1.0 / Control.FPS);
+            circle.setRadius((int)(t * 3000));
+            circle.setX((int)(GamePanel.ScreenWidth / 3 * (1 - 3*t)));
+            circle.setY((int)(GamePanel.ScreenHeight / 2 * (1 - 3*t)));
+            circle.setColor(new Color(255 ,(int)(t * 255) , (int)(t * 255)));
+            Thread.sleep(1000/ Control.FPS);
+        }
+    }
+
     public boolean getPassable() {
         return isPassable;
+    }
+
+    public GamePanel getGamePanel() {
+        return gamePanel;
     }
 
     public abstract void exit();

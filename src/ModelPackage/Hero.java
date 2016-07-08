@@ -1,12 +1,12 @@
 package ModelPackage;
 
+import ViewPackage.GamePanel;
 import ViewPackage.View;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 
 /**
  * Created by Y50 on 5/1/2016.
@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 public class Hero extends Soldier{
 
 
-    private Player player;
+    Player player;
 
     public Hero(String soldierType, String name, ArrayList<Ability> abilities1, String spriteSheetFileName)
     {
@@ -31,9 +31,14 @@ public class Hero extends Soldier{
     }
 
     @Override
-    public void init(Story story) {
-        super.init(story);
+    public void init(GamePanel gamePanel, Story story) {
+        super.init(gamePanel ,story);
         this.player = this.getStory().getGameObjectsHolder().getPlayer();
+    }
+
+    @Override
+    public ArrayList<Soldier> getArmy() {
+        return this.player.getCurrentBattle().getTeam(this , true);
     }
 
     @Override
@@ -115,4 +120,5 @@ public class Hero extends Soldier{
             removeItem(itemName);
         }
     }
+
 }

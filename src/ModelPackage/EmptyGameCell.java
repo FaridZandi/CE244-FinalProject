@@ -1,5 +1,6 @@
 package ModelPackage;
 
+import ViewPackage.GamePanel;
 import java.awt.Graphics2D;
 
 /**
@@ -7,6 +8,11 @@ import java.awt.Graphics2D;
  */
 public class EmptyGameCell extends GameMapCell
 {
+
+    public EmptyGameCell(GamePanel gamePanel) {
+        super(gamePanel);
+    }
+
     @Override
     public void draw(int cornerX, int cornerY, Graphics2D g2d) {
         super.drawTile(cornerX, cornerY, g2d , GameMapCell.emptyMapCellImage, true);

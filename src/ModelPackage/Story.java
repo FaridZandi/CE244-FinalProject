@@ -1,5 +1,6 @@
 package ModelPackage;
 
+import ViewPackage.GamePanel;
 import ViewPackage.View;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
  * Created by Y50 on 5/2/2016.
  */
 public class Story {
+    private final GamePanel gamePanel;
     private String endingStory;
     private ArrayList<Battle> battles;
     private int currentBattleNumber;
@@ -18,15 +20,16 @@ public class Story {
     private boolean isGameOver;
     private boolean isInBattle;
 
-    public Story(GameObjectsHolder gameObjectsHolder){
-        gameMap = new GameMap(gameObjectsHolder);
+    public Story(GamePanel gamePanel, GameObjectsHolder gameObjectsHolder){
+        this.gamePanel = gamePanel;
         isInBattle = false;
 
         this.gameObjectsHolder = gameObjectsHolder;
-        Model.loadBattles(this , "battles.txt");
-        shop = new Shop(gameObjectsHolder , "all");
+//        Model.loadBattles(this , "battles.txt");
+        shop = new Shop(gamePanel , gameObjectsHolder , "all");
 
         currentBattleNumber = 0;
+        gameMap = new GameMap(gamePanel , gameObjectsHolder);
 //        battles.get(currentBattleNumber).init(this);
     }
 

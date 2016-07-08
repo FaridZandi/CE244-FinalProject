@@ -24,16 +24,16 @@ public class CreateData
 
     public static void writeBattles()
     {
-        Battle battle1 = new Battle("You’ve entered the castle, it takes a while for your eyes to get used to the darkness but the horrifying halo of your enemies is vaguely visible. Angel’s unsettling presence and the growling of thugs tell you that your first battle has BEGUN!" , "3 weak thugs - 1 weak angel" , 20 , 50);
-        Battle battle2 = new Battle("As you wander into the hall you realize the surrounding doors can lead your destiny to something far worse than you expected. You know what’s anticipating you behind the only open door but there’s no other choice." , "2 able thugs - 1 weak angel - 1 weak tank" , 25 , 60);
-        Battle battle3 = new Battle("The door behind you is shut with a thunderous sound and you progress into the next hall holding the first key that you’ve found, hoping to seek the second one." , " 1 able thug – 1 mighty thug - 1 able angel - 1 weak tank" , 30 , 70);
-        Battle battle4 = new Battle("Running with the second key in your hand, you unlock the door back to the first hall and use the first key to burst into your most terrifying nightmares." , "2 mighty thugs - 1 able angel - 2 able tanks" , 35 , 80);
-        ArrayList<Battle> battles = new ArrayList<>();
-        battles.add(battle1);
-        battles.add(battle2);
-        battles.add(battle3);
-        battles.add(battle4);
-        Model.writeInFile("battles.txt" , Model.encodeObject(battles));
+//        Battle battle1 = new Battle("You’ve entered the castle, it takes a while for your eyes to get used to the darkness but the horrifying halo of your enemies is vaguely visible. Angel’s unsettling presence and the growling of thugs tell you that your first battle has BEGUN!" , "3 weak thugs - 1 weak angel" , 20 , 50);
+//        Battle battle2 = new Battle("As you wander into the hall you realize the surrounding doors can lead your destiny to something far worse than you expected. You know what’s anticipating you behind the only open door but there’s no other choice." , "2 able thugs - 1 weak angel - 1 weak tank" , 25 , 60);
+//        Battle battle3 = new Battle("The door behind you is shut with a thunderous sound and you progress into the next hall holding the first key that you’ve found, hoping to seek the second one." , " 1 able thug – 1 mighty thug - 1 able angel - 1 weak tank" , 30 , 70);
+//        Battle battle4 = new Battle("Running with the second key in your hand, you unlock the door back to the first hall and use the first key to burst into your most terrifying nightmares." , "2 mighty thugs - 1 able angel - 2 able tanks" , 35 , 80);
+//        ArrayList<Battle> battles = new ArrayList<>();
+//        battles.add(battle1);
+//        battles.add(battle2);
+//        battles.add(battle3);
+//        battles.add(battle4);
+//        Model.writeInFile("battles.txt" , Model.encodeObject(battles));
     }
     public static void writeItems()
     {

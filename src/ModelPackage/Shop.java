@@ -1,5 +1,6 @@
 package ModelPackage;
 
+import ViewPackage.GamePanel;
 import ViewPackage.View;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -11,8 +12,9 @@ public class Shop extends GameMapCell {
     ArrayList<Item> buyableItems;
     private String category;
 
-    public Shop(GameObjectsHolder gameObjectsHolder, String category)
+    public Shop(GamePanel gamePanel , GameObjectsHolder gameObjectsHolder, String category)
     {
+        super(gamePanel);
         buyableItems = gameObjectsHolder.getItemsWithCategory(category);
     }
 
