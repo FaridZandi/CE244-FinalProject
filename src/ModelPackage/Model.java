@@ -114,7 +114,16 @@ public class Model
 
     public void update(double v) {
         Player player = this.getStory().getGameObjectsHolder().getPlayer();
-        player.walk(gamePanel.getControl());
+        if(!this.story.getInBattle()) {
+            player.walk(gamePanel.getControl());
+        }
+        else
+        {
+            if(player.getCurrentBattle().isBattleFinished())
+            {
+                player.getCurrentBattle().finish(story);
+            }
+        }
     }
 }
 

@@ -32,8 +32,8 @@ public class User implements CompoundMethod
         }
 
         if(onIndex == -1) {
-            itemName = input.substring(useIndex+4);
-            user.cast(itemName);
+//            itemName = input.substring(useIndex+4);
+//            user.cast(itemName);
         }
         else
         {

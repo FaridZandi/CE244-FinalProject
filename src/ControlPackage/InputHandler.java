@@ -143,32 +143,12 @@ public class InputHandler
 
     public String getCurrentSituation()
     {
-        boolean isInBattle = control.getModel().getStory().isCurrentlyInBattle();
-        boolean isInHeroesDescriptionStage = control.getModel().getStory().getCurrentBattle().isInHeroesDescriptionStage();
-        boolean isInEnemyDescriptionStage = control.getModel().getStory().getCurrentBattle().isInEnemyDescriptionStage();
-        boolean isInAbilityAcquiringStage = control.getModel().getStory().getCurrentBattle().isInAbilityAcquiringStage();
-        boolean isInShoppingStage = control.getModel().getStory().getCurrentBattle().isInShoppingStage();
-        boolean isInFightStage  = control.getModel().getStory().getCurrentBattle().isInFightStage();
-
-
-        if(isInBattle && isInAbilityAcquiringStage)
-        {
-            return "ability";
-        }
-        if(isInBattle && isInShoppingStage)
-        {
-            return "shop";
-        }
-        if(isInBattle && isInFightStage)
-        {
-            return "fight";
-        }
-        return "other";
+        return null;
     }
 
     private String createGeneralInput(String input)
     {
-        String generalInput = new String();
+        String generalInput = null;
         String[] words = input.split(" ");
         boolean flag = true;
         for (int i = 0; i < words.length; i++) {

@@ -34,8 +34,8 @@ public class Caster implements CompoundMethod
         }
 
         if(onIndex == -1) {
-            abilityName = input.substring(castIndex+5);
-            caster.cast(abilityName);
+//            abilityName = input.substring(castIndex+5);
+//            caster.cast(abilityName);
         }
         else
         {

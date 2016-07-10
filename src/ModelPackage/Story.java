@@ -36,24 +36,24 @@ public class Story {
 
     public void proceedToNextStage()
     {
-        if(!getCurrentBattle().isBattleFinished())
-        {
-            getCurrentBattle().proceedToNextStage();
-        }
-        else
-        {
-            getCurrentBattle().finish();
-            if(currentBattleNumber == battles.size() - 1)
-            {
-                this.finish();
-            }
-            else
-            {
-                currentBattleNumber++;
-                battles.get(currentBattleNumber).init(this);
-                getCurrentBattle().proceedToNextStage();
-            }
-        }
+//        if(!getCurrentBattle().isBattleFinished())
+//        {
+//            getCurrentBattle().proceedToNextStage();
+//        }
+//        else
+//        {
+//            getCurrentBattle().finish(story);
+//            if(currentBattleNumber == battles.size() - 1)
+//            {
+//                this.finish();
+//            }
+//            else
+//            {
+//                currentBattleNumber++;
+//                battles.get(currentBattleNumber).init(this);
+//                getCurrentBattle().proceedToNextStage();
+//            }
+//        }
     }
 
 

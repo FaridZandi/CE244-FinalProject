@@ -138,10 +138,7 @@ public abstract class Soldier extends GameObject implements Drawable
 
     public abstract ArrayList<Soldier> getArmy();
 
-    public ArrayList<Soldier> getOpponentArmy()
-    {
-        return story.getCurrentBattle().getTeam(this , false);
-    }
+    public abstract ArrayList<Soldier> getOpponentArmy();
 
     public void describe()
     {
@@ -179,14 +176,14 @@ public abstract class Soldier extends GameObject implements Drawable
         {
             @Override
             protected Object doInBackground() throws Exception {
-                MyText txt = new MyText(" - " + damage , locationX , locationY , 20 , Color.RED);
-                gamePanel.getDrawables().add(txt);
-                double t = 0;
-                for (int i = 0; i < Control.FPS; i++) {
-                    txt.setY(txt.getY() - 1);
-                    Thread.sleep( 1000 / Control.FPS);
-                }
-                gamePanel.removeDrawable(txt);
+//                MyText txt = new MyText(" - " + damage , locationX , locationY , 20 , Color.RED);
+//                gamePanel.getDrawables().add(txt);
+//                double t = 0;
+//                for (int i = 0; i < Control.FPS; i++) {
+//                    txt.setY(txt.getY() - 1);
+//                    Thread.sleep( 1000 / Control.FPS);
+//                }
+//                gamePanel.removeDrawable(txt);
                 return null;
             }
         }.execute();
@@ -250,7 +247,7 @@ public abstract class Soldier extends GameObject implements Drawable
                 if(castableAbility.getLevel() > 0)
                 if(castableAbility.getCastableData().get(castableAbility.getLevel() - 1).isAutoCast())
                 {
-                    this.cast(castableAbility.getName());
+                    this.cast(castableAbility.getName() , null);
                 }
 
             }
@@ -397,34 +394,6 @@ public abstract class Soldier extends GameObject implements Drawable
                 return null;
             }
 
-            private void go() throws InterruptedException {
-                isStanding = false;
-                isWalking = true;
-                walk();
-                currentAnimationStep = -animationPlayFrameRate;
-                isWalking = false;
-                isAttacking = true;
-            }
-
-            private void goBack() throws InterruptedException {
-                isAttacking = false;
-                isWalking = true;
-                turnAround();
-                walk();
-                isWalking = false;
-                isStanding = true;
-                turnAround();
-            }
-
-            private void turnAround() throws InterruptedException {
-                int temp;
-                temp = direction;
-                direction = 3;
-                Thread.sleep(animationPlayFrameRate * 1000 / Control.FPS);
-                direction = 6 - temp;
-                currentAnimationStep = -animationPlayFrameRate;
-            }
-
             private void attackAnimation() throws InterruptedException {
                 for (int i = 0; i < numberOfAttackingFrames * animationPlayFrameRate; i++) {
                     currentAnimationStep++;
@@ -433,16 +402,6 @@ public abstract class Soldier extends GameObject implements Drawable
                 currentAnimationStep = -animationPlayFrameRate;
             }
 
-            private void walk() throws InterruptedException {
-                for (int i = 0; i < numberOfWalkingFrames * animationPlayFrameRate; i++) {
-                    currentAnimationStep++;
-                    if(direction == Player.East)
-                        locationX += 5;
-                    else if(direction == Player.West)
-                        locationX -= 5;
-                    Thread.sleep(1000 / Control.FPS);
-                }
-            }
         };
 
         attackAnimation.execute();
@@ -450,118 +409,125 @@ public abstract class Soldier extends GameObject implements Drawable
 
 
 
+    public void cast(String abilityName , String targetName)
+    {
 
-    private CastableAbility getCastableAbility(String abilityName) {
-        CastableAbility castableAbility = null;
         Ability abilitySearchResult = findAbility(abilityName);
+
         if(abilitySearchResult == null)
         {
             View.show("Ability Not Found!");
-            return null;
+            return;
         }
         if(!abilitySearchResult.isCastable())
         {
             View.show("this ability is not castable,please try again");
-            return null;
+            return;
         }
-        castableAbility = (CastableAbility)abilitySearchResult ;
+
+        final CastableAbility castableAbility = (CastableAbility)abilitySearchResult ;
+
         if(castableAbility.getLevel() == 0)
         {
             View.show("You haven't acquired this ability yet, please try again");
-            return null;
+            return;
         }
         if(castableAbility.getTurnsToUseAgain() > 0)
         {
             View.show("Your desired ability is still in cooldown");
-            return null;
-        }
-        castableAbility = (CastableAbility)abilitySearchResult;
-        return castableAbility;
-    }
-
-
-    public void cast(String abilityName)
-    {
-        CastableAbility castableAbility = getCastableAbility(abilityName);
-        if (castableAbility == null) return;
-
-        CastableData castableData = castableAbility.getCastableData().get(castableAbility.getLevel() - 1);
-        if(! castableData.isGlobalEnemy() && !castableData.isGlobalFriendly())
-        {
-            View.show("You have a specify a target for this ability, please try again");
             return;
         }
 
-
         ArrayList<Soldier> target = new ArrayList<>();
-        if(castableData.isGlobalEnemy())
-        {
-            //TODO : not sure if this works! it is supposed to add all of the members of caster's army to the target arraylist!
-            target.addAll(this.getOpponentArmy());
+
+
+        if(targetName == null) {
+            CastableData castableData = castableAbility.getCastableData().get(castableAbility.getLevel() - 1);
+            if (castableData.isGlobalEnemy() || castableData.isGlobalFriendly()) {
+                if (castableData.isGlobalEnemy()) {
+                    target.addAll(this.getOpponentArmy());
+                }
+                if (castableData.isGlobalFriendly()) {
+                    target.addAll(this.getArmy());
+                }
+            }
+            else
+            {
+                View.show("you have to specify a target to use this ability! please try again.");
+                return;
+            }
         }
-        if(castableData.isGlobalFriendly())
+        else
         {
-            target.addAll(this.getArmy());
+            ArrayList<Soldier> enemies = this.getOpponentArmy();
+            ArrayList<Soldier> friendlies = this.getArmy();
+            Boolean isTargetInEnemyArmy = true;
+            for (Soldier enemy : enemies) {
+                if(enemy.getName().toLowerCase().equals(targetName.toLowerCase()))
+                {
+                    target.add(enemy);
+                    break;
+                }
+            }
+            if(target.isEmpty())
+            {
+                for (Soldier friendly : friendlies) {
+                    if(friendly.getName().toLowerCase().equals(targetName.toLowerCase()))
+                    {
+                        target.add(friendly);
+                        isTargetInEnemyArmy = false;
+                        break;
+                    }
+                }
+            }
+            if(target.isEmpty())
+            {
+                View.show("Target not found, please try again.");
+                return;
+            }
+
+            if(isTargetInEnemyArmy && !castableAbility.isCastableOnEnemies())
+            {
+                View.show("This ability can not be cast on an enemy soldier, please try again");
+                return;
+            }
+            if(!isTargetInEnemyArmy && !castableAbility.isCastableOnFriendlies())
+            {
+                View.show("This ability can not be cast on a friendly soldier, please try again");
+            }
         }
+
+
 
         if (!checkPricePay(castableAbility)) return;
 
-        for (Soldier soldier : target) {
-            castableAbility.cast(soldier , this);
-        }
-    }
-
-
-    public void cast(String abilityName,String targetName)
-    {
-        ArrayList<Soldier> enemies = this.getOpponentArmy();
-        ArrayList<Soldier> friendlies = this.getArmy();
-
-        CastableAbility castableAbility = getCastableAbility(abilityName);
-        if (castableAbility == null) return;
-
-        Soldier target = null;
-        Boolean isTargetInEnemyArmy = true;
-
-        for (Soldier enemy : enemies) {
-            if(enemy.getName().toLowerCase().equals(targetName.toLowerCase()))
-            {
-                target = enemy;
-            }
-        }
-        if(target == null)
+        Soldier caster = this;
+        SwingWorker castAnimation = new SwingWorker()
         {
-            for (Soldier friendly : friendlies) {
-                if(friendly.getName().toLowerCase().equals(targetName.toLowerCase()))
-                {
-                    target = friendly;
-                    isTargetInEnemyArmy = false;
+            @Override
+            protected Object doInBackground() throws Exception{
+                go();
+                castAnimation();
+
+                for (Soldier soldier : target) {
+                    castableAbility.cast(soldier , caster);
                 }
+
+                goBack();
+                return null;
             }
-        }
-        if(target == null)
-        {
-            View.show("Target not found, please try again.");
-            return;
-        }
 
-        if(isTargetInEnemyArmy && !castableAbility.isCastableOnEnemies())
-        {
-            View.show("This ability can not be cast on an enemy soldier, please try again");
-            return;
-        }
-        if(!isTargetInEnemyArmy && !castableAbility.isCastableOnFriendlies())
-        {
-            View.show("This ability can not be cast on a friendly soldier, please try again");
-            return;
-        }
+            private void castAnimation() throws InterruptedException {
+                for (int i = 0; i < numberOfCastingFrames * animationPlayFrameRate; i++) {
+                    currentAnimationStep++;
+                    Thread.sleep(1000 / Control.FPS);
+                }
+                currentAnimationStep = -animationPlayFrameRate;
+            }
 
-        if (!checkPricePay(castableAbility))
-        {
-            return;
-        }
+        };
 
-        castableAbility.cast(target, this);
+        castAnimation.execute();
     }
 
     private boolean checkPricePay(CastableAbility castableAbility) {
@@ -688,6 +654,48 @@ public abstract class Soldier extends GameObject implements Drawable
             }
         }
         return null;
+    }
+
+
+    private void go() throws InterruptedException {
+        isStanding = false;
+        isWalking = true;
+        walk();
+        currentAnimationStep = -animationPlayFrameRate;
+        isWalking = false;
+        isAttacking = true;
+    }
+
+    private void goBack() throws InterruptedException {
+        isAttacking = false;
+        isWalking = true;
+        turnAround();
+        walk();
+        isWalking = false;
+        isStanding = true;
+        turnAround();
+    }
+
+    private void turnAround() throws InterruptedException {
+        int temp;
+        temp = direction;
+        direction = 3;
+        Thread.sleep(animationPlayFrameRate * 1000 / Control.FPS);
+        direction = 6 - temp;
+        currentAnimationStep = -animationPlayFrameRate;
+    }
+
+
+
+    private void walk() throws InterruptedException {
+        for (int i = 0; i < numberOfWalkingFrames * animationPlayFrameRate; i++) {
+            currentAnimationStep++;
+            if(direction == Player.East)
+                locationX += 5;
+            else if(direction == Player.West)
+                locationX -= 5;
+            Thread.sleep(1000 / Control.FPS);
+        }
     }
 
     public void addAbility(Ability ability)

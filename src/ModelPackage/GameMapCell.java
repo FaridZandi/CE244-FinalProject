@@ -104,9 +104,7 @@ public abstract class GameMapCell
     }
 
 
-    public void ShowBigCircle() throws InterruptedException {
-        MyCircle circle = new MyCircle(0 , GamePanel.ScreenWidth / 3 , GamePanel.ScreenHeight / 2, Color.RED);
-        gamePanel.getDrawables().add(circle);
+    public void explodeBigCircle(MyCircle circle) throws InterruptedException {
         double t = 0;
 
         for (int i = 0; i < Control.FPS; i++) {
@@ -117,6 +115,24 @@ public abstract class GameMapCell
             circle.setColor(new Color(255 ,(int)(t * 255) , (int)(t * 255)));
             Thread.sleep(1000/ Control.FPS);
         }
+
+    }
+    public void implodeBigCircle(MyCircle circle) {
+        double t = 1;
+
+        for (int i = 0; i < Control.FPS; i++) {
+            t -= (1.0 / Control.FPS);
+            circle.setRadius((int)(t * 3000));
+            circle.setX((int)(GamePanel.ScreenWidth / 3 * (1 - 3*t)));
+            circle.setY((int)(GamePanel.ScreenHeight / 2 * (1 - 3*t)));
+            circle.setColor(new Color(255 ,(int)(t * 255) , (int)(t * 255)));
+            try {
+                Thread.sleep(1000/ Control.FPS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public boolean getPassable() {

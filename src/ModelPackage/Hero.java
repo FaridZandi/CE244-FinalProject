@@ -42,6 +42,11 @@ public class Hero extends Soldier{
     }
 
     @Override
+    public ArrayList<Soldier> getOpponentArmy() {
+        return player.getCurrentBattle().getTeam(this , false);
+    }
+
+    @Override
     public void getAttacked(int damage) {
         super.getAttacked(damage);
         if(this.getCurrentHealth() == 0)

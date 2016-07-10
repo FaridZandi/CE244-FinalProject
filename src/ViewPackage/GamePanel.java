@@ -2,6 +2,7 @@ package ViewPackage;
 
 import ControlPackage.Control;
 import ControlPackage.Drawable;
+import ModelPackage.Ability;
 import ModelPackage.Enemy;
 import ModelPackage.GameMap;
 import ModelPackage.Hero;
@@ -18,7 +19,7 @@ import javax.swing.event.MouseInputListener;
 /**
  * Created by Y50 on 6/1/2016.
  */
-public class GamePanel extends JPanel implements MouseInputListener
+public class GamePanel extends JPanel
 {
 
 
@@ -41,9 +42,9 @@ public class GamePanel extends JPanel implements MouseInputListener
         this.setPreferredSize(new Dimension(1500 , 1000));
         this.setLocation(0 , 0);
         this.setBounds(0 , 0 , 1500 , 1000);
-        this.setBackground(Color.WHITE);
-        this.addMouseMotionListener(this);
-        this.addMouseListener(this);
+        this.setBackground(Color.CYAN);
+        this.addMouseMotionListener(control);
+        this.addMouseListener(control);
         frame.addKeyListener(control);
         frame.setLayout(null);
         frame.setVisible(true);
@@ -54,9 +55,7 @@ public class GamePanel extends JPanel implements MouseInputListener
         drawables.add(control.getModel().getStory().getGameObjectsHolder().getPlayer());
     }
 
-    private boolean isWaiting = true;
-    private Hero doer = null;
-    private boolean isAwaitingForInput = false;
+
 
 
     private ArrayList<Drawable> drawables;
@@ -65,6 +64,7 @@ public class GamePanel extends JPanel implements MouseInputListener
     {
         drawables.remove(drawable);
     }
+
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -92,84 +92,7 @@ public class GamePanel extends JPanel implements MouseInputListener
 
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if(this.control.getModel().getStory().getInBattle())
-        {
-            for (Hero hero : this.control.getModel().getStory().getGameObjectsHolder().getPlayer().getHeroes()) {
-                checkSoldier(e, hero);
-            }
 
-
-            for (Enemy enemy : this.control.getModel().getStory().getGameObjectsHolder().getPlayer().getCurrentBattle().getEnemyArmy().getEnemies()) {
-                checkSoldier(e , enemy);
-            }
-        }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
-    }
-
-    private void checkSoldier(MouseEvent e, Soldier soldier) {
-        int x = soldier.getLocationX()+ GameMap.CellSize / 2;
-        int y = soldier.getLocationY()+ GameMap.CellSize / 2;
-        int a = e.getX();
-        int b = e.getY();
-
-        if(Math.sqrt( (double)((x - a)*(x - a) + (y - b)*(y - b))) < (GameMap.CellSize / 3))
-        {
-            if(isAwaitingForInput)
-            {
-                doer.attack(soldier , 0);
-                isWaiting = true;
-                isAwaitingForInput = false;
-                doer = null;
-            }
-            for (Component component : getComponents()) {
-                remove(component);
-            }
-            JButton jButton = new JButton();
-            jButton.setText("Attack!");
-            jButton.setBounds(x - GameMap.CellSize , y , GameMap.CellSize / 2 , GameMap.CellSize/2);
-            jButton.setVisible(true);
-
-
-            jButton.addActionListener(e1 -> {
-                if(isWaiting)
-                {
-                    isAwaitingForInput = true;
-                    doer = (Hero) soldier;
-                    isWaiting = false;
-                }
-            });
-            add(jButton);
-        }
-    }
 
     public JFrame getFrame() {
         return frame;
@@ -182,5 +105,12 @@ public class GamePanel extends JPanel implements MouseInputListener
 
     public ArrayList<Drawable> getDrawables() {
         return drawables;
+    }
+
+    public void resetKeyboardListener() {
+        removeKeyListener(control);
+        addKeyListener(control);
+
+        grabFocus();
     }
 }

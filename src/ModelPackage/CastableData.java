@@ -69,6 +69,8 @@ public class CastableData implements Serializable{
         return turnsToUseAgain;
     }
 
+
+
     public double getAttackMultiplier() {
         return attackMultiplier;
     }

@@ -17,22 +17,9 @@ import javax.swing.SwingWorker;
 public class Enemy extends Soldier {
 
 
-    private boolean isExploding = false;
-    private static BufferedImage bloodSpriteSheet;
-    private int numberOfExplosionFrames = 5;
-    private int explosionStep = 0;
 
-
-    static{
-        File img = new File("blood (2).png");
-
-        try {
-            bloodSpriteSheet = ImageIO.read(img);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     private EnemyArmy enemyArmy;
+
     public Enemy(String soldierType, String name, File img , EnemyArmy enemyArmy)
     {
         super(soldierType, name, new ArrayList<>(), img);
@@ -44,22 +31,31 @@ public class Enemy extends Soldier {
         super.getAttacked(damage);
         if(this.getCurrentHealth() == 0)
         {
-            isExploding = true;
-            explosionStep = 0;
-            int animationPlayFrameRate = getAnimationPlayFrameRate();
+
+
+
             Enemy ExplodingEnemy = this;
             SwingWorker ExplodeAnimation = new SwingWorker()
             {
 
                 @Override
                 protected Object doInBackground() throws Exception {
+                    Blood blood = new Blood(ExplodingEnemy.getLocationX() , ExplodingEnemy.getLocationY());
+                    getGamePanel().getDrawables().add(blood);
 
-                    for (int i = 0; i < animationPlayFrameRate * numberOfExplosionFrames; i++) {
-                        explosionStep++;
+                    for (int explosionStep = 0; explosionStep < 3 * Blood.NumberOfExplosionFrames ; explosionStep++) {
+                        blood.setStep(explosionStep / getAnimationPlayFrameRate());
                         Thread.sleep(1000/ Control.FPS);
                     }
+
+                    getGamePanel().removeDrawable(blood);
                     enemyArmy.getEnemies().remove(ExplodingEnemy);
                     getGamePanel().removeDrawable(ExplodingEnemy);
+
+                    if (!enemyArmy.getCurrentBattle().isAnyEnemyAlive()) {
+                        enemyArmy.getCurrentBattle().setBattleFinished(true);
+                    }
+
                     return null;
                 }
             };
@@ -76,20 +72,26 @@ public class Enemy extends Soldier {
 //        this.enemyArmy = story.getCurrentBattle().getEnemyArmy();
     }
 
-    @Override
-    public void draw(Graphics2D g2d , Control control) {
-        super.draw(g2d , control);
-        if(isExploding)
-        {
-            int row = 0;
-            int column = explosionStep / getAnimationPlayFrameRate();
-            Image subImg = Soldier.getSubImage(bloodSpriteSheet , row , column);
-            g2d.drawImage(subImg , this.getLocationX() , this.getLocationY(), null);
-        }
-    }
+//    @Override
+//    public void draw(Graphics2D g2d , Control control) {
+//        super.draw(g2d , control);
+//        if(isExploding)
+//        {
+//            int row = 0;
+//            int column = explosionStep / getAnimationPlayFrameRate();
+//            Image subImg = Soldier.getSubImage(bloodSpriteSheet , row , column);
+//            g2d.drawImage(subImg , this.getLocationX() , this.getLocationY(), null);
+//        }
+//    }
 
     @Override
     public ArrayList<Soldier> getArmy() {
         return this.enemyArmy.getCurrentBattle().getTeam(this , true);
+    }
+
+    @Override
+    public ArrayList<Soldier> getOpponentArmy() {
+        return enemyArmy.getCurrentBattle().getTeam(this , false);
+
     }
 }

@@ -1,10 +1,13 @@
 package ModelPackage;
+import ControlPackage.Control;
+import ControlPackage.Drawable;
 import ViewPackage.GamePanel;
-import ViewPackage.View;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.SwingWorker;
 
 
@@ -17,12 +20,8 @@ public class Battle extends GameMapCell implements Serializable{
     private int winningGold;
 
 
+    ArrayList<Drawable> drawablesBackUp;
 
-    private boolean isInHeroesDescriptionStage;
-    private boolean isInEnemyDescriptionStage;
-    private boolean isInAbilityAcquiringStage;
-    private boolean isInShoppingStage;
-    private boolean isInFightStage;
 
     private boolean isBattleFinished;
 
@@ -39,11 +38,6 @@ public class Battle extends GameMapCell implements Serializable{
         createEnemyArmyFromInfo(story);
         this.player = story.getGameObjectsHolder().getPlayer();
         player.setCurrentBattle(this);
-        isInEnemyDescriptionStage = false;
-        isInHeroesDescriptionStage = false;
-        isInAbilityAcquiringStage = false;
-        isInShoppingStage = false;
-        isInFightStage = false;
         isBattleFinished = false;
         System.out.println("start Shod!");
         enemyArmy.setCurrentBattle(this);
@@ -51,72 +45,38 @@ public class Battle extends GameMapCell implements Serializable{
 
         for (int i = 0; i < player.getHeroes().size(); i++) {
             Hero hero = player.getHeroes().get(i);
-            hero.setLocationX(GamePanel.ScreenWidth / 2);
-            hero.setLocationY(GamePanel.ScreenHeight / player.getHeroes().size() * i);
+            hero.setLocationX((int)(GamePanel.ScreenWidth * (i / (5.0 * player.getHeroes().size()) + 0.43)));
+            hero.setLocationY((int)(GamePanel.ScreenWidth * (i / (6.5 * player.getHeroes().size()) + 0.32)));
             hero.setDirection(Player.West);
         }
 
         for (int i = 0; i < enemyArmy.getEnemies().size(); i++) {
             Enemy enemy = enemyArmy.getEnemies().get(i);
-            enemy.setLocationX(0);
-            enemy.setLocationY(GamePanel.ScreenHeight / enemyArmy.getEnemies().size() * i);
+            enemy.setLocationX((int)(GamePanel.ScreenWidth * (-i / (5.0 * player.getHeroes().size()) + 0.13)));
+            enemy.setLocationY((int)(GamePanel.ScreenWidth * (i / (6.5 * player.getHeroes().size()) + 0.32)));
             enemy.setDirection(Player.East);
         }
 
 
-        player.getHeroes().get(0).getAbilities().get(2).acquire(player.getHeroes().get(0));
-        player.getHeroes().get(0).getAbilities().get(1).acquire(player.getHeroes().get(0));
+        player.getHeroes().get(1).getAbilities().get(2).acquire(player.getHeroes().get(1));
+        player.getHeroes().get(1).getAbilities().get(0).acquire(player.getHeroes().get(1));
     }
 
     public void proceedToNextStage()
     {
-        if(!isInEnemyDescriptionStage && !isInHeroesDescriptionStage && !isInAbilityAcquiringStage && !isInShoppingStage && !isInFightStage)
-        {
-            View.show(this.battleStory);
-            isInHeroesDescriptionStage = true;
-            player.showNameAndTypes();
-            return;
-        }
-        if(isInHeroesDescriptionStage)
-        {
-            isInHeroesDescriptionStage = false;
-            startEnemyDescriptionStage();
-            return;
-        }
-        if(isInEnemyDescriptionStage)
-        {
-            isInEnemyDescriptionStage = false;
-            startAbilityAcquiringStage();
-            return;
-        }
-        if(isInAbilityAcquiringStage)
-        {
-            isInAbilityAcquiringStage = false;
-            startShoppingStage();
-            return;
-        }
-        if(isInShoppingStage)
-        {
-            isInShoppingStage = false;
-            startFightingStage();
-            return;
-        }
-        if(isInFightStage)
-        {
-            //TODO : here's must end player's turn.
+        //TODO : here's must end player's turn.
 
 
 
-            //TODO : enemy's Turn must happen here.
-            for (Enemy enemy : enemyArmy.getEnemies()) {
-                enemy.timeBasedPutIntoEffect();
-            }
+        //TODO : enemy's Turn must happen here.
+        for (Enemy enemy : enemyArmy.getEnemies()) {
+            enemy.timeBasedPutIntoEffect();
+        }
 
-            enemyArmy.doTurn();
+        enemyArmy.doTurn();
 
-            for (Hero hero : player.getHeroes()) {
-                hero.timeBasedPutIntoEffect();
-            }
+        for (Hero hero : player.getHeroes()) {
+            hero.timeBasedPutIntoEffect();
         }
     }
 
@@ -188,27 +148,6 @@ public class Battle extends GameMapCell implements Serializable{
             }
         }
     }
-    private void startEnemyDescriptionStage() {
-        isInEnemyDescriptionStage = true;
-        enemyArmy.showEnemyData();
-    }
-
-    private void startAbilityAcquiringStage()
-    {
-        player.showAbilitiesAndLevels();
-        isInAbilityAcquiringStage = true;
-    }
-
-    private void startShoppingStage()
-    {
-        isInShoppingStage = true;
-    }
-
-    private void startFightingStage()
-    {
-        isInFightStage = true;
-    }
-
     public boolean isAnyEnemyAlive()
     {
         return enemyArmy.getEnemies().size() != 0;
@@ -271,67 +210,71 @@ public class Battle extends GameMapCell implements Serializable{
         return result;
     }
 
-    public boolean isInAbilityAcquiringStage() {
-        return isInAbilityAcquiringStage;
-    }
-
-    public boolean isInShoppingStage() {
-        return isInShoppingStage;
-    }
-
-    public boolean isInEnemyDescriptionStage() {
-        return isInEnemyDescriptionStage;
-    }
-
-    public boolean isInHeroesDescriptionStage() {
-        return isInHeroesDescriptionStage;
-    }
-
-    public boolean isInFightStage()
-    {
-        return isInFightStage;
-    }
-
     public boolean isBattleFinished() {
         return isBattleFinished;
     }
 
-    public void finish() {
-        this.player.setXp(this.player.getXp() + winningXP);
-        this.player.setGold(this.player.getGold() + winningGold);
-        if(winningGold != 0 || winningXP!=0) {
-            View.show("You've been rewarded " + this.winningXP + "XP and " + this.winningGold + " Gold for winning this battle!");
-        }
-        //remove temporaryBuffs.
-        //TODO : this part has to be tested exclusively !!
-        for (Hero hero : player.getHeroes()) {
-            int buffsNumber =  hero.getBuffs().size();
-            for (int i = 0; i < buffsNumber; i++) {
-                if(!hero.getBuffs().get(i).isPermanent())
-                {
-                    hero.removeBuff(hero.getBuffs().get(i).getName());
-                    i--;
-                    buffsNumber--;
+    public void finish(Story story) {
+    new SwingWorker()
+    {
+        @Override
+        protected Object doInBackground() throws Exception {
+            story.setInBattle(false);
+            enemyArmy = null;
+            player.setCurrentBattle(null);
+
+
+
+
+            //remove temporaryBuffs.
+            //TODO : this part has to be tested exclusively !!
+            for (Hero hero : player.getHeroes()) {
+                int buffsNumber =  hero.getBuffs().size();
+                for (int i = 0; i < buffsNumber; i++) {
+                    if(!hero.getBuffs().get(i).isPermanent())
+                    {
+                        hero.removeBuff(hero.getBuffs().get(i).getName());
+                        i--;
+                        buffsNumber--;
+                    }
                 }
             }
-        }
-        //TODO : unset the player's current Battle and EnemyArmy must naturally go away to the hell :))
-        this.player.setCurrentBattle(null);
-        for (Hero hero : this.player.getHeroes()) {
-            for (Ability ability : hero.getAbilities()) {
-                if(ability.isCastable())
-                {
-                    ((CastableAbility)ability).setTurnsToUseAgain(0);
+            //TODO : unset the player's current Battle and EnemyArmy must naturally go away to the hell :))
+            for (Hero hero : player.getHeroes()) {
+                for (Ability ability : hero.getAbilities()) {
+                    if(ability.isCastable())
+                    {
+                        ((CastableAbility)ability).setTurnsToUseAgain(0);
+                    }
+                }
+                for (Item item : hero.getInventory()) {
+                    if(item.isCastable())
+                    {
+                        ((CastableItem)item).setTurnsToUseAgain(0);
+                    }
                 }
             }
-            for (Item item : hero.getInventory()) {
-                if(item.isCastable())
-                {
-                    ((CastableItem)item).setTurnsToUseAgain(0);
-                }
-            }
+
+            player.setXp(player.getXp() + winningXP);
+            player.setGold(player.getGold() + winningGold);
+
+            String text = "You've been rewarded " + winningXP + " XP and " + winningGold + " Gold for winning this battle!";
+
+
+            new ProceedMenu(getGamePanel() , text , () -> {
+                getGamePanel().getDrawables().clear();
+                getGamePanel().getDrawables().addAll(drawablesBackUp);
+                MyCircle circle = new MyCircle(0 , GamePanel.ScreenWidth / 3 , GamePanel.ScreenHeight / 2, Color.RED);
+                getGamePanel().getDrawables().add(circle);
+                implodeBigCircle(circle);
+                getGamePanel().removeDrawable(circle);
+                getGamePanel().resetKeyboardListener();
+            });
+            return null;
         }
-        this.enemyArmy = null;
+    }.execute();
+
+
     }
 
     public Player getPlayer() {
@@ -355,18 +298,26 @@ public class Battle extends GameMapCell implements Serializable{
         {
             @Override
             protected Object doInBackground() throws Exception {
-                ShowBigCircle();
 
-                getGamePanel().getDrawables().clear();
-                story.setInBattle(true);
+                drawablesBackUp = new ArrayList<>();
+                drawablesBackUp.addAll(getGamePanel().getDrawables());
+
+                MyCircle circle = new MyCircle(0 , GamePanel.ScreenWidth / 3 , GamePanel.ScreenHeight / 2, Color.RED);
+                getGamePanel().getDrawables().add(circle);
+                explodeBigCircle(circle);
                 init(story);
+                story.setInBattle(true);
+                getGamePanel().getDrawables().clear();
+                BackGroundImage backGroundImage = new BackGroundImage(new File("Flame's_Battle_Stage.png") , 0 , 0 , GamePanel.ScreenWidth * 2 /3 , GamePanel.ScreenHeight);
+                getGamePanel().getDrawables().add(backGroundImage);
                 getGamePanel().getDrawables().addAll(getGamePanel().getControl().getModel().getStory().getGameObjectsHolder().getPlayer().getCurrentBattle().getEnemyArmy().getEnemies());
                 getGamePanel().getDrawables().addAll(getGamePanel().getControl().getModel().getStory().getGameObjectsHolder().getPlayer().getHeroes());
+
+                new ProceedMenu(getGamePanel() , battleStory , () -> {});
                 return null;
             }
         }.execute();
     }
-
 
 
     @Override
