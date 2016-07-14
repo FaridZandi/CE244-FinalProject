@@ -1,7 +1,11 @@
 package ModelPackage;
 
+import ViewPackage.GamePanel;
 import ViewPackage.View;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -9,16 +13,42 @@ import java.util.ArrayList;
  */
 public class Hero extends Soldier{
 
-    private Player player;
 
-    public Hero(SoldierType soldierType ,Story story)
+    Player player;
+
+    public Hero(String soldierType, String name, ArrayList<Ability> abilities1, String spriteSheetFileName)
     {
-        super(soldierType, story);
+        super(soldierType , name , abilities1, new File(spriteSheetFileName));
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     @Override
-    public void getAttacked(int Damage) {
-        super.getAttacked(Damage);
+    public void describe() {
+        System.out.println("shit");
+    }
+
+    @Override
+    public void init(GamePanel gamePanel, Story story) {
+        super.init(gamePanel ,story);
+        this.player = this.getStory().getGameObjectsHolder().getPlayer();
+    }
+
+    @Override
+    public ArrayList<Soldier> getArmy() {
+        return this.player.getCurrentBattle().getTeam(this , true);
+    }
+
+    @Override
+    public ArrayList<Soldier> getOpponentArmy() {
+        return player.getCurrentBattle().getTeam(this , false);
+    }
+
+    @Override
+    public void getAttacked(int damage) {
+        super.getAttacked(damage);
         if(this.getCurrentHealth() == 0)
         {
             if(this.player.getImmortalityPotions() > 0)
@@ -38,15 +68,16 @@ public class Hero extends Soldier{
     public boolean payPrice(Price price, boolean isPricePaid)
     {
         if(
-                        getCurrentMagic() > price.getMagicPrice() &&
-                        getEnergyPoints() > price.getEPPrice() &&
-                        player.getGold() > price.getGoldPrice() &&
-                        player.getXp() > price.getXPPrice())
+                        getCurrentMagic() >= price.getMagicPrice() &&
+                        getEnergyPoints() >= price.getEPPrice() &&
+                        player.getGold() >= price.getGoldPrice() &&
+                        player.getXp() >= price.getXPPrice())
         {
             if(isPricePaid == true)
             {
                 setCurrentMagic(getCurrentMagic() - price.getMagicPrice());
-                setCurrentHealth(getCurrentHealth() - price.getHealthPrice());
+                setEnergyPoints(getEnergyPoints() - price.getEPPrice());
+                if(price.getHealthPrice() != 0)
                 this.getAttacked(price.getHealthPrice());
                 player.setGold(player.getGold() - price.getGoldPrice());
                 player.setXp(player.getXp() - price.getXPPrice());
@@ -68,7 +99,7 @@ public class Hero extends Soldier{
     public void sell(String itemName) {
         Item removingItem = null;
         for (Item item : this.getInventory()) {
-            if(item.getName().equals(itemName))
+            if(item.getName().toLowerCase().equals(itemName.toLowerCase()))
             {
                 removingItem = item;
             }
@@ -94,4 +125,5 @@ public class Hero extends Soldier{
             removeItem(itemName);
         }
     }
+
 }

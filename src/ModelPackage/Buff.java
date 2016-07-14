@@ -1,12 +1,14 @@
 package ModelPackage;
 
+import java.io.Serializable;
+
 /**
  * Created by Y50 on 5/1/2016.
  */
-public class Buff {
+public class Buff implements Serializable{
     private String name;
-    private boolean isPermanent;
-    private int duration;
+    private boolean isPermanent = true;
+    private int duration = 0;
     private int attackPowerIncrease;
     private int maximumHealthIncrease;
     private int maximumMagicIncrease;
@@ -20,6 +22,20 @@ public class Buff {
     public Buff(String name ,int attackPowerIncrease , int maximumHealthIncrease , int maximumMagicIncrease , int energyPointIncrease , int criticalDamageChance , int criticalDamageMultiplier , int damageSplashPercentage)
     {
         this.name = name;
+        this.attackPowerIncrease = attackPowerIncrease;
+        this.maximumHealthIncrease = maximumHealthIncrease;
+        this.maximumMagicIncrease = maximumMagicIncrease;
+        this.energyPointIncrease = energyPointIncrease;
+        this.criticalDamageChance = criticalDamageChance;
+        this.criticalDamageMultiplier = criticalDamageMultiplier;
+        this.damageSplashPercentage = damageSplashPercentage;
+        this.isPermanent = true;
+    }
+
+    public Buff(String name, boolean isPermanent, int duration, int attackPowerIncrease, int maximumHealthIncrease, int maximumMagicIncrease, int energyPointIncrease, int criticalDamageChance, int criticalDamageMultiplier, int damageSplashPercentage) {
+        this.name = name;
+        this.isPermanent = isPermanent;
+        this.duration = duration;
         this.attackPowerIncrease = attackPowerIncrease;
         this.maximumHealthIncrease = maximumHealthIncrease;
         this.maximumMagicIncrease = maximumMagicIncrease;
@@ -71,5 +87,13 @@ public class Buff {
 
     public void setHowMuchLeftToEnd(int howMuchLeftToEnd) {
         this.howMuchLeftToEnd = howMuchLeftToEnd;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

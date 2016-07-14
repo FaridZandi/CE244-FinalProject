@@ -20,30 +20,44 @@ public class Describer implements CompoundMethod
     public void performMethod(String input)
     {
 
-        String properInput = input.substring(0 , input.length() - 1);
-        System.out.println(properInput);
-        properInput = properInput.trim();
-        String[] words = properInput.split(" ");
-        GameObject searchResult = control.getModel().getGameObjectsHolder().find(words[0]);
-        if(words.length == 1)
+        String properInput = input.substring(0 , input.length() - 1).trim();
+        GameObject searchResult;
+
+        searchResult = control.getModel().getStory().getGameObjectsHolder().find(properInput);
+
+        if(searchResult != null)
         {
-            if (searchResult == null) {
-                control.getView().show("no such thing was found, please try again.");
-                return;
-            }
             searchResult.describe();
+            return;
         }
-        else
+
+        String[] words = properInput.split(" ");
+        if(words.length > 1)
         {
-            if(searchResult.getClass() == Hero.class || searchResult.getClass() == Enemy.class)
-            {
-                Soldier searchResultSoldier = (Soldier)searchResult;
-                Ability searchResultAbility = searchResultSoldier.findAbility(words[1]);
-                if(searchResultAbility != null)
+            String soldierPart = "";
+            for (int i = 0; i < words.length - 1; i++) {
+                soldierPart = soldierPart + " " + words[i];
+                searchResult = control.getModel().getStory().getGameObjectsHolder().find(soldierPart);
+                if(searchResult != null)
                 {
-                    searchResultAbility.describe();
+                    if(searchResult instanceof Soldier || searchResult instanceof SoldierType)
+                    {
+                        String abilityPart = "";
+                        for(int j = i+1 ; j < words.length ; j++)
+                        {
+                            abilityPart = abilityPart + " " +  words[j];
+                        }
+                        GameObject abilitySearchResult = control.getModel().getStory().getGameObjectsHolder().find(abilityPart);
+                        if(abilitySearchResult != null)
+                        {
+                            abilitySearchResult.describe();
+                            return;
+                        }
+                    }
                 }
             }
         }
+
+        System.out.println("search had no results! please try again!");
     }
 }

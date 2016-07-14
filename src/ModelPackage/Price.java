@@ -1,9 +1,11 @@
 package ModelPackage;
 
+import java.io.Serializable;
+
 /**
  * Created by Y50 on 5/1/2016.
  */
-public class Price {
+public class Price implements Serializable{
     private int goldPrice = 0;
     private int XPPrice = 0;
     private int EPPrice = 0;
@@ -19,7 +21,7 @@ public class Price {
         this.magicPrice = magicPrice;
     }
 
-    public Price(int XPPrice){ this.XPPrice = XPPrice;}
+    public Price(int goldPrice){ this.goldPrice = goldPrice;}
 
     public int getEPPrice() {
         return EPPrice;

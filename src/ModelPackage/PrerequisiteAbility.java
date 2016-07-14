@@ -1,8 +1,12 @@
 package ModelPackage;
+
+import java.io.Serializable;
+
 /**
  * Created by Y50 on 5/9/2016.
  */
-public class PrerequisiteAbility {
+public class PrerequisiteAbility  implements Serializable
+{
     public PrerequisiteAbility(String abilityName , int abilityLevel)
     {
         this.abilityLevel = abilityLevel;

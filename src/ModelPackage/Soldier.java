@@ -1,47 +1,144 @@
 package ModelPackage;
 
+import ControlPackage.Control;
+import ControlPackage.Drawable;
+import ViewPackage.GamePanel;
 import ViewPackage.View;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.SwingWorker;
 
 /**
  * Created by Y50 on 5/1/2016.
  */
-public class Soldier extends GameObject{
+public abstract class Soldier extends GameObject implements Drawable
+{
 
+    private int walkingSpriteStartingRow;
+    private int attackingSpriteStartingRow;
+    private int castingStartingRow;
+    private int numberOfAttackingFrames;
+    private int numberOfWalkingFrames;
+    private int numberOfCastingFrames;
+    private int animationPlayFrameRate;
+    private boolean isStanding;
+    private boolean isWalking;
+    private boolean isCasting;
+    private boolean isAttacking;
+    private int currentAnimationStep;
+    private int locationX;
+    private int locationY;
+    private int direction;
+
+
+    private BufferedImage soldierSpriteSheet;
+    private File spriteSheetFileName;
     private int currentHealth;
     private int currentMagic;
     private int energyPoints;
     private SoldierType type;
+    private String soldierTypeName;
     private ArrayList<Buff> buffs;
     private ArrayList<Item> inventory;
     private Story story;
+    private GamePanel gamePanel;
 
     private ArrayList<Ability> abilities;
-    public Soldier(SoldierType soldierType , Story story)
+    public Soldier(String soldierTypeName, String name, ArrayList<Ability> abilities, File spriteSheetFileName)
     {
-        type = soldierType;
-        abilities = new ArrayList<>();
-        for (Ability ability : soldierType.getAbilities()) {
-            this.getAbilities().add((Ability)Model.deepClone(ability));
+
+        this.setName(name);
+        this.soldierTypeName = soldierTypeName;
+        this.abilities = abilities;
+        inventory = new ArrayList<>();
+        buffs = new ArrayList<>();
+        this.spriteSheetFileName = spriteSheetFileName;
+        walkingSpriteStartingRow = 7;
+        attackingSpriteStartingRow = 11;
+        castingStartingRow = -1;
+        numberOfAttackingFrames = 5;
+        numberOfWalkingFrames = 8;
+        numberOfCastingFrames = 6;
+        animationPlayFrameRate = 5;
+        currentAnimationStep = -animationPlayFrameRate;
+        isStanding = true;
+        isWalking = false;
+        isCasting = false;
+        isAttacking = false;
+    }
+
+    public void init(GamePanel gamePanel , Story story)
+    {
+        this.gamePanel = gamePanel;
+        try {
+            soldierSpriteSheet = ImageIO.read(spriteSheetFileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.story = story;
+        try {
+            this.type = (SoldierType) story.getGameObjectsHolder().find(soldierTypeName);
+        }
+        catch (ClassCastException e)
+        {
+            View.show("Save file corrupted!");
+            System.exit(0);
+        }
+
+        if(type.getAbilities() != null)
+        for (Ability ability : type.getAbilities()) {
+                abilities.add((Ability)Model.deepClone(ability));
         }
         buffs = new ArrayList<>();
-        for (Buff buff : soldierType.getDefaultBuffs()) {
+        if(type.getDefaultBuffs()!=null)
+        for (Buff buff : type.getDefaultBuffs()) {
             this.addBuff((Buff)Model.deepClone(buff));
         }
-        inventory = new ArrayList<>();
-        this.story = story;
+        this.currentMagic = type.getMaximumMagic();
+        this.currentHealth = type.getMaximumHealth();
+        this.energyPoints = type.getEnergyPoints();
     }
 
-    public ArrayList<Soldier> getArmy()
-    {
-         return story.getCurrentBattle().getTeam(this , true);
+    public void draw(Graphics2D g2d, Control control) {
+
+        BufferedImage spriteSheet = this.getSoldierSpriteSheet();
+        int row = walkingSpriteStartingRow;
+        if(isWalking || isStanding)
+        {
+            row = direction + walkingSpriteStartingRow;
+        }
+        else if(isAttacking)
+        {
+            row = direction + attackingSpriteStartingRow;
+        }
+        else if(isCasting)
+        {
+            row = direction + castingStartingRow;
+        }
+
+        int column = 1 + currentAnimationStep/animationPlayFrameRate;
+
+        Image subImage = getSubImage(spriteSheet , row , column);
+
+        g2d.drawImage(subImage , locationX , locationY, null);
     }
 
-    public ArrayList<Soldier> getOpponentArmy()
-    {
-        return story.getCurrentBattle().getTeam(this , false);
+    public static Image getSubImage(BufferedImage spriteSheet, int row, int column) {
+        final int SpriteSize = 64;
+        BufferedImage subImg = spriteSheet.getSubimage(SpriteSize * column , SpriteSize * row , SpriteSize , SpriteSize);
+        return subImg.getScaledInstance(GameMap.CellSize, GameMap.CellSize, Image.SCALE_DEFAULT);
     }
+
+    public abstract ArrayList<Soldier> getArmy();
+
+    public abstract ArrayList<Soldier> getOpponentArmy();
 
     public void describe()
     {
@@ -63,10 +160,10 @@ public class Soldier extends GameObject{
         }
     }
 
-    public void getAttacked(int Damage)
+    public void getAttacked(int damage)
     {
         int cH = this.currentHealth;
-        cH -= Damage;
+        cH -= damage;
         if(cH > 0)
         {
             this.currentHealth = cH;
@@ -75,12 +172,31 @@ public class Soldier extends GameObject{
         {
             this.currentHealth = 0;
         }
+        new SwingWorker()
+        {
+            @Override
+            protected Object doInBackground() throws Exception {
+                MyText txt = new MyText(" - " + damage , locationX , locationY , 300 , 300,  50 , Color.RED);
+                gamePanel.getDrawables().add(txt);
+                for (int i = 0; i < Control.FPS; i++) {
+                    txt.setY(txt.getY() - 1);
+                    Thread.sleep( 1000 / Control.FPS);
+                }
+                gamePanel.removeDrawable(txt);
+
+                return null;
+            }
+        }.execute();
+
+        View.show(this.getName() + " was attacked for "+ damage + "damage, current health is " + this.currentHealth + ".");
     }
 
     public void getHealed(int heal)
     {
+        System.out.println("+" + heal);
         int cH = this.currentHealth;
         int mH = this.calculateMaximumHealth();
+        int increase = heal;
         cH += heal;
         if(cH < mH)
         {
@@ -88,8 +204,24 @@ public class Soldier extends GameObject{
         }
         else
         {
+            increase -= (cH - mH);
             this.currentHealth = mH;
         }
+        if(increase != 0)
+        new SwingWorker()
+        {
+            @Override
+            protected Object doInBackground() throws Exception {
+                MyText txt = new MyText(" + " + heal , locationX , locationY , 300 , 300,  50 , Color.GREEN);
+                gamePanel.getDrawables().add(txt);
+                for (int i = 0; i < Control.FPS; i++) {
+                    txt.setY(txt.getY() - 1);
+                    Thread.sleep( 1000 / Control.FPS);
+                }
+                gamePanel.removeDrawable(txt);
+                return null;
+            }
+        }.execute();
     }
 
     public void getMagicPoint(int magicPoints) {
@@ -122,30 +254,18 @@ public class Soldier extends GameObject{
 
     public void timeBasedPutIntoEffect()
     {
-        //health increase by passage of time
-        int maximum , increase;
-
-        maximum = calculateMaximumHealth();
-        increase = maximum *(type.getHealthRefillRatePercentage());
-        this.getHealed(increase);
 
 
-        //magic increase by passage of time
-        maximum = calculateMaximumMagic();
-        increase = maximum * (type.getMagicRefillRatePercentage());
-        this.getMagicPoint(increase);
-
-        // energy points filled to maximum each time
-        energyPoints = calculateMaximumEnergyPoint();
 
         //auto cast abilities must be cast here
         for (Ability ability : this.getAbilities()) {
             if(ability.isCastable())
             {
                 CastableAbility castableAbility = (CastableAbility)ability;
+                if(castableAbility.getLevel() > 0)
                 if(castableAbility.getCastableData().get(castableAbility.getLevel() - 1).isAutoCast())
                 {
-                    this.cast(castableAbility.getName());
+                    this.cast(castableAbility.getName() , null);
                 }
 
             }
@@ -173,24 +293,37 @@ public class Soldier extends GameObject{
         }
         int buffsNumber = this.getBuffs().size();
         for (int i = 0; i < buffsNumber; i++) {
-            if(this.getBuffs().get(i).isPermanent())
+            if(!this.getBuffs().get(i).isPermanent())
             {
-                int temp = this.getBuffs().get(i).getHowMuchLeftToEnd() - 1;
+                int temp = this.getBuffs().get(i).getDuration() - 1;
                 if (temp == 0)
                 {
-                    this.getBuffs().remove(i);
+                    removeBuff(this.getBuffs().get(i).getName());
                     i--;
                     buffsNumber--;
                 }
                 else
                 {
-                    this.getBuffs().get(i).setHowMuchLeftToEnd(temp);
+                    this.getBuffs().get(i).setDuration(temp);
                 }
             }
         }
 
+        //health increase by passage of time
+        int maximum , increase;
+
+        maximum = calculateMaximumHealth();
+        increase = (int)(maximum *(type.getHealthRefillRatePercentage() / 100.0));
+        this.getHealed(increase);
 
 
+        //magic increase by passage of time
+        maximum = calculateMaximumMagic();
+        increase = maximum * (type.getMagicRefillRatePercentage());
+        this.getMagicPoint(increase);
+
+        // energy points filled to maximum each time
+        energyPoints = calculateMaximumEnergyPoint();
 
     }
 
@@ -211,6 +344,11 @@ public class Soldier extends GameObject{
             maximum = calculateMaximumMagic();
             double ratio = ((double)(maximum + increase)) / (maximum);
             currentMagic = (int) (ratio * currentMagic);
+        }
+        increase = buff.getEnergyPointIncrease();
+        if(increase != 0)
+        {
+            this.energyPoints += increase;
         }
         buffs.add(buff);
     }
@@ -236,6 +374,11 @@ public class Soldier extends GameObject{
                     double ratio = ((double)(maximum - increase)) / (maximum);
                     currentMagic = (int) (ratio * currentMagic);
                 }
+                increase = buff.getEnergyPointIncrease();
+                if(increase != 0)
+                {
+                    this.energyPoints -= increase;
+                }
                 buffs.remove(buff);
                 break;
             }
@@ -244,143 +387,178 @@ public class Soldier extends GameObject{
 
     public void attack(Soldier target , double attackMultiplier)
     {
-        int attackPlus = 0;
-        double criticalMultiTotal = 1 + attackMultiplier;
-        int splashPercentageTotal = 0;
-
-        for (Buff buff:buffs)
+        SwingWorker attackAnimation = new SwingWorker()
         {
-            attackPlus += buff.getAttackPowerIncrease();
-            int randomNumber = (int)(Math.random()*100 + 1);
-            if(randomNumber < buff.getCriticalDamageChance())
-            {
-                criticalMultiTotal += buff.getCriticalDamageMultiplier();
+            @Override
+            protected Object doInBackground() throws Exception{
+                go();
+                attackAnimation();
+                int attackDamage = calculateAttackDamage(attackMultiplier);
+                int splashPercentageTotal = calculateSplashPercentage();
+
+                int splashedDamage = (int)(((splashPercentageTotal)/100.0) * attackDamage);
+                ArrayList<Soldier> opponents = target.getArmy();
+                target.getAttacked(attackDamage);
+                Thread.sleep(20 * 1000 / Control.FPS);
+
+                if(splashPercentageTotal != 0) {
+                    for (Soldier opponent : opponents)
+                    {
+                        if(!opponent.equals(target))
+                            opponent.getAttacked(splashedDamage);
+                    }
+                }
+                goBack();
+                return null;
             }
-            splashPercentageTotal+=buff.getDamageSplashPercentage();
-        }
-        int attackDamage = this.type.getAttackPower()+attackPlus;
-        attackDamage*=criticalMultiTotal;
 
-        int splashFreeAttackDamage = ((100 - splashPercentageTotal)/100) * attackDamage;
-        int splashedDamage = attackDamage - splashFreeAttackDamage;
-        target.getAttacked(splashFreeAttackDamage);
-
-
-        if(splashPercentageTotal != 0) {
-            ArrayList<Soldier> opponents = target.getArmy();
-            for (Soldier opponent : opponents)
-            {
-                opponent.getAttacked(splashedDamage);
+            private void attackAnimation() throws InterruptedException {
+                for (int i = 0; i < numberOfAttackingFrames * animationPlayFrameRate; i++) {
+                    currentAnimationStep++;
+                    Thread.sleep(1000 / Control.FPS);
+                }
+                currentAnimationStep = -animationPlayFrameRate;
             }
-        }
+
+        };
+
+        attackAnimation.execute();
     }
 
 
 
+    public void cast(String abilityName , String targetName)
+    {
 
-    private CastableAbility getCastableAbility(String abilityName) {
-        CastableAbility castableAbility = null;
         Ability abilitySearchResult = findAbility(abilityName);
+
         if(abilitySearchResult == null)
         {
             View.show("Ability Not Found!");
-            return null;
+            return;
         }
         if(!abilitySearchResult.isCastable())
         {
             View.show("this ability is not castable,please try again");
-            return null;
+            return;
         }
+
+        final CastableAbility castableAbility = (CastableAbility)abilitySearchResult ;
+
         if(castableAbility.getLevel() == 0)
         {
             View.show("You haven't acquired this ability yet, please try again");
-            return null;
+            return;
         }
         if(castableAbility.getTurnsToUseAgain() > 0)
         {
             View.show("Your desired ability is still in cooldown");
-            return null;
-        }
-        castableAbility = (CastableAbility)abilitySearchResult;
-        return castableAbility;
-    }
-
-    public void cast(String abilityName)
-    {
-        CastableAbility castableAbility = getCastableAbility(abilityName);
-        if (castableAbility == null) return;
-
-        CastableData castableData = castableAbility.getCastableData().get(castableAbility.getLevel() - 1);
-        if(! castableData.isGlobalEnemy() && !castableData.isGlobalFriendly())
-        {
-            View.show("You have a specify a target for this ability, please try again");
             return;
         }
-
 
         ArrayList<Soldier> target = new ArrayList<>();
-        if(castableData.isGlobalEnemy())
-        {
-            //TODO : not sure if this works! it is supposed to add all of the members of caster's army to the target arraylist!
-            target.addAll(this.getOpponentArmy());
-        }
-        if(castableData.isGlobalFriendly())
-        {
-            target.addAll(this.getArmy());
-        }
-
-        for (Soldier soldier : target) {
-            castableAbility.cast(soldier , this);
-        }
-    }
 
 
-    public void cast(String abilityName,String targetName)
-    {
-        ArrayList<Soldier> enemies = this.getOpponentArmy();
-        ArrayList<Soldier> friendlies = this.getArmy();
-
-        CastableAbility castableAbility = getCastableAbility(abilityName);
-        if (castableAbility == null) return;
-
-        Soldier target = null;
-        Boolean isTargetInEnemyArmy = true;
-
-        for (Soldier enemy : enemies) {
-            if(enemy.getName().equals(targetName))
-            {
-                target = enemy;
-            }
-        }
-        if(target == null)
-        {
-            for (Soldier friendly : friendlies) {
-                if(friendly.getName().equals(targetName))
-                {
-                    target = friendly;
-                    isTargetInEnemyArmy = false;
+        if(targetName == null) {
+            CastableData castableData = castableAbility.getCastableData().get(castableAbility.getLevel() - 1);
+            if (castableData.isGlobalEnemy() || castableData.isGlobalFriendly()) {
+                if (castableData.isGlobalEnemy()) {
+                    target.addAll(this.getOpponentArmy());
+                }
+                if (castableData.isGlobalFriendly()) {
+                    target.addAll(this.getArmy());
                 }
             }
+            else
+            {
+                View.show("you have to specify a target to use this ability! please try again.");
+                return;
+            }
         }
-        if(target == null)
+        else
         {
-            View.show("Target not found, please try again.");
-            return;
+            ArrayList<Soldier> enemies = this.getOpponentArmy();
+            ArrayList<Soldier> friendlies = this.getArmy();
+            Boolean isTargetInEnemyArmy = true;
+            for (Soldier enemy : enemies) {
+                if(enemy.getName().toLowerCase().equals(targetName.toLowerCase()))
+                {
+                    target.add(enemy);
+                    break;
+                }
+            }
+            if(target.isEmpty())
+            {
+                for (Soldier friendly : friendlies) {
+                    if(friendly.getName().toLowerCase().equals(targetName.toLowerCase()))
+                    {
+                        target.add(friendly);
+                        isTargetInEnemyArmy = false;
+                        break;
+                    }
+                }
+            }
+            if(target.isEmpty())
+            {
+                View.show("Target not found, please try again.");
+                return;
+            }
+
+            if(isTargetInEnemyArmy && !castableAbility.isCastableOnEnemies())
+            {
+                View.show("This ability can not be cast on an enemy soldier, please try again");
+                return;
+            }
+            if(!isTargetInEnemyArmy && !castableAbility.isCastableOnFriendlies())
+            {
+                View.show("This ability can not be cast on a friendly soldier, please try again");
+            }
         }
 
-        if(isTargetInEnemyArmy && !castableAbility.isCastableOnEnemies())
-        {
-            View.show("This ability can not be cast on an enemy soldier, please try again");
-            return;
-        }
-        if(!isTargetInEnemyArmy && !castableAbility.isCastableOnFriendlies())
-        {
-            View.show("This ability can not be cast on a friendly soldier, please try again");
-            return;
-        }
 
 
-        castableAbility.cast(target, this);
+        if (!checkPricePay(castableAbility)) return;
+
+        Soldier caster = this;
+        SwingWorker castAnimation = new SwingWorker()
+        {
+            @Override
+            protected Object doInBackground() throws Exception{
+                go();
+                castAnimation();
+
+                for (Soldier soldier : target) {
+                    castableAbility.cast(soldier , caster);
+                }
+
+                goBack();
+                return null;
+            }
+
+            private void castAnimation() throws InterruptedException {
+                for (int i = 0; i < numberOfCastingFrames * animationPlayFrameRate; i++) {
+                    currentAnimationStep++;
+                    Thread.sleep(1000 / Control.FPS);
+                }
+                currentAnimationStep = -animationPlayFrameRate;
+            }
+
+        };
+
+        castAnimation.execute();
+    }
+
+    private boolean checkPricePay(CastableAbility castableAbility) {
+        if(this.getClass() == Hero.class)
+        {
+            Price castPrice = castableAbility.getCastPrices().get(castableAbility.getLevel() - 1);
+            if(((Hero)this).payPrice(castPrice,true));
+            {
+                return true;
+            }
+        }
+        View.show("you don't have sufficient ep/mp/xp/gold to cast this ability");
+        return false;
     }
 
     public int calculateMaximumMagic()
@@ -416,6 +594,36 @@ public class Soldier extends GameObject{
         return maximumEP;
     }
 
+    public int calculateAttackDamage(double attackMultiplier)
+    {
+        int attackPlus = 0;
+        double criticalMultiTotal = 1 + attackMultiplier;
+        for (Buff buff:buffs)
+        {
+            attackPlus += buff.getAttackPowerIncrease();
+            int randomNumber = (int)(Math.random()*100 + 1);
+            if(randomNumber < buff.getCriticalDamageChance())
+            {
+                criticalMultiTotal += buff.getCriticalDamageMultiplier();
+            }
+        }
+        int attackDamage = this.type.getAttackPower()+attackPlus;
+        attackDamage*=criticalMultiTotal;
+
+        return attackDamage;
+    }
+
+    public int calculateSplashPercentage()
+    {
+        int splashPercentageTotal = 0;
+
+        for (Buff buff:buffs)
+        {
+            splashPercentageTotal+=buff.getDamageSplashPercentage();
+        }
+
+        return splashPercentageTotal;
+    }
 
     public boolean haveSpaceInInventory()
     {
@@ -456,14 +664,56 @@ public class Soldier extends GameObject{
         return inventory;
     }
 
-    public Ability findAbility(String word) {
+    public Ability findAbility(String abilityName) {
         for (Ability ability : abilities) {
-            if(ability.getName() == word)
+            if(ability.getName().toLowerCase().equals(abilityName.toLowerCase()))
             {
                 return ability;
             }
         }
         return null;
+    }
+
+
+    private void go() throws InterruptedException {
+        isStanding = false;
+        isWalking = true;
+        walk();
+        currentAnimationStep = -animationPlayFrameRate;
+        isWalking = false;
+        isAttacking = true;
+    }
+
+    private void goBack() throws InterruptedException {
+        isAttacking = false;
+        isWalking = true;
+        turnAround();
+        walk();
+        isWalking = false;
+        isStanding = true;
+        turnAround();
+    }
+
+    private void turnAround() throws InterruptedException {
+        int temp;
+        temp = direction;
+        direction = 3;
+        Thread.sleep(animationPlayFrameRate * 1000 / Control.FPS);
+        direction = 6 - temp;
+        currentAnimationStep = -animationPlayFrameRate;
+    }
+
+
+
+    private void walk() throws InterruptedException {
+        for (int i = 0; i < numberOfWalkingFrames * animationPlayFrameRate; i++) {
+            currentAnimationStep++;
+            if(direction == Player.East)
+                locationX += 5;
+            else if(direction == Player.West)
+                locationX -= 5;
+            Thread.sleep(1000 / Control.FPS);
+        }
     }
 
     public void addAbility(Ability ability)
@@ -484,7 +734,39 @@ public class Soldier extends GameObject{
         return story;
     }
 
+    public GamePanel getGamePanel() {
+        return gamePanel;
+    }
+
     public ArrayList<Buff> getBuffs() {
         return buffs;
+    }
+
+    public BufferedImage getSoldierSpriteSheet() {
+        return soldierSpriteSheet;
+    }
+
+    public void setLocationX(int locationx) {
+        this.locationX = locationx;
+    }
+
+    public void setLocationY(int locationY) {
+        this.locationY = locationY;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+
+    public int getAnimationPlayFrameRate() {
+        return animationPlayFrameRate;
+    }
+
+    public int getLocationY() {
+        return locationY;
+    }
+
+    public int getLocationX() {
+        return locationX;
     }
 }

@@ -1,6 +1,8 @@
 package ModelPackage;
 
+import ControlPackage.CreateData;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Y50 on 5/2/2016.
@@ -19,20 +21,21 @@ public class GameObjectsHolder {
 
     public GameObject find(String name)
     {
+        String toLowerName = name.toLowerCase().trim();
         for (SoldierType soldierType : soldierTypes) {
-            if(soldierType.getName().equals(name))
+            if(soldierType.getName().toLowerCase().equals(toLowerName))
             {
                 return soldierType;
             }
         }
 
         for (Hero hero : player.getHeroes()) {
-            if(hero.getName().equals(name))
+            if(hero.getName().toLowerCase().equals(toLowerName))
             {
                 return hero;
             }
             for (Ability ability : hero.getAbilities()) {
-                if(ability.getName().equals(name))
+                if(ability.getName().toLowerCase().equals(toLowerName))
                 {
                     return ability;
                 }
@@ -42,23 +45,38 @@ public class GameObjectsHolder {
         if(player.getCurrentBattle() != null)
         {
             for (Enemy enemy : player.getCurrentBattle().getEnemyArmy().getEnemies()) {
-                if(enemy.getName().equals(name))
+                if(enemy.getName().toLowerCase().equals(toLowerName))
                 {
                     return enemy;
+                }
+                for (Ability ability : enemy.getAbilities()) {
+                    if(ability.getName().toLowerCase().equals(toLowerName))
+                    {
+                        return ability;
+                    }
                 }
             }
         }
 
         for (Item item : items) {
-            if(item.getName().equals(name))
+            if(item.getName().toLowerCase().equals(toLowerName))
             {
                 return item;
             }
         }
         return null;
     }
+    public ArrayList<Item> getItems()
+    {
+        return items;
+    }
 
-    public ArrayList<Item> getItems(String category)
+    public void setItems(ArrayList<Item> items)
+    {
+        this.items = items;
+    }
+
+    public ArrayList<Item> getItemsWithCategory(String category)
     {
         ArrayList<Item> temp = new ArrayList<>();
         for (Item item : items) {
@@ -77,5 +95,9 @@ public class GameObjectsHolder {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void setSoldierTypes(ArrayList soldierTypes) {
+        this.soldierTypes = soldierTypes;
     }
 }

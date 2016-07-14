@@ -19,7 +19,7 @@ public class Helper implements CompoundMethod
         boolean isInBattle = true;
         boolean isInshop = true;
         for (InputType inputType : control.getInputHandler().getInputTypes()) {
-            if(inputType.getValidSituations().contains(control.getInputHandler().getCurrentSituation()))
+            if(inputType.getValidSituations().contains(control.getInputHandler().getCurrentSituation()) || inputType.getValidSituations().contains("everywhere"))
             {
                 control.getView().show(inputType.getInputString());
             }

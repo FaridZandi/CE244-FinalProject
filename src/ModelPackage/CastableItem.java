@@ -22,20 +22,10 @@ public class CastableItem extends Item {
         System.out.println("hello there");
     }
 
-    public CastableItem()
-    {
-
-    }
-
-    @Override
-    public void purchasedBy(Hero buyer) {
-        if(!isEverythingOkToBuy(buyer))
-        {
-            return;
-        }
-        CastableItem temp = (CastableItem)Model.deepClone(this);
-        buyer.addItem(temp);
-        buyer.addBuff((Buff)Model.deepClone(getAffectingBuffAfterBuying()));
+    public CastableItem(String name, String category, Price purchasePrice, int priceIncreaseRate, Buff affectingBuffAfterBuying, int charges) {
+        super(name, category, purchasePrice, priceIncreaseRate, affectingBuffAfterBuying);
+        this.setCastable(true);
+        this.charges = charges;
     }
 
     public int getTurnsToUseAgain() {
@@ -44,5 +34,9 @@ public class CastableItem extends Item {
 
     public void setTurnsToUseAgain(int turnsToUseAgain) {
         this.turnsToUseAgain = turnsToUseAgain;
+    }
+
+    public void setCastableData(CastableData castableData) {
+        this.castableData = castableData;
     }
 }

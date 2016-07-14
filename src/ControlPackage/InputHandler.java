@@ -21,20 +21,9 @@ public class InputHandler
 
         this.control = control;
         inputTypes = new ArrayList<>();
-        inputTypes.add(new InputType("(Class name) + “?”", "shop battle abilityAcquireStage other", "(Class description)", new Describer(control) ));
+        inputTypes.add(new InputType("(Class/Hero/Enemy/Ability/Item/hero + ability name) + “?”", "everywhere", "(Descriptions)", new Describer(control) ));
 
-        inputTypes.add(new InputType("(Hero name) + “?”" , "shop battle abilityAcquireStage other" , "(Hero description)", new Describer(control) ));
-
-        inputTypes.add(new InputType("(enemy name) + “?”" , "battle" , "(enemy description)", new Describer(control) ));
-
-        inputTypes.add(new InputType("(ability name)" , "shop battle abilityAcquireStage other" , "(ability description)", new Describer(control) ));
-
-        inputTypes.add(new InputType("(item name) + “?”" , "shop abilityAcquireStage battle other" , "(Item description)", new Describer(control)));
-
-        inputTypes.add(new InputType("(hero name) + “ “ +(ability name) + “?”" , "shop battle other  abilityAcquireStage" , "(ability description) + “\\n“ + (this upgrade\\n" +
-                "description) + “\\n” + “You need “ + (required xp)", new Describer(control)));
-
-        inputTypes.add(new InputType("“Acquire “ + (ability name) + “ for “ + (hero name)" , " abilityAcquireStage" , "(ability name) (“acquired”/”upgraded”) + “ successfully, your current experience is: ” +\n" +
+        inputTypes.add(new InputType("“Acquire “ + (ability name) + “ for “ + (hero name)" , "ability" , "(ability name) (“acquired”/”upgraded”) + “ successfully, your current experience is: ” +\n" +
                 "(current xp)\n" +
                 "Or:\n" +
                 "“Your experience is insufficient”\n" +
@@ -42,8 +31,6 @@ public class InputHandler
                 "“This ability cannot be upgraded anymore”\n" +
                 "Or:\n" +
                 "“Required abilities aren’t acquired”", new Acquirer(control)));
-
-
 
 
         inputTypes.add(new InputType("“Buy “ + (item name) + “ for “ + (hero name)" , "shop" , "(item name) “ bought successfully, your current wealth is: ” + (current money)\n" +
@@ -55,7 +42,7 @@ public class InputHandler
         inputTypes.add(new InputType("“Sell “ + (item name) + “ of” + (hero name)" , "shop" , "(item name) + “ successfully sold, your current wealth is: “ + (current money)", new Seller(control)));
 
 
-        inputTypes.add(new InputType("(hero name) + “ cast “ + (ability name) + “ on “ + (hero name / enemy name and id)" , "battle" , "(ability success message)\n" +
+        inputTypes.add(new InputType("(hero name) + “ cast “ + (ability name) + “ on “ + (hero name / enemy name and id)" , "fight" , "(ability success message)\n" +
                 "Or:\n" +
                 "“You don’t have enough magic points”\n" +
                 "Or:\n" +
@@ -65,7 +52,7 @@ public class InputHandler
                 "Or:\n" +
                 "“You have not yet acquired this ability”", new Caster(control)));
 
-        inputTypes.add(new InputType("(hero name) + “ cast “ + (ability name)" , "battle" , "(ability success message)\n" +
+        inputTypes.add(new InputType("(hero name) + “ cast “ + (ability name)" , "fight" , "(ability success message)\n" +
                 "Or:\n" +
                 "“You don’t have enough magic points”\n" +
                 "Or:\n" +
@@ -77,7 +64,7 @@ public class InputHandler
                 "Or:\n" +
                 "“You have not yet acquired this ability”", new Caster(control)));
 
-        inputTypes.add(new InputType("(hero name) + “ use “ + (item name) + “ on “ + (hero name / enemy name and id)" , "battle" , "(item success message)\n" +
+        inputTypes.add(new InputType("(hero name) + “ use “ + (item name) + “ on “ + (hero name / enemy name and id)" , "fight" , "(item success message)\n" +
                 "Or:\n" +
                 "“You don’t have enough magic points”\n" +
                 "Or:\n" +
@@ -87,7 +74,7 @@ public class InputHandler
                 "Or:\n" +
                 "“You don’t have this item”", new User(control)));
 
-        inputTypes.add(new InputType("(hero name) + “ use “ + (item name)" , "battle" , "(item success message)\n" +
+        inputTypes.add(new InputType("(hero name) + “ use “ + (item name)" , "fight" , "(item success message)\n" +
                 "Or:\n" +
                 "“You don’t have enough magic points”\n" +
                 "Or:\n" +
@@ -99,17 +86,17 @@ public class InputHandler
                 "Or:\n" +
                 "“You don’t have this item”", new User(control)));
 
-        inputTypes.add(new InputType("(hero name) + “ attack “ + (enemy name and id)" , "battle" , "(hero name) + “ has successfully attacked “ + (enemy name and id) + “ with “ + (attack\n" +
+        inputTypes.add(new InputType("(hero name) + “ attack “ + (enemy name and id)" , "fight" , "(hero name) + “ has successfully attacked “ + (enemy name and id) + “ with “ + (attack\n" +
                 "power) + “ power”\n" +
                 "Or:\n" +
                 "“You don’t have enough energy points”", new Attacker(control)));
 
 
-        inputTypes.add(new InputType("help" , "shop battle other abilityAcquireStage" , "Shows the list of valid commands.", new Helper(control)));
+        inputTypes.add(new InputType("help" , "everywhere" , "Shows the list of valid commands.", new Helper(control)));
 
-        inputTypes.add(new InputType("again" , "shop battle other abilityAcquireStage" , "Shows current stage data one more time." , new Againer(control)));
+        inputTypes.add(new InputType("again" , "everywhere" , "Shows current stage data one more time." , new Againer(control)));
 
-        inputTypes.add(new InputType("done" , "shop battle other abilityAcquireStage" , "Proceeds to the next stage." , new Doner(control)));
+        inputTypes.add(new InputType("done" , "everywhere" , "Proceeds to the next stage." , new Doner(control)));
 
         keyWords = new ArrayList<>();
         keyWords.add("help");
@@ -122,6 +109,9 @@ public class InputHandler
         keyWords.add("cast");
         keyWords.add("use");
         keyWords.add("on");
+        keyWords.add("done");
+        keyWords.add("again");
+        keyWords.add("?");
 
 
     }
@@ -132,7 +122,6 @@ public class InputHandler
         input = input.replaceAll("[ ]{2,}" , " ");
         input = input.trim();
         input = input.toLowerCase();
-
         String generalInput = createGeneralInput(input);
         InputType inputType = findMatchingInputType(generalInput);
 
@@ -141,40 +130,25 @@ public class InputHandler
             return;
         }
         String currentSituation = getCurrentSituation();
-        if(!inputType.getValidSituations().contains(currentSituation))
+        if(inputType.getValidSituations().contains(currentSituation) || inputType.getValidSituations().contains("everywhere"))
+        {
+            inputType.getCompoundMethod().performMethod(input);
+            control.getModel().getStory().checkGameOver();
+        }
+        else
         {
             control.getView().show("Command not valid here. Use \"help\" to see valid Commands");
         }
-        inputType.getCompoundMethod().performMethod(input);
-        control.getModel().getStory().checkGameOver();
     }
 
     public String getCurrentSituation()
     {
-//        boolean isInBattle = control.getModel().getStory().isCurrentlyInBattle();
-//        boolean isInShop =  control.getModel().getStory().getCurrentBattle().isInShop();
-//        boolean isInAbilityAcquiringStage =  control.getModel().getStory().getCurrentBattle()
-        boolean isInBattle = true;
-        boolean isInShop = true;
-        boolean isInAbilityAcquiringStage = false;
-        if(isInBattle && isInAbilityAcquiringStage)
-        {
-            return "abilityAcquireStage";
-        }
-        if(isInBattle && isInShop)
-        {
-            return "shop";
-        }
-        if(isInBattle)
-        {
-            return "battle";
-        }
-        return "other";
+        return null;
     }
 
     private String createGeneralInput(String input)
     {
-        String generalInput = new String();
+        String generalInput = null;
         String[] words = input.split(" ");
         boolean flag = true;
         for (int i = 0; i < words.length; i++) {
@@ -203,10 +177,7 @@ public class InputHandler
     {
         for (InputType inputType : inputTypes) {
             if(inputType.getGeneralInput().equals(input))
-
             {
-                System.out.println(inputType.getOutputString());
-
                 return inputType;
             }
         }

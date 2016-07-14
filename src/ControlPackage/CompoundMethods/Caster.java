@@ -3,6 +3,7 @@ package ControlPackage.CompoundMethods;
 import ControlPackage.CompoundMethod;
 import ControlPackage.Control;
 import ModelPackage.Soldier;
+import ViewPackage.View;
 
 /**
  * Created by Y50 on 5/12/2016.
@@ -28,13 +29,13 @@ public class Caster implements CompoundMethod
         Soldier caster = control.getModel().getStory().getCurrentBattle().findSoldier(casterName);
         if(caster == null)
         {
-            control.getView().show("caster not found,please try again.");
+            View.show("caster not found,please try again.");
             return;
         }
 
         if(onIndex == -1) {
-            abilityName = input.substring(castIndex+5);
-            caster.cast(abilityName);
+//            abilityName = input.substring(castIndex+5);
+//            caster.cast(abilityName);
         }
         else
         {
