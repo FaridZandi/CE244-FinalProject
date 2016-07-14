@@ -10,6 +10,8 @@ import java.awt.event.MouseEvent;
 import java.util.Scanner;
 import java.util.Stack;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 /**
@@ -165,61 +167,31 @@ public class Control implements KeyListener,MouseInputListener
 
         if(Math.sqrt( (double)((x - a)*(x - a) + (y - b)*(y - b))) < (GameMap.CellSize / 3))
         {
-
-            if(isWaitingForHeroSelection)
+            if(!model.getStory().getGameObjectsHolder().getPlayer().getCurrentBattle().isShowingOtherTeamAttackAnimation)
             {
-                selectedSoldier = soldier;
-                showSelectedSoldierData();
-            }
+                if (isWaitingForHeroSelection) {
+                    selectedSoldier = soldier;
+                    showSelectedSoldierData();
+                } else if (isWaitingForActionSelection) {
+                    selectedSoldier = soldier;
+                    showSelectedSoldierData();
+                } else if (isWaitingForTargetSelction) {
+                    clearPage();
+                    switch (whatToDo) {
+                        case "attack":
+                            selectedSoldier.attack(soldier, 0.0);
+                            isWaitingForHeroSelection = true;
+                            break;
+                        case "cast":
+                            selectedSoldier.cast(toBeUsedAbility.getName(), soldier.getName());
+                            isWaitingForHeroSelection = true;
+                            break;
+                        case "use":
 
-            else if(isWaitingForActionSelection)
-            {
-                selectedSoldier = soldier;
-                showSelectedSoldierData();
-            }
-
-            else if(isWaitingForTargetSelction)
-            {
-                clearPage();
-                switch (whatToDo)
-                {
-                    case "attack":
-                        selectedSoldier.attack(soldier , 1.0);
-                        isWaitingForHeroSelection = true;
-                        break;
-                    case "cast":
-                        selectedSoldier.cast(toBeUsedAbility.getName() , soldier.getName());
-                        isWaitingForHeroSelection = true;
-                        break;
-                    case "use":
-
-                        break;
+                            break;
+                    }
                 }
             }
-
-
-//            if(isAwaitingForInput)
-//            {
-//                doer.attack(soldier , 16);
-//                isWaiting = true;
-//                isAwaitingForInput = false;
-//                doer = null;
-//                return;
-//            }
-//
-
-//
-
-//
-//            attackButton.addActionListener(e1 -> {
-//                if(isWaiting)
-//                {
-//                    isAwaitingForInput = true;
-//                    doer = (Hero) soldier;
-//                    isWaiting = false;
-//                }
-//            });
-//
         }
     }
 
@@ -282,7 +254,6 @@ public class Control implements KeyListener,MouseInputListener
                 }
             });
 
-
             gamePanel.add(attackButton);
             gamePanel.add(castButton);
         }
@@ -292,6 +263,7 @@ public class Control implements KeyListener,MouseInputListener
         for (Component component : gamePanel.getComponents()) {
             gamePanel.remove(component);
         }
+
     }
 
     public void getContinuousInput()

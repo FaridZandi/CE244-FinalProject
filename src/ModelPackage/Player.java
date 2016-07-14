@@ -53,7 +53,7 @@ public class Player implements Drawable
         xp = 15;
         immortalityPotions = 3;
         locationX = 4.0;
-        locationY = 8.0;
+        locationY = 4.0;
         movementAnimationStep = -1;
         direction = North;
 

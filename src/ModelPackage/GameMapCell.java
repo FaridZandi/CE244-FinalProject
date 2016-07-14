@@ -112,7 +112,7 @@ public abstract class GameMapCell
             circle.setRadius((int)(t * 3000));
             circle.setX((int)(GamePanel.ScreenWidth / 3 * (1 - 3*t)));
             circle.setY((int)(GamePanel.ScreenHeight / 2 * (1 - 3*t)));
-            circle.setColor(new Color(255 ,(int)(t * 255) , (int)(t * 255)));
+            circle.setColor(new Color((int)((1 - t)*255) ,0,(int)(t * 255)));
             Thread.sleep(1000/ Control.FPS);
         }
 

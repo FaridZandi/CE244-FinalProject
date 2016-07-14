@@ -1,13 +1,17 @@
 package ModelPackage;
-import ControlPackage.Control;
+
 import ControlPackage.Drawable;
 import ViewPackage.GamePanel;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 
 
@@ -18,12 +22,14 @@ public class Battle extends GameMapCell implements Serializable{
     private EnemyArmy enemyArmy;
     private int winningXP;
     private int winningGold;
+    public JPanel battleButtons;
 
 
     ArrayList<Drawable> drawablesBackUp;
 
 
     private boolean isBattleFinished;
+    public boolean isShowingOtherTeamAttackAnimation;
 
     public Battle(GamePanel gamePanel , String battleStory, String enemyInfo, int winningXP, int winningGold) {
         super(gamePanel);
@@ -31,6 +37,7 @@ public class Battle extends GameMapCell implements Serializable{
         EnemyInfo = enemyInfo;
         this.winningXP = winningXP;
         this.winningGold = winningGold;
+        isShowingOtherTeamAttackAnimation = false;
     }
 
     public void init(Story story)
@@ -69,15 +76,30 @@ public class Battle extends GameMapCell implements Serializable{
 
 
         //TODO : enemy's Turn must happen here.
-        for (Enemy enemy : enemyArmy.getEnemies()) {
-            enemy.timeBasedPutIntoEffect();
-        }
 
-        enemyArmy.doTurn();
 
-        for (Hero hero : player.getHeroes()) {
-            hero.timeBasedPutIntoEffect();
-        }
+        new SwingWorker()
+        {
+            @Override
+            protected Object doInBackground() throws Exception {
+                isShowingOtherTeamAttackAnimation = true;
+                battleButtons.setVisible(false);
+                for (Enemy enemy : enemyArmy.getEnemies()) {
+                    enemy.timeBasedPutIntoEffect();
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                enemyArmy.doTurn();
+                return null;
+            }
+        }.execute();
+
+
+
     }
 
 
@@ -262,6 +284,9 @@ public class Battle extends GameMapCell implements Serializable{
 
 
             new ProceedMenu(getGamePanel() , text , () -> {
+                battleButtons.setVisible(false);
+                getGamePanel().getFrame().remove(battleButtons);
+
                 getGamePanel().getDrawables().clear();
                 getGamePanel().getDrawables().addAll(drawablesBackUp);
                 MyCircle circle = new MyCircle(0 , GamePanel.ScreenWidth / 3 , GamePanel.ScreenHeight / 2, Color.RED);
@@ -269,6 +294,7 @@ public class Battle extends GameMapCell implements Serializable{
                 implodeBigCircle(circle);
                 getGamePanel().removeDrawable(circle);
                 getGamePanel().resetKeyboardListener();
+
             });
             return null;
         }
@@ -298,6 +324,8 @@ public class Battle extends GameMapCell implements Serializable{
         {
             @Override
             protected Object doInBackground() throws Exception {
+                init(story);
+                story.setInBattle(true);
 
                 drawablesBackUp = new ArrayList<>();
                 drawablesBackUp.addAll(getGamePanel().getDrawables());
@@ -305,14 +333,32 @@ public class Battle extends GameMapCell implements Serializable{
                 MyCircle circle = new MyCircle(0 , GamePanel.ScreenWidth / 3 , GamePanel.ScreenHeight / 2, Color.RED);
                 getGamePanel().getDrawables().add(circle);
                 explodeBigCircle(circle);
-                init(story);
-                story.setInBattle(true);
+
                 getGamePanel().getDrawables().clear();
                 BackGroundImage backGroundImage = new BackGroundImage(new File("Flame's_Battle_Stage.png") , 0 , 0 , GamePanel.ScreenWidth * 2 /3 , GamePanel.ScreenHeight);
                 getGamePanel().getDrawables().add(backGroundImage);
                 getGamePanel().getDrawables().addAll(getGamePanel().getControl().getModel().getStory().getGameObjectsHolder().getPlayer().getCurrentBattle().getEnemyArmy().getEnemies());
                 getGamePanel().getDrawables().addAll(getGamePanel().getControl().getModel().getStory().getGameObjectsHolder().getPlayer().getHeroes());
 
+
+                battleButtons = new JPanel();
+                battleButtons.setPreferredSize(new Dimension(1500, 1000));
+                battleButtons.setBounds(0 , 0 , 1500 ,1000 );
+
+                battleButtons.setBackground(Color.GRAY);
+                battleButtons.setLayout(null);
+
+                JButton doneButton = new JButton("done");
+                doneButton.setBounds(1100, 100 , 200 ,100);
+                doneButton.addActionListener(e -> {
+                    for (Component component : getGamePanel().getComponents()) {
+                        getGamePanel().remove(component);
+                    }
+                    proceedToNextStage();
+                });
+                battleButtons.add(doneButton);
+                getGamePanel().getFrame().add(battleButtons);
+                battleButtons.setVisible(true);
                 new ProceedMenu(getGamePanel() , battleStory , () -> {});
                 return null;
             }

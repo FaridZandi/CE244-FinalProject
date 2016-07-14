@@ -176,14 +176,14 @@ public abstract class Soldier extends GameObject implements Drawable
         {
             @Override
             protected Object doInBackground() throws Exception {
-//                MyText txt = new MyText(" - " + damage , locationX , locationY , 20 , Color.RED);
-//                gamePanel.getDrawables().add(txt);
-//                double t = 0;
-//                for (int i = 0; i < Control.FPS; i++) {
-//                    txt.setY(txt.getY() - 1);
-//                    Thread.sleep( 1000 / Control.FPS);
-//                }
-//                gamePanel.removeDrawable(txt);
+                MyText txt = new MyText(" - " + damage , locationX , locationY , 300 , 300,  50 , Color.RED);
+                gamePanel.getDrawables().add(txt);
+                for (int i = 0; i < Control.FPS; i++) {
+                    txt.setY(txt.getY() - 1);
+                    Thread.sleep( 1000 / Control.FPS);
+                }
+                gamePanel.removeDrawable(txt);
+
                 return null;
             }
         }.execute();
@@ -193,8 +193,10 @@ public abstract class Soldier extends GameObject implements Drawable
 
     public void getHealed(int heal)
     {
+        System.out.println("+" + heal);
         int cH = this.currentHealth;
         int mH = this.calculateMaximumHealth();
+        int increase = heal;
         cH += heal;
         if(cH < mH)
         {
@@ -202,8 +204,24 @@ public abstract class Soldier extends GameObject implements Drawable
         }
         else
         {
+            increase -= (cH - mH);
             this.currentHealth = mH;
         }
+        if(increase != 0)
+        new SwingWorker()
+        {
+            @Override
+            protected Object doInBackground() throws Exception {
+                MyText txt = new MyText(" + " + heal , locationX , locationY , 300 , 300,  50 , Color.GREEN);
+                gamePanel.getDrawables().add(txt);
+                for (int i = 0; i < Control.FPS; i++) {
+                    txt.setY(txt.getY() - 1);
+                    Thread.sleep( 1000 / Control.FPS);
+                }
+                gamePanel.removeDrawable(txt);
+                return null;
+            }
+        }.execute();
     }
 
     public void getMagicPoint(int magicPoints) {

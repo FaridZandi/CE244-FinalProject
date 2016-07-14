@@ -3,7 +3,6 @@ package ModelPackage;
 import ViewPackage.GamePanel;
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -16,22 +15,22 @@ import javax.swing.SwingWorker;
 public class ProceedMenu
 {
 
-    static Image backgoundImage;
+    static Image backgroundImage;
 
     static {
-        File file = new File("messagebox-background.png");
+        File file = new File("messageBox Background.png");
         try {
-            backgoundImage = ImageIO.read(file);
+            backgroundImage = ImageIO.read(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        backgoundImage = backgoundImage.getScaledInstance(GamePanel.ScreenWidth / 2 , GamePanel.ScreenHeight / 4 , Image.SCALE_DEFAULT);
+        backgroundImage = backgroundImage.getScaledInstance(GamePanel.ScreenWidth / 2 , GamePanel.ScreenHeight / 4 , Image.SCALE_DEFAULT);
     }
     public ProceedMenu(GamePanel gamePanel ,String battleStory, myFunction toBePerformedMethod)
     {
         BackGroundImage bgi = new BackGroundImage(new File("messageBox Background.png") , GamePanel.ScreenWidth / 12 , GamePanel.ScreenHeight / 3, GamePanel.ScreenWidth / 2 , GamePanel.ScreenHeight / 3 );
         gamePanel.getDrawables().add(bgi);
-        MyText myText = new MyText(battleStory ,  GamePanel.ScreenWidth / 12 + 20 , GamePanel.ScreenHeight / 3 + 20, GamePanel.ScreenWidth / 2 - 40 , GamePanel.ScreenHeight / 4 - 20 ,40);
+        MyText myText = new MyText(battleStory ,  GamePanel.ScreenWidth / 12 + 20 , GamePanel.ScreenHeight / 3 + 20, GamePanel.ScreenWidth / 2 - 40 , GamePanel.ScreenHeight / 4 - 20 ,30, Color.BLACK);
         gamePanel.getDrawables().add(myText);
 
 //        MyText.moveUp(myText);

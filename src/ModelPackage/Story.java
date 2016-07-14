@@ -19,10 +19,13 @@ public class Story {
 
     private boolean isGameOver;
     private boolean isInBattle;
+    private boolean isInShop;
+    private boolean inShop;
 
     public Story(GamePanel gamePanel, GameObjectsHolder gameObjectsHolder){
         this.gamePanel = gamePanel;
         isInBattle = false;
+        isInShop = false;
 
         this.gameObjectsHolder = gameObjectsHolder;
 //        Model.loadBattles(this , "battles.txt");
@@ -122,5 +125,13 @@ public class Story {
 
     public void setInBattle(boolean inBattle) {
         this.isInBattle= inBattle;
+    }
+
+    public void setInShop(boolean isInShop) {
+        isInShop = isInShop;
+    }
+
+    public boolean getInShop() {
+        return isInShop;
     }
 }

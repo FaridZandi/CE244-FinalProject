@@ -9,6 +9,7 @@ import ModelPackage.Hero;
 import ModelPackage.Soldier;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javafx.scene.Scene;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,7 +29,7 @@ public class GamePanel extends JPanel
     private Control control;
     private JFrame frame;
     public void init(Control control) {
-        frame = new JFrame("Amazing Brick");
+        frame = new JFrame("Children Of Time");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(new ImageIcon("2leftarrow.png").getImage());
 
@@ -39,10 +40,10 @@ public class GamePanel extends JPanel
         frame.getContentPane().add(this);
 
         this.control = control;
-        this.setPreferredSize(new Dimension(1500 , 1000));
+        this.setPreferredSize(new Dimension(ScreenWidth * 2 / 3 , ScreenHeight));
         this.setLocation(0 , 0);
-        this.setBounds(0 , 0 , 1500 , 1000);
-        this.setBackground(Color.CYAN);
+        this.setBounds(0 , 0 , ScreenWidth * 2 /3  , ScreenHeight);
+        this.setBackground(Color.BLUE);
         this.addMouseMotionListener(control);
         this.addMouseListener(control);
         frame.addKeyListener(control);
@@ -53,7 +54,11 @@ public class GamePanel extends JPanel
 
         drawables.add(control.getModel().getStory().getGameMap());
         drawables.add(control.getModel().getStory().getGameObjectsHolder().getPlayer());
+
+
+
     }
+
 
 
 
@@ -87,8 +92,8 @@ public class GamePanel extends JPanel
 //            player.drawHeroes(g2d , control);
 //            player.getCurrentBattle().getEnemyArmy().drawUnits(g2d , control);
 //        }
-//        g2d.setColor(Color.BLACK);
-//        g2d.fillRect(ScreenWidth * 2 / 3 , 0 , ScreenWidth /3 , ScreenHeight);
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(ScreenWidth * 2 / 3 , 0 , ScreenWidth /3 , ScreenHeight);
 
     }
 
